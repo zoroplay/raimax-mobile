@@ -24,7 +24,7 @@ export default function Header({right, left, center, showDownload, auth}) {
                 </div>
                 <div className="app-dl__item app-dl__item-logo" />
                 <div className="app-dl__item app-dl__item-text">
-                    <strong>Get the BetTeck App</strong><p>Enhance your experience</p>
+                    <strong>Get the CityBet App</strong><p>Enhance your experience</p>
                 </div>
                 <div className="app-dl__item app-dl__item-btn">
                     <a className="btn red" href="#" id="pushmenu_downloadbar_button">download</a>

@@ -77,8 +77,8 @@
   font-family: Arial;
   text-align: center;
   display: inline-block;
-  background-color: #1d843f;
-  background: #1d843f;
+  background-color: #0071be;
+  background: #0071be;
 }
 .login-form--link {
   color: #dbdbdc;
@@ -145,7 +145,7 @@
     .nxmob{
       display: flex;
       &-select{
-        background-color: #1d843f;
+        background-color: #0071be;
         color: #fff;
         outline: 0;
         width: 60px;
@@ -323,7 +323,7 @@
   border: 0;
   min-width: 100px;
   height: 34px;
-  background-color: #1d843f;
+  background-color: #0071be;
   color: #ffffff;
   display: grid;
   place-content: center;
@@ -339,7 +339,7 @@
     width: 100%;
   }
   &:hover{
-    background-color: lighten(#1d843f, 5%);
+    background-color: lighten(#0071be, 5%);
   }
   &.aqx-loax-btn-go{
     background-color: #64b000;
