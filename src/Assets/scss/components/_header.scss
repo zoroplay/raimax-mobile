@@ -1,0 +1,151 @@
+
+header {
+  position: absolute;
+  -webkit-transition: left .3s ease;
+  -o-transition: left .3s ease;
+  transition: left .3s ease;
+  height: 44px;
+  z-index: 6;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.h-s {
+  height: 44px;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #1d843f;
+  background-color: #ffffff;
+}
+.h-s__wrap {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  height: 100%;
+}
+.h-s__wrap-item {
+  height: 100%;
+  display: table-cell;
+}
+.h-s__wrap-trigger {
+  display: inline-block;
+}
+.h-s__wrap-item, .h-s__wrap-trigger {
+  vertical-align: middle;
+  cursor: pointer;
+}
+.h-s [class*=icon-] {
+  display: inline-block;
+  vertical-align: middle;
+  height: 19px;
+  width: 19px;
+  background-position: 50%;
+}
+
+.h-s .icon-register {
+  background-image: url(/img/f-icon__register.png);
+}
+
+.h-s .txt-primary {
+  color: #ffd600!important;
+}
+
+.h-s__wrap-item.logo {
+  width: 130px;
+}
+
+.h-s__wrap-item .logo-s {
+  background-position: 50%;
+  background-size: 100px;
+  background-image: url(/img/logo.png);
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.h-s__wrap-item a {
+  text-decoration: none;
+  color: #1d843f !important;
+}
+.h-s__wrap-item.status .logo-s {
+  background-size: 48px;
+  height: 40%;
+  display: block;
+}
+.h-s .icon-login {
+  background-image: url(/img/f-icon__login.png);
+  background-size: 19px;
+}
+.h-s .icon-back {
+  background-image: url(/img/f-icon__back.png);
+}
+.h-s .account {
+  position: relative;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  height: 100%;
+  text-align: right;
+}
+.h-s .account__info {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 5px;
+}
+.h-s .account__info-item {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.h-s .txt-secondary {
+  color: #bbc1d3!important;
+}
+.h-s .account__info-item {
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.h-s .account__logo {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+  width: 35px;
+}
+.h-s .account__logo-img {
+  height: 27px;
+  border-radius: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  background: #aa1617;
+  //background: -webkit-gradient(linear,left top, left bottom,color-stop(0, #1d843f),to(#1d843f));
+  //background: -o-linear-gradient(top,#1d843f 0,#1d843f);
+  //background: linear-gradient(180deg,#1d843f 0,#1d843f);
+  //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#1d843f,endColorstr=#1d843f,GradientType=0);
+  box-shadow: 0 1px 1px #23262e;
+  -ms-box-shadow: 0 1px 1px #23262e;
+  -moz-box-shadow: 0 1px 1px #23262e;
+  -webkit-box-shadow: 0 1px 1px #23262e;
+}
+.h-s .icon-account {
+  background-image: url(/img/f-icon__account.png);
+  background-size: contain;
+}
+.h-s .icon-close {
+  background-image: url(/img/f-icon__close.png);
+  background-size: 12px;
+}
+.h-s .account.open .account__logo-img {
+  background: #000;
+  border-radius: 0;
+}

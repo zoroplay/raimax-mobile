@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="15px" viewBox="0 0 12 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Disabled Odd Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Sportsbook" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="League-::-1X2" transform="translate(-239.000000, -212.000000)" fill="#FFFFFF">
+            <g id="League" transform="translate(0.000000, 161.000000)">
+                <g id="Disabled-Odd" transform="translate(223.000000, 36.000000)">
+                    <g id="Disabled-Odd-Icon" transform="translate(16.000000, 15.000000)">
+                        <path d="M11,15 L1,15 C0.448399067,14.9983526 0.00164740056,14.5516009 0,14 L0,7 C0.00164740056,6.44839907 0.448399067,6.0016474 1,6 L2,6 L2,4 C2,1.790861 3.790861,0 6,0 C8.209139,0 10,1.790861 10,4 L10,6 L11,6 C11.5516009,6.0016474 11.9983526,6.44839907 12,7 L12,14 C11.9983526,14.5516009 11.5516009,14.9983526 11,15 Z M5.065,10.66 C5.0232893,10.7685669 5.00127792,10.8837033 5,11 L5,12 C5,12.5522847 5.44771525,13 6,13 C6.55228475,13 7,12.5522847 7,12 L7,11 C6.99872208,10.8837033 6.9767107,10.7685669 6.935,10.66 C7.29119799,10.3803897 7.49944711,9.95283399 7.5,9.5 C7.5,8.67157288 6.82842712,8 6,8 C5.17157288,8 4.5,8.67157288 4.5,9.5 C4.50055289,9.95283399 4.70880201,10.3803897 5.065,10.66 Z M8,4 C8,2.8954305 7.1045695,2 6,2 C4.8954305,2 4,2.8954305 4,4 L4,6 L8,6 L8,4 Z" id="Rounded_Rectangle_1956"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

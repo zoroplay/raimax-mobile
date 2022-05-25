@@ -1,0 +1,132 @@
+.f-s {
+  position: relative;
+  font-size: 11px;
+  line-height: 16px;
+  color: #fff;
+  padding-bottom: 50px;
+  background-color: #32353d;
+  font-family: Arial;
+}
+
+.f-s__nav-menu {
+  text-align: center;
+  padding: 20px 20px 15px;
+}
+
+.f-s__heading {
+  height: 34px;
+  position: relative;
+}
+
+.f-s__nav-menu--logo {
+  display: inline-block;
+  width: 130px;
+  height: 34px;
+  background-image: url(/img/logo.png);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: contain;
+  margin: 0;
+}
+
+.f-s__back-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 34px;
+  width: 34px;
+  opacity: 1;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #3d414b;
+}
+.f-s__back-top--img {
+  background-image: url(/img/icon__back-top.svg);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 10px 13px;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.f-s__ql {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  width: 100%;
+  line-height: 22px;
+  padding: 16px 0;
+}
+.f-s__ql-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  font-size: 11px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 7px;
+}
+.f-s__ql-link {
+  color: #fff !important;
+}
+.f-s__payments {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  border-width: 1px 0;
+  border-style: solid;
+  background-image: url(/img/payment-icons.png);
+  height: 45px;
+  background-size: 260px;
+  border-top-color: #27292f;
+  border-bottom-color: #27292f;
+}
+.f-s__sponsors {
+  font-size: 11px;
+  line-height: 13px;
+  margin-top: 15px;
+}
+.f-s__sponsors-text {
+  color: hsla(0, 0%, 100%, .7);
+}
+.f-s__copyright {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 10px;
+  background-color: #27292f;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 40px;
+}
+.f-s__copyright-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: hsla(0,0%,100%,.7);
+}
+.f-s .icon-eighteen {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url(/img/icon__18.svg);
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+}
