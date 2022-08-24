@@ -24,7 +24,7 @@ export default function ViewFixture({match, history}) {
                 history.push('/')
             }
             setLoading(false)
-            setFixture(res);
+            setFixture(res.data);
         }).catch(err => {
             setLoading(false)
             console.log(err);

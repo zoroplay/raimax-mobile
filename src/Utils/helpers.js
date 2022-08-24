@@ -83,41 +83,22 @@ export const groupLiveFixtures = (data) => {
     let ArrKeyHolder = [];
     let Arr = [];
     data.forEach(function(item){
-        ArrKeyHolder[item.sportId] = ArrKeyHolder[item.sportId]||{};
-        let obj = ArrKeyHolder[item.sportId];
+        ArrKeyHolder[item.sport_tournament_id] = ArrKeyHolder[item.sport_tournament_id]||{};
+        let obj = ArrKeyHolder[item.sport_tournament_id];
 
         if(Object.keys(obj).length === 0)
             Arr.push(obj);
 
-        obj.sportName   = item.sportName;
-        obj.sportId     = item.sportId;
-        obj.tournaments = obj.tournaments || [];
+        obj.sport_id = item.sport_id;
+        obj.sport_name = item.sport_name;
+        obj.category = item.sport_category_name;
+        obj.Id = item.sport_tournament_id;
+        obj.Name = item.sport_tournament_name;
+        obj.Events  = obj.Events || [];
 
-        let foundIndex = obj.tournaments.findIndex(el => el.tournamentName === item.categoryName);
-
-        if (foundIndex !== -1) {
-            obj.tournaments[foundIndex].events.push(item);
-        } else {
-            obj.tournaments.push({
-                tournamentName: item.categoryName,
-                tournamentId: item.categoryId,
-                categoryName: item.parentName,
-                categoryId: item.parentId,
-                events: [item],
-            });
-        }
-
-        obj.markets     = obj.markets || [];
-        if (item.games) {
-            item.games.forEach((value, key) => {
-                let found = obj.markets.some(el => el.gameName  === value.gameName);
-                if (!found)
-                    obj.markets.push(value);
-            });
-        }
-        obj.markets.sort((a, b) => a.sortOrder - b.sortOrder);
+        obj.Events.push(item);
     });
-    Arr.sort((a, b) => a.sportId - b.sportId);
+    Arr.sort((a, b) => a.sport_id - b.sport_id);
     return Arr;
 }
 
@@ -208,4 +189,15 @@ export const formatBetslipId = id => {
 
 export const calculateExclusionPeriod = (date) => {
     return moment(date).diff(moment(), 'days');
+}
+
+export const liveScore = (score, team) => {
+    if (score) {
+        const scoreArray = score.split(':');
+        if(team === 'home') {
+            return scoreArray[0];
+        } else {
+            return scoreArray[1];
+        }
+    }
 }

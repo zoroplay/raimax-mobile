@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {slugify} from "../../Utils/helpers";
+import {groupLiveFixtures, slugify} from "../../Utils/helpers";
 import {fetchHighlights, getFixtures, getLiveFixtures, upcomingFixtures} from "../../Services/apis";
 import LiveFixtures from "./LiveFixtures";
 import ZoomLeagueMenu from "./ZoomLeagueMenu";
@@ -17,8 +17,8 @@ export default function NavTabMenu({sportsData, dispatch}) {
     const [showSports, setShowSports] = useState(true);
     const [sports, setSports] = useState([]);
     const [activeSport, setActiveSport] = useState(null);
-    const [zoomFixtures, setZoomFixtures] = useState([]);
-    const [predictions, setZoomPredictions] = useState([]);
+    // const [zoomFixtures, setZoomFixtures] = useState([]);
+    // const [predictions, setZoomPredictions] = useState([]);
 
     const {data: topbets, error} = useSWR('sports/top-bets');
 
@@ -69,32 +69,39 @@ export default function NavTabMenu({sportsData, dispatch}) {
         })
     };
 
-    const getZoomFixtures = (league) => {
-        getFixtures(league, 30).then(res => {
-            setZoomPredictions(res.predictions);
-            setZoomFixtures(res.fixtures);
-        }).catch(err => {
-            console.log(err);
-        });
-    }
+    // const getZoomFixtures = (league) => {
+    //     getFixtures(league, 30).then(res => {
+    //         setZoomPredictions(res.predictions);
+    //         setZoomFixtures(res.fixtures);
+    //     }).catch(err => {
+    //         console.log(err);
+    //     });
+    // }
 
     const getLiveData = () => {
         getLiveFixtures().then((res) => {
             setLoading(false);
-            const sports = [];
-
-            if(res.Sports.length > 0){
-                res.Sports.forEach((item, key) => {
-                    sports.push({
+            const data = [];
+            if(res.success){
+                let tournaments = groupLiveFixtures(res.data.fixtures);
+                res.data.sports.forEach((item, key) => {
+                    item.Tournaments = []
+                    // item.headers = LiveEventsOverview.find(sport => sport.id === item.Id);
+                    tournaments.forEach(tournament => {
+                        if(tournament.sport_id === item.Id) item.Tournaments.push(tournament);
+                    })
+                    data.push({
                         sport_id: item.Id,
                         name: item.Name,
                         tournaments: item.Tournaments,
-                        markets: res.SportsMarkets[key].Markets
                     });
                 });
+                
             }
-            setSports(sports);
+            console.log(data);
+            setSports(data);
         }).catch(err => {
+            console.log(err)
             setLoading(false);
         });
     }

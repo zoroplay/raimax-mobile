@@ -97,14 +97,14 @@ export const saveNewAgent = (data) =>
     Http.post('/save-new-agent', data);
 
 export const getLiveFixtures = () =>
-    Http.get(`https://sportsapicdn-mobile.betking.com/api/feeds/live/overview/general/en`);
-
-export const getUpcomingLive = () =>
-    Http.get('https://sportsapicdn-desktop.betking.com/api/feeds/live/upcoming');
+    Http.get(`/sports/live`);
 
 export const getLiveFixtureData = (eventId) =>
-    Http.get(`https://sportsapicdn-mobile.betking.com/api/feeds/live/${eventId}/en`);
+    Http.get(`sports/live/${eventId}/en`);
 
+export const getUpcomingLive = () =>
+    Http.get('/sports/live/upcoming');
+    
 export const getCombos = (couponData) =>
     Http.post('/sports/get-combos', {selections: couponData.selections});
 

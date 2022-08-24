@@ -10,9 +10,6 @@ import Fixtures from "./Components/Fixtures";
 import LeagueChange from "./Components/LeagueChange";
 import FixturesSkeleton from "./Components/FixturesSkeleton";
 
-
-
-
 const ViewFixtures = ({history, match}) => {
     const {tid, sport: sportname} = match.params;
     const {sport, sports} = useSelector((state) => state.sportsData);

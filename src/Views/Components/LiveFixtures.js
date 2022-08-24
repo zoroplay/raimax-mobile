@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {slugify, sortTeams} from "../../Utils/helpers";
+import {liveScore, slugify} from "../../Utils/helpers";
 import {NavLink} from "react-router-dom";
 import {getLiveOdds} from "../../Utils/couponHelpers";
 import {useSelector} from "react-redux";
@@ -30,23 +30,31 @@ export default function LiveFixtures({activeSport}) {
                                 </div>
                             </div>
                             {tournament.Events.map(match => (
-                                <div className={`match-content ${activeMarket?.Selections?.length <= 3 ? 'table-a' : 'match-content-score'}`} key={match.providerId}>
+                                <div className={`match-content ${activeMarket?.Selections?.length <= 3 ? 'table-a' : 'match-content-score'}`} key={match.provider_id}>
                                     <NavLink
-                                        to={`/liveEventDetail/${slugify(activeSport.Name)}/${slugify(tournament.Name)}/${slugify(match.Name)}/${match.Id}`}
-                                        className="match-content__info" id={`match_info_${match.providerId}`}>
-                                        {sortTeams(match.Teams).map((team, index) =>
-                                            <div className="match-content__row table-f" key={team.Id}>
-                                                <div className="match-content__row--team">{_.capitalize(team.Name)}</div>
-                                                <div className="match-content__row--result txt-secondary">{index === 0 ? match.HomeGameScore : match.AwayGameScore}</div>
-                                            </div>)}
+                                        to={`/liveEventDetail/${slugify(activeSport.name)}/${slugify(tournament.Name)}/${slugify(match.event_name)}/${match.provider_id}`}
+                                        className="match-content__info" id={`match_info_${match.provider_id}`}>
+                                        
+                                        <div className="match-content__row table-f">
+                                            <div className="match-content__row--team">{match.team_a}</div>
+                                            <div className="match-content__row--result txt-secondary">
+                                                {liveScore(match.score, 'home')}
+                                            </div>
+                                        </div>
+                                        <div className="match-content__row table-f">
+                                            <div className="match-content__row--team">{match.team_b}</div>
+                                            <div className="match-content__row--result txt-secondary">
+                                                {liveScore(match.score, 'away')}
+                                            </div>
+                                        </div>
                                         <div className="match-content__row table-f">
                                             <div className="match-content__row--info">
                                                 <span>
                                                     <span>
-                                                        {matchStatus(match.MatchStatus)}
-                                                        {match.MatchTime !== 0 ? `, ${match.MatchTime}'` : ''}
+                                                        {matchStatus(match.match_status)}
+                                                        {match.live_data?.match_time ? `, ${match.live_data?.match_time}'` : ''}
                                                     </span>
-                                                    &nbsp;● {match.SelectionCount}&nbsp;Markets
+                                                    &nbsp;● {match.live_data?.markets.length}&nbsp;Markets
                                                 </span>
                                             </div>
                                         </div>
