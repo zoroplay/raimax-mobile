@@ -73,7 +73,6 @@ export default function ViewFixtures({match, history}) {
             }
         }
     }, [sports]);
-    console.log(activeSport);
 
     return (
         <Layout

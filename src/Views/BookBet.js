@@ -15,6 +15,7 @@ export default function BookBet({ history }) {
             loadCoupon(code, 'booking').then(res => {
                 if (res.message === 'found') {
                     let couponData = res.coupon;
+                    couponData.totalStake = couponData.stake;
                     couponData.grouped = groupSelections(couponData.selections);
                     dispatch({type: SET_COUPON_DATA, payload: couponData});
                     history.push('/betslip');
