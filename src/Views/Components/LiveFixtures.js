@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {liveScore, slugify} from "../../Utils/helpers";
 import {NavLink} from "react-router-dom";
 import {getLiveOdds} from "../../Utils/couponHelpers";
@@ -6,12 +6,21 @@ import {useSelector} from "react-redux";
 import * as _ from "lodash";
 import {LiveOdd} from "./LiveOdd";
 import {LiveOddAlt} from "./LiveOddAlt";
-import {matchStatus} from "../../Utils/constants";
+import {LiveEventsOverview, matchStatus} from "../../Utils/constants";
 
 export default function LiveFixtures({activeSport}) {
     const coupon = useSelector(({couponData}) => couponData.coupon);
     const {SportsbookGlobalVariable, SportsbookBonusList} = useSelector((state) => state.sportsBook);
-    const activeMarket = activeSport?.markets ? activeSport?.markets[0] : [];
+    const [activeMarket, setActiveMarket] = useState(null);
+
+    useEffect(() => {
+        if(activeSport) {
+            const sportMarket = LiveEventsOverview.find(sport => sport.id === activeSport.sport_id);
+            if(sportMarket) setActiveMarket(sportMarket.markets);
+        }
+    }, [activeSport]); 
+
+    console.log(activeSport);
 
     return (
         <Fragment>
@@ -26,11 +35,11 @@ export default function LiveFixtures({activeSport}) {
                         <div className="accordion-inner">
                             <div className="event-tips">
                                 <div className="event-tips__holder">
-                                    {activeMarket?.Selections?.map(selection => <div className="event-tips__holder-item" key={selection.TypeId}>{selection.Name}</div> )}
+                                    {activeMarket?.outcomes?.map(selection => <div className="event-tips__holder-item" key={selection.id}>{selection.name}</div> )}
                                 </div>
                             </div>
                             {tournament.Events.map(match => (
-                                <div className={`match-content ${activeMarket?.Selections?.length <= 3 ? 'table-a' : 'match-content-score'}`} key={match.provider_id}>
+                                <div className={`match-content ${activeMarket?.outcomes?.length <= 3 ? 'table-a' : 'match-content-score'}`} key={match.provider_id}>
                                     <NavLink
                                         to={`/liveEventDetail/${slugify(activeSport.name)}/${slugify(tournament.Name)}/${slugify(match.event_name)}/${match.provider_id}`}
                                         className="match-content__info" id={`match_info_${match.provider_id}`}>
@@ -59,13 +68,13 @@ export default function LiveFixtures({activeSport}) {
                                             </div>
                                         </div>
                                     </NavLink>
-                                    {activeMarket?.Selections?.length <= 3 ? (
+                                    {activeMarket?.outcomes?.length <= 3 ? (
                                         <div className="bets">
                                             <div className="bets__row table-f">
-                                                {activeMarket?.Selections?.map(selection => (
+                                                {activeMarket?.outcomes?.map(selection => (
                                                     <LiveOdd
-                                                        key={`${slugify(selection.Name)}-odd`}
-                                                        newOdds={getLiveOdds(match.Markets, activeMarket, selection)}
+                                                        key={`${slugify(selection.name)}-odd`}
+                                                        newOdds={getLiveOdds(match.live_data?.markets, activeMarket, selection)}
                                                         selection={selection}
                                                         market={activeMarket}
                                                         fixture={match}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from "react";
 import Layout from './Layout';
-import {goBack, slugify, sortTeams} from "../Utils/helpers";
+import {goBack, groupLiveFixtures, liveScore, slugify, sortTeams} from "../Utils/helpers";
 import {useSelector} from "react-redux";
 import { getLiveFixtures} from "../Services/apis";
 import Loader from "./Components/Loader";
@@ -9,29 +9,41 @@ import {NavLink} from "react-router-dom";
 import {LiveOdd} from "./Components/LiveOdd";
 import {getLiveOdds} from "../Utils/couponHelpers";
 import {LiveOddAlt} from "./Components/LiveOddAlt";
-import {matchStatus} from "../Utils/constants";
+import {LiveEventsOverview, matchStatus} from "../Utils/constants";
 
 export default function ViewFixtures({match, history}) {
     const [sports, setSports] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [activeSport, setActiveSport] = useState(null);
     const [activeMarket, setActiveMarket] = useState(null);
     const coupon = useSelector(({couponData}) => couponData.coupon);
     const {SportsbookGlobalVariable, SportsbookBonusList} = useSelector((state) => state.sportsBook)
 
     const getData = () => {
-        getLiveFixtures().then(response => {
-            let sports = response.Sports;
-            if(sports.length > 0){
-                sports.forEach((item, key) => {
-                    item.foundMarkets = response.SportsMarkets[key].Markets;
+        getLiveFixtures().then((res) => {
+            setLoading(false);
+            const data = [];
+            if(res.success){
+                let tournaments = groupLiveFixtures(res.data.fixtures);
+                res.data.sports.forEach((item, key) => {
+                    item.Tournaments = []
+                    // item.headers = LiveEventsOverview.find(sport => sport.id === item.Id);
+                    tournaments.forEach(tournament => {
+                        if(tournament.sport_id === item.Id) item.Tournaments.push(tournament);
+                    })
+                    data.push({
+                        sport_id: item.Id,
+                        name: item.Name,
+                        tournaments: item.Tournaments,
+                    });
                 });
-                setSports(sports);
-                // setActiveSport(sports[0]);
-                // setActiveMarket(sports[0].foundMarkets[0]);
-            }else{
-                setSports(response.Sports);
+                
             }
-        })
+            setSports(data);
+        }).catch(err => {
+            console.log(err)
+            setLoading(false);
+        });
     }
 
     useEffect(() => {
@@ -47,36 +59,21 @@ export default function ViewFixtures({match, history}) {
 
     useEffect(() => {
         if (sports.length > 0) {
-            const sport = sports.find(el => el.Id === activeSport?.Id);
+            const sport = sports.find(el => el.sport_id === activeSport?.sport_id);
             // console.log(activeSport);
             if (sport) {
                 // console.log(activeMarket);
                 setActiveSport(sport);
-                setActiveMarket(activeMarket);
+                const sportMarket = LiveEventsOverview.find(item => item.id === sport.sport_id);
+                if(sportMarket) setActiveMarket(sportMarket.markets);
             } else {
                 setActiveSport(sports[0]);
-                setActiveMarket(sports[0].foundMarkets[0]);
+                const sportMarket = LiveEventsOverview.find(item => item.id === sports[0].sport_id);
+                if(sportMarket) setActiveMarket(sportMarket.markets);
             }
         }
     }, [sports]);
-
-    // const getOdds = (selection, markets, market_id) => {
-    //     let odd = 0;
-    //     _.each(markets, function(value, key){
-    //         if(value.TypeId === market_id){
-    //             _.each(value.Selections, function(item, index){
-    //                 if(item.Name === selection.Name){
-    //                     // if(item.Odds[0].Status !== 0){
-    //                         odd = item.Odds[0].Value;
-    //                     // }
-    //                 }
-    //             });
-    //         }
-    //     })
-    //     return odd;
-    // }
-
-    // console.log(activeMarket);
+    console.log(activeSport);
 
     return (
         <Layout
@@ -91,13 +88,13 @@ export default function ViewFixtures({match, history}) {
             <div className="s-filter">
                 <ul className="s-filter__holder">
                     {sports && sports.map(sport =>
-                        <li key={sport.Id} className={`s-filter__item ${activeSport?.Name === sport.Name ? 'active' : ''}`}>
+                        <li key={sport.sport_id} className={`s-filter__item ${activeSport?.name === sport.name ? 'active' : ''}`}>
                             <a className="s-filter__icon" href="javascript:;" onClick={() => {
                                 setActiveSport(sport);
                                 setActiveMarket(sport.foundMarkets[0]);
                             }}>
-                                <i className={`icon ${slugify(sport.Name)}`} />
-                                <span className="s-filter__item-label">{sport.Name}</span>
+                                <i className={`icon ${slugify(sport.name)}`} />
+                                <span className="s-filter__item-label">{sport.name}</span>
                             </a>
                         </li>)}
                 </ul>
@@ -113,7 +110,7 @@ export default function ViewFixtures({match, history}) {
                     </div>
                 )}
             </div>
-            {activeSport && activeSport?.Tournaments?.map(tournament =>
+            {activeSport && activeSport?.tournaments?.map(tournament =>
                 <div key={slugify(tournament.Name)} className="accordion-item league live-event open">
                     <div className="accordion-toggle live-event table-f">
                         <div className="accordion-toggle__btn">
@@ -124,42 +121,50 @@ export default function ViewFixtures({match, history}) {
                         <div className="accordion-inner">
                             <div className="event-tips">
                                 <div className="event-tips__holder">
-                                    {activeMarket?.Selections?.map(selection => <div className="event-tips__holder-item" key={selection.TypeId}>{selection.Name}</div> )}
+                                    {activeMarket?.outcomes?.map(selection => <div className="event-tips__holder-item" key={selection.id}>{selection.name}</div> )}
                                 </div>
                             </div>
                             {tournament.Events.map(match => (
-                                <div className={`match-content ${activeMarket?.Selections?.length <= 3 ? 'table-a' : 'match-content-score'}`} key={match.providerId}>
+                                <div className={`match-content ${activeMarket?.outcomes?.length <= 3 ? 'table-a' : 'match-content-score'}`} key={match.provider_id}>
                                     <NavLink
-                                        to={`/liveEventDetail/${slugify(activeSport.Name)}/${slugify(tournament.Name)}/${slugify(match.Name)}/${match.Id}`}
-                                        className="match-content__info" id={`match_info_${match.providerId}`}>
-                                        {sortTeams(match.Teams).map((team, index) =>
-                                            <div className="match-content__row table-f" key={team.Id}>
-                                                <div className="match-content__row--team">{_.capitalize(team.Name)}</div>
-                                                <div className="match-content__row--result txt-secondary">{index === 0 ? match.HomeGameScore : match.AwayGameScore}</div>
-                                            </div>)}
+                                        to={`/liveEventDetail/${slugify(activeSport.name)}/${slugify(tournament.Name)}/${slugify(match.event_name)}/${match.provider_id}`}
+                                        className="match-content__info" id={`match_info_${match.provider_id}`}>
+                                        <div className="match-content__row table-f">
+                                            <div className="match-content__row--team">{match.team_a}</div>
+                                            <div className="match-content__row--result txt-secondary">
+                                                {liveScore(match.score, 'home')}
+                                            </div>
+                                        </div>
+                                        <div className="match-content__row table-f">
+                                            <div className="match-content__row--team">{match.team_b}</div>
+                                            <div className="match-content__row--result txt-secondary">
+                                                {liveScore(match.score, 'away')}
+                                            </div>
+                                        </div>
                                         <div className="match-content__row table-f">
                                             <div className="match-content__row--info">
                                                 <span>
                                                     <span>
-                                                        {matchStatus(match.MatchStatus)}
-                                                        {match.MatchTime !== 0 ? `, ${match.MatchTime}'` : ''}
+                                                        {matchStatus(match.match_status)}
+                                                        {match.live_data?.match_time ? `, ${match.live_data?.match_time}'` : ''}
                                                     </span>
-                                                    &nbsp;● {match.SelectionCount}&nbsp;Markets
+                                                    &nbsp;● {match.live_data?.markets.length}&nbsp;Markets
                                                 </span>
                                             </div>
                                         </div>
                                     </NavLink>
-                                    {activeMarket?.Selections?.length <= 3 ? (
+                                    {activeMarket?.outcomes?.length <= 3 ? (
                                         <div className="bets">
                                             <div className="bets__row table-f">
-                                                {activeMarket?.Selections?.map(selection => (
+                                                {activeMarket?.outcomes?.map(selection => (
                                                     <LiveOdd
-                                                        newOdds={getLiveOdds(match.Markets, activeMarket, selection)}
+                                                        key={`${slugify(selection.name)}-odd`}
+                                                        newOdds={getLiveOdds(match.live_data?.markets, activeMarket, selection)}
                                                         selection={selection}
                                                         market={activeMarket}
                                                         fixture={match}
                                                         tournament={tournament.Name}
-                                                        sport={activeSport.Name}
+                                                        sport={activeSport.name}
                                                         coupon={coupon}
                                                         globalVars={SportsbookGlobalVariable}
                                                         bonusList={SportsbookBonusList}

@@ -97,33 +97,38 @@ export const groupSelections = (data) => {
 
 export const getLiveOdds = (eventMarkets, market, selection) => {
     let odd = 0;
-    if (eventMarkets.length) {
+    if (eventMarkets && eventMarkets.length) {
         _.each(eventMarkets, function (value, key) {
-            if (value.TypeId === market.TypeId) {
-                _.each(value.Selections, function (item, index) {
-                    if (item.TypeId === selection.TypeId && item.Name === selection.Name) {
-                        // if (item.status === 100) {
+            if (value.active === '1' && value.id === market.id && !market.hasSpread) {
+                _.each(value.odds, function (item, index) {
+                    if (item.active === '1' && item.type === selection.type) {
+                        item.market_id = value.id;
                         odd = item;
-                        // }
+                    }
+                });
+            } else if (value.active === '1' && value.type_id === market.id && market.hasSpread) {
+                _.each(value.odds, function (item, index) {
+                    if (item.active === '1' && item.type === selection.type) {
+                        item.market_id = value.id;
+                        odd = item;
                     }
                 });
             }
         });
     }
 
+
     return odd;
 }
-
 export const getSpread = (eventMarkets, market) => {
-    let specialValue = 0;
-    if (eventMarkets.length) {
-        _.each(eventMarkets, function (value, key) {
-            if (value.TypeId === market.id) {
-                specialValue = value.SpecialValue;
+    let specialValue;
+    if (eventMarkets && eventMarkets.length) {
+        _.each(eventMarkets, (value, key) => {
+            if (value.specialOddsValue && value.type_id === market.id && value.active === '1') {
+                if(value.specialOddsValue > 0) specialValue = value.specialOddsValue;
             }
         });
     }
-
     return specialValue;
 }
 

@@ -98,7 +98,6 @@ export default function NavTabMenu({sportsData, dispatch}) {
                 });
                 
             }
-            console.log(data);
             setSports(data);
         }).catch(err => {
             console.log(err)

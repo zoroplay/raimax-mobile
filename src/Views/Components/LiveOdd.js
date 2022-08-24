@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {addToCoupon} from "../../Redux/actions";
 import {createID} from "../../Utils/couponHelpers";
 import {useDispatch} from "react-redux";
-import {formatOdd, isSelected} from "../../Utils/helpers";
+import {formatOdd, getSpread, isSelected} from "../../Utils/helpers";
 
 
 export const LiveOdd = ({newOdds, selection, market, fixture, tournament, sport, coupon, globalVars, bonusList}) => {
@@ -19,21 +19,20 @@ export const LiveOdd = ({newOdds, selection, market, fixture, tournament, sport,
 
     const selectOdds = () => {
         if (oddsData !== 0) {
-            fixture.TournamentName = tournament;
-            fixture.SportName = sport;
-            dispatch(addToCoupon(fixture, market.TypeId, market.Name, oddsData.Odds[0].Value, oddsData.Id, selection.Name,
-                createID(fixture.ProviderId, market.TypeId, selection.Name, oddsData.Id),'live'))
+
+            dispatch(addToCoupon(fixture, oddsData.market_id, market.name + ' '+ (getSpread(fixture.live_data?.markets, market) !== undefined ? getSpread(fixture.live_data?.markets, market) : ''), oddsData.odds, selection.id, oddsData.type,
+                createID(fixture.provider_id, oddsData.market_id, oddsData.type, selection.id),'live'))
         }
     }
     return (
         <div
             onClick={selectOdds}
             className={`bets__item ${(oddsData === 0 || (oddsData.Odds && oddsData.Odds[0].Value === 0)) ? 'locked' : ''}
-            ${(isSelected(createID(fixture.ProviderId, market.TypeId, selection.Name, oddsData.Id), coupon)) ? 'active' : ''}
+            ${(isSelected(createID(fixture.provider_id, market.id, selection.type, oddsData.id), coupon)) ? 'active' : ''}
             `}
             key={selection.Id}>
             <a className="bets__item--link">
-                {oddsData !== 0 && oddsData.Odds[0].Value !== 0 && <span>{formatOdd(oddsData.Odds[0].Value)}</span>}
+                {oddsData !== 0 && oddsData.odds !== 0 && <span>{oddsData.odds}</span>}
             </a>
         </div>
     )
