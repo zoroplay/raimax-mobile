@@ -100,7 +100,7 @@ export default function Selections({coupon, dispatch}){
                 </div>
             </div>
             <div className="basket">
-                <div className="basket-nav">
+                {/* <div className="basket-nav">
                     {coupon.bet_type === 'Split' ?
                         <div className="table-a">
                             <div className={`basket-nav--item active`} id="betslipTab-1">
@@ -127,33 +127,33 @@ export default function Selections({coupon, dispatch}){
                             'Combo' : <Combine coupon={coupon} dispatch={dispatch} />,
                         }[coupon.bet_type] || <Multiple dispatch={dispatch} coupon={coupon} />
                     }
-                </div>
+                </div> */}
                 <hr className="gray" />
                 <div className="basket-total p10">
                     <div className="basket-total__row">
                         <div className="dib">Total Stake</div>
                         <div className="pull-right dib txt-bold">{formatNumber(coupon.totalStake)}</div>
                     </div>
-                    <div className="basket-total__row">
+                    {/* <div className="basket-total__row">
                         <div className="dib txt-bold">Excise Duty:</div>
                         <div className="pull-right dib txt-bold">{formatNumber(coupon.exciseDuty)}</div>
-                    </div>
-                    <div className="basket-total__row">
+                    </div> */}
+                    {/* <div className="basket-total__row">
                         <div className="dib txt-bold">Net Stake:</div>
                         <div className="pull-right dib txt-bold">{formatNumber(coupon.stake)}</div>
-                    </div>
-                    <div className="basket-total__row">
+                    </div> */}
+                    {/* <div className="basket-total__row">
                         <div className="dib txt-bold">Winnings (Gross):</div>
                         <div className="pull-right dib txt-bold">{formatNumber(coupon.grossWin)}</div>
-                    </div>
+                    </div> */}
                     <div className="basket-total__row">
                         <div className="dib txt-bold">Bonus:</div>
                         <div className="pull-right dib txt-bold">{formatNumber(coupon.maxBonus)}</div>
                     </div>
-                    <div className="basket-total__row">
+                    {/* <div className="basket-total__row">
                         <div className="dib txt-bold">WTH Tax:</div>
                         <div className="pull-right dib txt-bold">{formatNumber(coupon.wthTax)}</div>
-                    </div>
+                    </div> */}
                     <div className="basket-total__row">
                         <div className="dib txt-bold">Potential Win:</div>
                         <div className="pull-right dib txt-bold">{(coupon.bet_type === 'Split' || coupon.bet_type === 'Combo') ? `${formatNumber(coupon.minWin)} / ${formatNumber(coupon.maxWin)}` : formatNumber(coupon.maxWin) }</div>

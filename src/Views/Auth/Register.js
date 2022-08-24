@@ -171,13 +171,13 @@ function RegisterForm ({
                       <div className="dnxreg-box-b">
                           <div className="nxmob">
                               <select name="" id="" className="nxmob-select">
-                                  <option value="+234">+234</option>
+                                  <option value="+256">+256</option>
                               </select>
                               <Field
                                   style={errors.phone ? error : null}
                                   type="text"
                                   className="nxmob-num"
-                                  placeholder="08181234567"
+                                  placeholder="704345634"
                                   name="phone"
                               />
                           </div>

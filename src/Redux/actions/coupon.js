@@ -146,7 +146,6 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
             if (type === 'live')
                 couponData.hasLive = true;
 
-            
                 // couponData.combos = await getCombos(couponData);
             //calculate and get pot winnings with bonus
             const winnings = calculateWinnings(couponData, globalVars, bonusList);
@@ -154,7 +153,6 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
             couponData.maxBonus = winnings.maxBonus;
             couponData.wthTax = winnings.wthTax;
             couponData.grossWin = winnings.grossWin;
-            
 
             return dispatch({type: SET_COUPON_DATA, payload: couponData});
         }
