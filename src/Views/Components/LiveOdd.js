@@ -19,7 +19,6 @@ export const LiveOdd = ({newOdds, selection, market, fixture, tournament, sport,
 
     const selectOdds = () => {
         if (oddsData !== 0) {
-
             dispatch(addToCoupon(fixture, oddsData.market_id, market.name + ' '+ (getSpread(fixture.live_data?.markets, market) !== undefined ? getSpread(fixture.live_data?.markets, market) : ''), oddsData.odds, selection.id, oddsData.type,
                 createID(fixture.provider_id, oddsData.market_id, oddsData.type, selection.id),'live'))
         }
@@ -27,8 +26,8 @@ export const LiveOdd = ({newOdds, selection, market, fixture, tournament, sport,
     return (
         <div
             onClick={selectOdds}
-            className={`bets__item ${(oddsData === 0 || (oddsData.Odds && oddsData.Odds[0].Value === 0)) ? 'locked' : ''}
-            ${(isSelected(createID(fixture.provider_id, market.id, selection.type, oddsData.id), coupon)) ? 'active' : ''}
+            className={`bets__item ${(oddsData === 0 || (oddsData.Odds === 0)) ? 'locked' : ''}
+            ${(isSelected(createID(fixture.provider_id, oddsData.market_id, oddsData.type, selection.id), coupon)) ? 'active' : ''}
             `}
             key={selection.Id}>
             <a className="bets__item--link">

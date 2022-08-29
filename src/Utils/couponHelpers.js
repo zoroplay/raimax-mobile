@@ -133,84 +133,95 @@ export const getSpread = (eventMarkets, market) => {
 }
 
 
-export const checkOddsChange = async (couponData, dispatch, globalVars, bonusList) => {
+export const checkOddsChange = async (couponData, fixtures, dispatch, globalVars, bonusList) => {
     let updated = false;
     let coupon = {...couponData};
     const selections = coupon.selections;
     // loop through selection
-    for (let i = 0; i < selections.length; i++){
-        if (selections[i]?.type === 'live') {
-            await getLiveFixtureData(selections[i]?.event_id).then(res => {
-                if (res.Id !== 0) {
-                    // get event
-                    const match = res.Tournaments[0].Events[0];
-                    // get markets
-                    const markets = match.Markets;
+    fixtures.filter(fixture => {
+        selections.filter((selection, i) => {
+            if(selection.provider_id === fixture.provider_id) {
+                // console.log('found fixture');
+                if(fixture.live_data && fixture.live_data.markets.length) {
+                    const markets = fixture.live_data.markets;
+                    // console.log('looping through markets', markets)
+                    markets.forEach(market => {
+                        if (market.id === selection.market_id) {
+                            // console.log('found market', market)
 
-                    markets.forEach((item, key) => {
-                        item.Selections.forEach((newSelection, s) => {
-                            if (newSelection.Id === selections[i]?.odd_id) {
-                                // update score
-                                selections[i].score = match.Score;
-                                selections[i].ht_score = match.SetScores;
-
-                                if (newSelection.Odds[0].Value === 0) {
-                                    coupon.hasError = true;
-                                    coupon.errorMsg = 'Attention! An expired or suspended event has been removed from betslip';
-                                    // remove selection from coupon
-                                    selections.splice(i, 1);
-                                    updated = true;
-                                } else if (newSelection.Odds[0].Value !== selections[i]?.odds) {
-                                    updated = true;
-                                    if (newSelection.Odds[0].Value > selections[i].odds) {
-                                        selections[i].oddsClass = 'icon-odds-up txt-odds-up';
-                                    } else if (newSelection.Odds[0].Value < selections[i].odds) {
-                                        selections[i].oddsClass = 'icon-odds-down txt-odds-down';
+                            market.odds.forEach(odd => {
+                                if(odd.type === selection.oddname ) {
+                                    if(odd.active === '1' && odd.odds > selection.odds) {
+                                        selection.classList = 'valueChanged valueIncreased flashSuccess';
+                                        selection.oldOdds = selection.odds;
+                                        selection.odds = odd.odds;
+                                        coupon.hasError = true;
+                                        coupon.errorMsg = 'Attention! some odds have been changed';
+                                        updated = true;
+                                    } else if (odd.active === '1' && odd.odds < selection.odds) {
+                                        selection.classList = 'valueChanged valueDecreased flashDanger';
+                                        selection.oldOdds = selection.odds;
+                                        selection.odds = odd.odds;
+                                        coupon.hasError = true;
+                                        coupon.errorMsg = 'Attention! some odds have been changed';
+                                        updated = true;
+                                    } else if (odd.active === '0') {
+                                        // selections.splice(i, 1);
+                                        selection.classList = 'valueChanged valueDecreased flashDanger';
+                                        coupon.hasError = true;
+                                        coupon.errorMsg = 'Attention! some odds have been changed';
+                                        selection.hasError = true;
+                                        selection.disabled = true;
+                                        updated = true;
                                     }
-                                    selections[i].odds = newSelection.Odds[0].Value;
-                                    selections[i].hasError = true;
-
                                 }
-                            }
-                        });
-                    });
+                            });
+                        }
+                    })
+                    const findMarket = markets.filter(market => market.id === selection.market_id);
+                    // console.log('not found', findMarket);
+                    if(findMarket.length === 0) {
+                        updated = true;
+                        coupon.hasError = true;
+                        coupon.errorMsg = 'Attention! some odds have been changed';
+                        selection.error = true;
+                        selection.disabled = true;
+                    }
                 }
-            });
-        }
-    }
+            }
+        })
+    })
+    
     if (updated) {
+        coupon.hasLive  = checkIfHasLive(coupon.selections);
+      
         if (coupon.selections.length > 0) {
-            coupon.totalOdds = calculateTotalOdds(coupon.selections);
+            coupon.totalOdds = calculateTotalOdds(coupon.selections);;
             coupon.selections = selections;
             coupon.hasError = true;
-            // coupon.errorMsg = 'Attention! some odds? have been changed';
-            coupon.grouped = groupSelections(selections);
+            coupon.errorMsg = 'Attention! some odds have been changed';
+            coupon.fixtures = groupSelections(coupon.selections);
             //check bet type
-            couponData.bet_type = checkBetType(couponData.grouped);
+            coupon.bet_type = checkBetType(coupon);
 
-            if (couponData.bet_type === 'Split') {
-                coupon = await getSplitProps(coupon);
-            } else {
-                coupon.combos = await getCombos(coupon);
-                // calculate winnings
-                let maxWin = parseFloat(coupon.totalOdds) * parseFloat(coupon.stake);
-                // calculate bonus
-                let maxBonus = calculateBonus(maxWin, coupon, globalVars, bonusList);
-                // add bonus to max winnings
-                coupon.maxWin = (parseFloat(maxWin) + parseFloat(maxBonus));
-                coupon.maxBonus = maxBonus;
-            }
+            const winnings = calculateWinnings(coupon, globalVars, bonusList);
+            coupon.maxWin = winnings.maxWin;
+            coupon.maxBonus = winnings.maxBonus;
+            coupon.wthTax = winnings.wthTax;
+            coupon.grossWin = winnings.grossWin;
+
             // check if has live
-            couponData.hasLive  = checkIfHasLive(couponData.selections);
-
+            coupon.hasLive  = checkIfHasLive(coupon.selections);
+            coupon.fixtures = groupSelections(coupon.selections);
             // update coupon
             dispatch({type: SET_COUPON_DATA, payload: coupon});
         } else {
             dispatch({type: CANCEL_BET});
         }
     }
-    return updated;
+    // return updated;
 }
+
 
 export const comboName = (len) => {
     switch (len) {

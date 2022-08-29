@@ -20,8 +20,6 @@ export default function LiveFixtures({activeSport}) {
         }
     }, [activeSport]); 
 
-    console.log(activeSport);
-
     return (
         <Fragment>
             {activeSport && activeSport?.tournaments?.map(tournament =>
@@ -102,7 +100,8 @@ export default function LiveFixtures({activeSport}) {
                                                         globalVars={SportsbookGlobalVariable}
                                                         bonusList={SportsbookBonusList}
                                                     />)}
-                                                </div>)}
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>
