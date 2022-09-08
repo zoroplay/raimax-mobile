@@ -119,7 +119,7 @@ export default function Selections({coupon, dispatch}){
                             <div className="basket-nav--inner">System</div>
                         </div>
                     </div>}
-                </div>
+                </div>*/}
                 <div className="basket-quickbet p10">
                     {
                         {
@@ -127,7 +127,7 @@ export default function Selections({coupon, dispatch}){
                             'Combo' : <Combine coupon={coupon} dispatch={dispatch} />,
                         }[coupon.bet_type] || <Multiple dispatch={dispatch} coupon={coupon} />
                     }
-                </div> */}
+                </div>
                 <hr className="gray" />
                 <div className="basket-total p10">
                     <div className="basket-total__row">

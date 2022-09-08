@@ -117,19 +117,17 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
             }
             for (let i = 0; i < couponData.selections.length; i++) {
                 if(couponData.selections[i].provider_id === data.provider_id){
-                    // recalculate total odds
-                    // couponData.totalOdds = (parseFloat(couponData.totalOdds) * parseFloat(couponData.selections[i].odds)).toFixed(2);
                     //remove old selection
                     couponData.selections.splice(i, 1);
                     // add new selection
                     couponData.selections.push(data);
+                    // recalculate total odds
+                    couponData.totalOdds = calculateTotalOdds(couponData.selections);
                     //calculate and get pot winnings with bonus
                     const winnings = calculateWinnings(couponData, globalVars, bonusList);
                     couponData.maxWin = winnings.maxWin;
                     couponData.maxBonus = winnings.maxBonus;
                     couponData.grossWin = winnings.grossWin;
-                    //group selections by match
-                    // couponData.grouped = groupSelections(couponData.selections, 'provider_id');
                     
                     return dispatch({type: SET_COUPON_DATA, payload: couponData});
                 }
