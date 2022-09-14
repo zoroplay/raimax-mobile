@@ -74,7 +74,7 @@ export default function ViewFixture({match, history}) {
                 // console.log(item);
             });
 
-            setMarkets(newMarkets);
+            setMarkets(newMarkets.sort((market1, market2) => market1.id - market2.id));
         } else {
             setMarkets(liveData?.markets);
         }
@@ -131,7 +131,7 @@ export default function ViewFixture({match, history}) {
                         <div className="accordion-box open" key={market.market_id}>
                             <div className="accordion-toggle collapsible">
                                 <i className="icon ml10 info" />
-                                <a className="accordion-toggle--item" href="javascript:;"><p>{market.name} {market.specialOddsValue ? market.specialOddsValue : ''}</p></a>
+                                <a className="accordion-toggle--item" href="javascript:;"><p>{market.name} {market.specialOddsValue && market.specialOddsValue !== '-1' ? market.specialOddsValue : ''}</p></a>
                             </div>
                             <div className="match__market-info"><span>{market?.market?.info}</span>
                             </div>

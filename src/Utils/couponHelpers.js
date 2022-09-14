@@ -2,6 +2,7 @@ import store from '../Redux/store';
 import * as _ from 'lodash';
 import {CANCEL_BET, SET_COUPON_DATA} from "../Redux/types";
 import {getCombos, getLiveFixtureData, getSplitProps} from "../Services/apis";
+import { updateComboWinningsFromTotal } from '../Redux/actions';
 
 const state = store.getState();
 
@@ -133,12 +134,13 @@ export const getSpread = (eventMarkets, market) => {
 }
 
 
-export const checkOddsChange = async (couponData, fixtures, dispatch, globalVars, bonusList) => {
+
+export const checkOddsChange = async (couponData, dispatch, globalVars, bonusList) => {
     let updated = false;
     let coupon = {...couponData};
     const selections = coupon.selections;
     // loop through selection
-    fixtures.filter(fixture => {
+    coupon.grouped.filter(fixture => {
         selections.filter((selection, i) => {
             if(selection.provider_id === fixture.provider_id) {
                 // console.log('found fixture');
@@ -148,7 +150,6 @@ export const checkOddsChange = async (couponData, fixtures, dispatch, globalVars
                     markets.forEach(market => {
                         if (market.id === selection.market_id) {
                             // console.log('found market', market)
-
                             market.odds.forEach(odd => {
                                 if(odd.type === selection.oddname ) {
                                     if(odd.active === '1' && odd.odds > selection.odds) {
@@ -194,13 +195,15 @@ export const checkOddsChange = async (couponData, fixtures, dispatch, globalVars
     
     if (updated) {
         coupon.hasLive  = checkIfHasLive(coupon.selections);
-      
+        // update coupon
+        // dispatch({type: SET_COUPON_DATA, payload: coupon});
         if (coupon.selections.length > 0) {
             coupon.totalOdds = calculateTotalOdds(coupon.selections);;
             coupon.selections = selections;
             coupon.hasError = true;
             coupon.errorMsg = 'Attention! some odds have been changed';
-            coupon.fixtures = groupSelections(coupon.selections);
+            // coupon.tournaments = groupTournament(coupon.selections);
+            coupon.grouped = groupSelections(coupon.selections);
             //check bet type
             coupon.bet_type = checkBetType(coupon);
 
@@ -210,9 +213,10 @@ export const checkOddsChange = async (couponData, fixtures, dispatch, globalVars
             coupon.wthTax = winnings.wthTax;
             coupon.grossWin = winnings.grossWin;
 
+            dispatch({type: SET_COUPON_DATA, payload: coupon});
             // check if has live
             coupon.hasLive  = checkIfHasLive(coupon.selections);
-            coupon.fixtures = groupSelections(coupon.selections);
+            coupon.grouped = groupSelections(coupon.selections);
             // update coupon
             dispatch({type: SET_COUPON_DATA, payload: coupon});
         } else {
