@@ -34,10 +34,10 @@ export default function QuickLinks() {
                     </div>
 
                     <div className="quicklinks__item" id="iconslider_321892_zoom_element">
-                        <NavLink to={'/jackpot'} className="quicklinks__icon" id="iconslider_321892_zoom_link">
-                            <i className="icon" style={{backgroundImage: 'url(/img/jackpot.svg)', width: '24px', height: '24px'}}/>
+                        <NavLink to={'/casino'} className="quicklinks__icon" id="iconslider_321892_zoom_link">
+                            <i className="icon" style={{backgroundImage: 'url(/img/casino.svg)', width: '24px', height: '24px'}}/>
                         </NavLink>
-                        <span className="quicklinks__item-label">Jackpot</span>
+                        <span className="quicklinks__item-label">Casino</span>
                     </div>
 
                     <div className="quicklinks__item" id="iconslider_321892_zoom_element">

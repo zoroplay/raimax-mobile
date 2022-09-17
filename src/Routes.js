@@ -58,6 +58,7 @@ import Cashier from "./Views/Account/Cashier";
 import Transactions from "./Views/Account/Transactions";
 import AccountSettings from "./Views/Account/AccountSettings";
 import SportsBonus from "./Views/Account/SportsBonus";
+import Casino from "./Views/Casino";
 
 export default function Routes() {
 
@@ -144,6 +145,7 @@ export default function Routes() {
           <Route exact path="/reset-password" component={ResetPassword} />
           <Route exact path="/virtual" component={Virtual} />
           <Route exact path="/jackpot" component={Jackpot} />
+          <Route exact path="/casino" component={Casino} />
           <Route exact path="/betslip" component={Betslip} />
           <Route path="/add-to-tipster" component={AddToTipster} exact={true} />
           <Route path="/tipster/bets/:id" component={TipsterBets} exact={true} />
