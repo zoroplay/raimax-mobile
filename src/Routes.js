@@ -3,7 +3,7 @@ import React, { Fragment } from "reactn";
  * packages
  */
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import {ScrollToTop} from "./Views/Components";
+import { ScrollToTop } from "./Views/Components";
 import NotFound from "./Views/NotFound";
 import Home from "./Views/Home";
 import Login from "./Views/Auth/Login";
@@ -28,22 +28,22 @@ import Live from "./Views/Live";
 import ViewLiveFixture from "./Views/ViewLiveFixture";
 import ForgotPassword from "./Views/Auth/ForgotPassword";
 import ResetPassword from "./Views/Auth/ResetPassword";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import useSWR from "swr";
 
-import {LEcho} from "./Utils/laravel-echo";
-import {useDispatch, useSelector} from "react-redux";
+import { LEcho } from "./Utils/laravel-echo";
+import { useDispatch, useSelector } from "react-redux";
 import {
   REMOVE_USER_DATA,
   SET_BONUS_LIST,
   SET_GLOBAL_VAR,
   UPDATE_USER_BALANCE,
   UPDATE_USER_DATA,
-  UPDATE_VIRTUAL_LINK
+  UPDATE_VIRTUAL_LINK,
 } from "./Redux/types";
-import {useIdleTimer} from "react-idle-timer";
-import {authDetails, sendLogout} from "./Services/apis";
-import {generateSignature} from "./Utils/helpers";
+import { useIdleTimer } from "react-idle-timer";
+import { authDetails, sendLogout } from "./Services/apis";
+import { generateSignature } from "./Utils/helpers";
 import Virtual from "./Views/Virtual";
 import Jackpot from "./Views/Jackpot";
 import AddToTipster from "./Views/AddToTipster";
@@ -56,80 +56,83 @@ import AccountLimits from "./Views/Account/AccountLimits";
 import CloseAccount from "./Views/Account/CloseAccount";
 import Cashier from "./Views/Account/Cashier";
 import Transactions from "./Views/Account/Transactions";
+import Pending from "./Views/Account/PendingWithdrawal";
 import AccountSettings from "./Views/Account/AccountSettings";
 import SportsBonus from "./Views/Account/SportsBonus";
 import Casino from "./Views/Casino";
 
 export default function Routes() {
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-  const {isAuthenticated, user} = useSelector((state) => state.auth);
-
-  const {data: sportsGlobalVar} = useSWR('/utilities/globalvariables');
-  const {data: bonusList} = useSWR('/utilities/bonuslist?section=onliners');
+  const { data: sportsGlobalVar } = useSWR("/utilities/globalvariables");
+  const { data: bonusList } = useSWR("/utilities/bonuslist?section=onliners");
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (sportsGlobalVar) {
-      dispatch({type: SET_GLOBAL_VAR, payload: sportsGlobalVar});
+      dispatch({ type: SET_GLOBAL_VAR, payload: sportsGlobalVar });
     }
 
-    if (bonusList)
-      dispatch({type: SET_BONUS_LIST, payload: bonusList});
-
-  }, [sportsGlobalVar, bonusList])
+    if (bonusList) dispatch({ type: SET_BONUS_LIST, payload: bonusList });
+  }, [sportsGlobalVar, bonusList]);
 
   useEffect(() => {
     if (isAuthenticated) {
-      LEcho.channel(`deposits.${user.username}`)
-          .listen('DepositEvent', (e) => {
-            dispatch({type: UPDATE_USER_BALANCE, payload: e.user.balance});
-            // show alert
-          })
+      LEcho.channel(`deposits.${user.username}`).listen("DepositEvent", (e) => {
+        dispatch({ type: UPDATE_USER_BALANCE, payload: e.user.balance });
+        // show alert
+      });
     }
   }, [isAuthenticated]);
 
-  const handleOnIdle = event => {
-    if(isAuthenticated) {
-      sendLogout().then(res => {
-        dispatch({type: REMOVE_USER_DATA});
-      }).catch (err => {
-        dispatch({type: REMOVE_USER_DATA});
-      });
+  const handleOnIdle = (event) => {
+    if (isAuthenticated) {
+      sendLogout()
+        .then((res) => {
+          dispatch({ type: REMOVE_USER_DATA });
+        })
+        .catch((err) => {
+          dispatch({ type: REMOVE_USER_DATA });
+        });
     }
-  }
+  };
 
-  const handleOnActive = event => {
+  const handleOnActive = (event) => {
     // console.log('user is active', event)
     // console.log('time remaining', getRemainingTime())
-  }
+  };
 
   const handleOnAction = (e) => {
     // console.log('user did something', e)
-  }
+  };
 
   const { getRemainingTime, getLastActiveTime } = useIdleTimer({
     timeout: 1000 * 60 * 30,
     onIdle: handleOnIdle,
     onActive: handleOnActive,
     onAction: handleOnAction,
-    debounce: 500
-  })
+    debounce: 500,
+  });
 
   useEffect(() => {
     if (isAuthenticated) {
       authDetails().then((resp) => {
-        if(resp.user) {
+        if (resp.user) {
           const user = resp.user;
           dispatch({
             type: UPDATE_USER_DATA,
-            payload: user
+            payload: user,
           });
           dispatch({
             type: UPDATE_VIRTUAL_LINK,
-            payload: `${process.env.REACT_APP_GLOBALBET_PROD}/engine/web/autologin/account?login=${user.username}-${process.env.REACT_APP_GLOBALBET_ID}&code=${user.auth_code}&webRedirectTo=%2Fresponsive%2Fext%2Fskinbs%2Fvspro.jsp%3FhomeUrl%3D${process.env.REACT_APP_SITE_URL}%26signature%3D${generateSignature()}%26agent=${process.env.REACT_APP_GLOBALBET_ID}_WEB`
-          })
+            payload: `${process.env.REACT_APP_GLOBALBET_PROD}/engine/web/autologin/account?login=${user.username}-${
+              process.env.REACT_APP_GLOBALBET_ID
+            }&code=${user.auth_code}&webRedirectTo=%2Fresponsive%2Fext%2Fskinbs%2Fvspro.jsp%3FhomeUrl%3D${
+              process.env.REACT_APP_SITE_URL
+            }%26signature%3D${generateSignature()}%26agent=${process.env.REACT_APP_GLOBALBET_ID}_WEB`,
+          });
         }
-      })
+      });
     }
   }, [isAuthenticated]);
 
@@ -159,6 +162,7 @@ export default function Routes() {
           <Route exact path="/account/withdraw" component={Withdrawal} />
           <Route exact path="/account/my-bets" component={MyBets} />
           <Route exact path="/account/transactions" component={Transactions} />
+          <Route exact path="/account/pending" component={Pending} />
           <Route exact path="/account/self-exclusion" component={SelfExclusion} />
           <Route exact path="/account/responsible-gambling" component={ResponsibleGambling} />
           <Route exact path="/account/account-limits" component={AccountLimits} />
