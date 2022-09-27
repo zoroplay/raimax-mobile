@@ -16,8 +16,9 @@ header {
   font-weight: 400;
   font-size: 12px;
   line-height: 14px;
-  color: #0071be;
-  background-color: #ffffff;
+  color: #01a153;
+  // color: white;
+  background-color: #000;
 }
 .h-s__wrap {
   display: table;
@@ -49,7 +50,7 @@ header {
 }
 
 .h-s .txt-primary {
-  color: #da251c!important;
+  color: #01a153!important;
 }
 
 .h-s__wrap-item.logo {
@@ -66,7 +67,8 @@ header {
 }
 .h-s__wrap-item a {
   text-decoration: none;
-  color: #0071be !important;
+  // color: #01a153 !important;
+  color: white !important;
 }
 .h-s__wrap-item.status .logo-s {
   background-size: 48px;
@@ -128,10 +130,10 @@ header {
   justify-content: center;
   position: relative;
   background: #aa1617;
-  //background: -webkit-gradient(linear,left top, left bottom,color-stop(0, #0071be),to(#0071be));
-  //background: -o-linear-gradient(top,#0071be 0,#0071be);
-  //background: linear-gradient(180deg,#0071be 0,#0071be);
-  //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#0071be,endColorstr=#0071be,GradientType=0);
+  //background: -webkit-gradient(linear,left top, left bottom,color-stop(0, #01a153),to(#01a153));
+  //background: -o-linear-gradient(top,#01a153 0,#01a153);
+  //background: linear-gradient(180deg,#01a153 0,#01a153);
+  //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#01a153,endColorstr=#01a153,GradientType=0);
   box-shadow: 0 1px 1px #23262e;
   -ms-box-shadow: 0 1px 1px #23262e;
   -moz-box-shadow: 0 1px 1px #23262e;
