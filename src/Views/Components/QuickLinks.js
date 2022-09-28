@@ -48,7 +48,8 @@ export default function QuickLinks() {
                     </div>
 
                     <div className="quicklinks__item" id="iconslider_321892_zoom_element">
-                        <a className="quicklinks__icon"  href={virtualURL} id="iconslider_321892_zoom_link">
+                        {/* <a className="quicklinks__icon"  href={virtualURL} id="iconslider_321892_zoom_link"> */}
+                        <a className="quicklinks__icon"  href={'/virtual'} id="iconslider_321892_zoom_link">
                             <i className="icon" style={{backgroundImage: 'url(/img/virtual.svg)', width: '24px', height: '24px'}}/>
                         </a>
                         <span className="quicklinks__item-label">Virtual</span>
