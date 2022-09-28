@@ -15,13 +15,9 @@ const error = {
 };
 
 const RegisterSchema = Yup.object().shape({
-  username: Yup.string().min(3, "Minimum 3 letters").required("Enter a username"),
-  first_name: Yup.string().required("Enter a firstname"),
-  last_name: Yup.string().required("Enter a firstname"),
   phone: Yup.string().required("Enter a username"),
   password: Yup.string().min(3, "Minimum 3 letters").required("Enter a password"),
   term: Yup.boolean().required("You have not accepted"),
-  age: Yup.boolean().required("Confirm you are 18 or older"),
   confirm_password: Yup.string()
     .min(3, "Minimum 4 letters")
     .oneOf([Yup.ref("password"), null], "Passwords do not match")
@@ -29,19 +25,24 @@ const RegisterSchema = Yup.object().shape({
 });
 
 export default function Register({ history }) {
-  const [errMsgs, setErrMsgs] = useState([]);
+  const [errMsgs] = useState([]);
   const dispatch = useDispatch();
+  const [pre] = useState("+256");
 
   const submitForm = (values, { setSubmitting }) => {
-    console.log(values);
-    register(values)
+    const payload = {
+      phone: pre + values.phone,
+      password: values.password,
+      confirm_password: values.confirm_password,
+      referral_code: values?.referral_code,
+    };
+    register(payload)
       .then((res) => {
         setSubmitting(false);
         if (res.success) {
-          const { username, password } = res.credentials;
-          login(username, password)
+          const { phone, password } = res.credentials;
+          login({ phone, password })
             .then((res) => {
-              console.log(res);
               dispatch({
                 type: SET_USER_DATA,
                 payload: {
@@ -53,7 +54,6 @@ export default function Register({ history }) {
               history.push("/");
             })
             .catch((err) => {
-              console.log(err);
               if (err.response.status === 401) {
                 toast.error(err.message);
               }
@@ -62,11 +62,11 @@ export default function Register({ history }) {
       })
       .catch((err) => {
         setSubmitting(false);
-        if (err.response.status === 422) {
-          let errors = Object.values(err.response.data.errors);
-          errors = errors.flat();
-          toast.error(errors);
-        }
+        toast.error(err?.response?.data?.message);
+        // if (err.response.status === 500) {
+        //   let errors = Object.values(err.response.data.errors);
+        //   errors = errors.flat();
+        // }
       });
   };
 
@@ -102,12 +102,10 @@ export default function Register({ history }) {
           <Formik
             enableReinitialize={true}
             initialValues={{
-              full_name: "",
-              username: "",
               phone: "",
-              email: "",
               password: "",
               confirm_password: "",
+              referral_code: "",
             }}
             validationSchema={RegisterSchema}
             children={(props) => <RegisterForm {...props} />}
@@ -127,64 +125,12 @@ function RegisterForm({ errors, handleSubmit, isSubmitting }) {
           <div className="dnxreg-box">
             <div className="dnxreg-box-a">
               <label htmlFor="" className="nxlabel">
-                Username *
-              </label>
-            </div>
-            <div className="dnxreg-box-b">
-              <Field style={errors.username ? error : null} type="text" className="nxfield" name="username" />
-            </div>
-          </div>
-          <div className="dnxreg-box">
-            <div className="dnxreg-box-a">
-              <label htmlFor="" className="nxlabel">
-                First Name *
-              </label>
-            </div>
-            <div className="dnxreg-box-b">
-              <Field
-                style={errors.first_name ? error : null}
-                type="text"
-                className="nxfield"
-                placeholder=""
-                name="first_name"
-              />
-            </div>
-          </div>
-          <div className="dnxreg-box">
-            <div className="dnxreg-box-a">
-              <label htmlFor="" className="nxlabel">
-                Last Name *
-              </label>
-            </div>
-            <div className="dnxreg-box-b">
-              <Field
-                style={errors.last_name ? error : null}
-                type="text"
-                className="nxfield"
-                placeholder=""
-                name="last_name"
-              />
-            </div>
-          </div>
-          <div className="dnxreg-box">
-            <div className="dnxreg-box-a">
-              <label htmlFor="" className="nxlabel">
-                Email *
-              </label>
-            </div>
-            <div className="dnxreg-box-b">
-              <Field style={errors.email ? error : null} type="email" className="nxfield" placeholder="" name="email" />
-            </div>
-          </div>
-          <div className="dnxreg-box">
-            <div className="dnxreg-box-a">
-              <label htmlFor="" className="nxlabel">
-                Mobile Number*
+                Enter Mobile Number*
               </label>
             </div>
             <div className="dnxreg-box-b">
               <div className="nxmob">
-                <select name="" id="" className="nxmob-select">
+                <select name="pre" id="" className="nxmob-select">
                   <option value="+256">+256</option>
                 </select>
                 <Field
@@ -237,7 +183,22 @@ function RegisterForm({ errors, handleSubmit, isSubmitting }) {
             </div>
           </div>
         </div>
-
+        <div className="dnxreg-box">
+          <div className="dnxreg-box-a">
+            <label htmlFor="" className="nxlabel">
+              Referral code(if you have)
+            </label>
+          </div>
+          <div className="dnxreg-box-b">
+            <Field
+              style={errors.first_name ? error : null}
+              type="text"
+              className="nxfield"
+              placeholder=""
+              name="referral_code"
+            />
+          </div>
+        </div>
         <div className="dnxreg-age">
           <div className="check">
             <Field
