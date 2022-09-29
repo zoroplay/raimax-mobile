@@ -13,7 +13,7 @@ export default function Login({ history }) {
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState(false);
   const dispatch = useDispatch();
-  const [pre] = useState("+256");
+  const [pre] = useState("+211");
 
   const submitForm = (e) => {
     if (phone === "" || password === "") {
@@ -28,10 +28,6 @@ export default function Login({ history }) {
         btn.disabled = false;
         if (!res.success) {
           toast.error(res.message, { position: "top-right" });
-          // if (res.error === "password_not_set") {
-          //   dispatch({ type: UPDATE_USERNAME, payload: username });
-          //   history.push("/forgot-password");
-          // }
           return;
         }
         dispatch({
@@ -78,13 +74,10 @@ export default function Login({ history }) {
             </div>
           </div>
           <div className="dnxreg-box">
-            {/*<div className="dnxreg-box-a">*/}
-            {/*  <label htmlFor="" className="nxlabel">Username*</label>*/}
-            {/*</div>*/}
             <div className="dnxreg-box-b">
               <div className="nxmob">
                 <select name="pre" id="" className="nxmob-select">
-                  <option value="+256">+256</option>
+                  <option value="+211">+211</option>
                 </select>
                 <input
                   className="form-input"
