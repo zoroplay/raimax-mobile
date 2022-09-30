@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Layout from "../Layout";
-import { formattedPhoneNumber, goBack } from "../../Utils/helpers";
+import { goBack } from "../../Utils/helpers";
 import { login } from "../../Services/apis";
 import { useDispatch } from "react-redux";
-import { SET_USER_DATA, UPDATE_USERNAME } from "../../Redux/types";
+import { SET_USER_DATA } from "../../Redux/types";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -23,7 +23,7 @@ export default function Login({ history }) {
     setError(false);
     const btn = e.target;
     btn.disabled = true;
-    login({ phone: pre + phone, password })
+    login({ username: phone, password })
       .then((res) => {
         btn.disabled = false;
         if (!res.success) {
@@ -43,7 +43,8 @@ export default function Login({ history }) {
       .catch((err) => {
         btn.disabled = false;
         if (err.response.status === 401) {
-          setErrMsg(true);
+          toast.error(err.response.data.error, { position: "top-right" });
+          // setErrMsg(true);
         }
       });
   };

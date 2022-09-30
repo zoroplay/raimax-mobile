@@ -31,7 +31,8 @@ export default function Register({ history }) {
 
   const submitForm = (values, { setSubmitting }) => {
     const payload = {
-      phone: pre + values.phone,
+      username: values.phone,
+      phone: values.phone,
       password: values.password,
       confirm_password: values.confirm_password,
       referral_code: values?.referral_code,
@@ -40,8 +41,8 @@ export default function Register({ history }) {
       .then((res) => {
         setSubmitting(false);
         if (res.success) {
-          const { phone, password } = res.credentials;
-          login({ phone, password })
+          const { username, password } = res.credentials;
+          login({ username, password })
             .then((res) => {
               dispatch({
                 type: SET_USER_DATA,
@@ -54,6 +55,7 @@ export default function Register({ history }) {
               history.push("/");
             })
             .catch((err) => {
+              console.log(err.response);
               if (err.response.status === 401) {
                 toast.error(err.message);
               }
@@ -62,6 +64,11 @@ export default function Register({ history }) {
       })
       .catch((err) => {
         setSubmitting(false);
+        if (err.response.status === 422) {
+          let errors = Object.values(err.response.data.errors);
+          errors = errors.flat();
+          toast.error(errors);
+        }
         toast.error(err?.response?.data?.message);
       });
   };
