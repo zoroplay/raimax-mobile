@@ -45,8 +45,8 @@ const PendingWithdrawal = ({ history }) => {
       </div>
 
       {transactions &&
-        transactions?.map((item) => (
-          <div className="pending-cards">
+        transactions?.map((item, i) => (
+          <div className="pending-cards" key={i}>
             <div className="pending-card">
               <h4>Amount</h4>
               <span>{item?.amount}</span>

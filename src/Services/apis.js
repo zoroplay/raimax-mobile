@@ -25,7 +25,7 @@ export const loadCoupon = (code, action) => Http.get(`sports/booking/${code}?act
 
 export const findCoupon = (code) => Http.get(`sports/find-coupon/${code}`);
 
-export const login = (username, password) => Http.post(`auth/login?source=mobile`, { username, password });
+export const login = ({ username, password }) => Http.post(`auth/login?source=mobile`, { username, password });
 
 export const sendLogout = () =>
   Http.get(`auth/logout`)
