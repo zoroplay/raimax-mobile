@@ -22,7 +22,7 @@
       .cxbtn{
         text-transform: capitalize;
         cursor: pointer;
-        background-color: #0071be;
+        background-color: #47a548;
         color: #ffffff;
         border-radius: 3px;
         padding: 0 10px 0 6px;
@@ -35,7 +35,7 @@
         .cxbtn-ico{
           border-radius: 2px;
           padding: 6px 10px;
-          color: #0071be;
+          color: #47a548;
           background-color: #ffffff;
           margin-right: 7px;
           &-src{
@@ -48,7 +48,7 @@
           white-space: nowrap;
         }
         &:hover{
-          // background-color: darken(#0071be, 5%);
+          // background-color: darken(#47a548, 5%);
           opacity: .8;
         }
       }
