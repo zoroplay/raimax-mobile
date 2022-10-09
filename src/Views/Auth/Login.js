@@ -13,6 +13,7 @@ export default function Login({ history }) {
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState(false);
   const dispatch = useDispatch();
+  // const [pre] = useState("+234");
   const [pre] = useState("+234");
 
   const submitForm = (e) => {
