@@ -27,7 +27,7 @@ const RegisterSchema = Yup.object().shape({
 export default function Register({ history }) {
   const [errMsgs] = useState([]);
   const dispatch = useDispatch();
-  const [pre] = useState("+211");
+  const [pre] = useState("+234");
 
   const submitForm = (values, { setSubmitting }) => {
     const payload = {
