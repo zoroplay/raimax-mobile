@@ -75,7 +75,7 @@
   padding: 0;
   width: 100%;
   table-layout: fixed;
-  background-color: #32353d;
+  background-color: #fff;
 }
 .app-dl__item {
   display: table-cell;
@@ -110,11 +110,13 @@
   font-size: 12px;
   line-height: 14px;
   display: block;
+  color: black;
+
 }
 .app-dl__item-text p {
   font-size: 12px;
   line-height: 14px;
-  color: hsla(0,0%,100%,.7);
+  color: black;
   margin-top: 3px;
 }
 .app-dl__item-btn {
@@ -136,7 +138,7 @@
   border-radius: 3px;
   display: inline-block;
   text-align: center;
-  background: #be2026;
+  background: #47a548;
   color: #ffffff;
 }
 .pml-open header {

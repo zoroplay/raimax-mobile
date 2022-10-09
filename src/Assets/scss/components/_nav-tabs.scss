@@ -20,13 +20,15 @@
   -webkit-box-flex: 1;
   -ms-flex: 1 auto;
   flex: 1 auto;
+  color: black;
 }
 .nav__tab.selected {
   background-color: #373a45;
 }
 
 .nav__options {
-  background-color: #373a45;
+  background-color: #fff;
+  // background-color: #373a45;
   overflow-x: auto;
   white-space: nowrap;
   padding: 10px;

@@ -303,7 +303,7 @@ main {
   padding: 3px 8px 6px 12px;
   min-height: 66px;
   border-top: 1px solid #1b1d21;
-  background-color: #27292f;
+  background-color: #fff;
 }
 .match-content__row--league {
   color: #a2a4a6;
@@ -343,7 +343,7 @@ main {
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  color: #ffffff;
+  color: #333;
   text-align: left;
   font-weight: 500;
 }
@@ -390,7 +390,7 @@ main {
   min-width: 32px;
   vertical-align: middle;
   padding: 0 3px;
-  background-color: #0071be;
+  background-color: #e6f1e3;
 }
 
 .bets__item:first-child {
@@ -407,12 +407,12 @@ main {
   border-top-right-radius: 3px;
 }
 .bets__item--link {
-  color: #fff;
+  color: #47a548;
   display: block;
   width: 100%;
 }
 .bets__item.active {
-  background-color: #be2026;
+  background-color: #47a548;
 }
 .bets__item.active .bets__item--link{
   color: #ffffff;
