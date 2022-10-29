@@ -11,19 +11,24 @@ const gateways = [
   { slug: "monnify", name: "Monnify" },
 ];
 
-const Deposit = ({ history }) => {
+const WithdrawToBank = ({ history }) => {
   const [amount, setAmount] = useState("");
   const { SportsbookGlobalVariable } = useSelector((state) => state.sportsBook);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!isAuthenticated) history.replace("/");
+    if (!isAuthenticated) {
+      history.replace("/");
+    } else {
+      if (user?.emaill === null) {
+        history.replace("/account/details");
+      }
+    }
   }, [isAuthenticated]);
 
-  console.log(user);
   const [activeTab, setActiveTab] = useState({
-    slug: "paystack",
-    name: "Paystack",
+    slug: "monnify",
+    name: "monnify",
   });
   const [config, setConfig] = useState({
     txref: new Date().getTime(),
@@ -185,7 +190,6 @@ const Deposit = ({ history }) => {
       },
       onClose: function (data) {
         //Implement what should happen when the modal is closed here
-        console.log(data);
       },
     });
   }
@@ -202,7 +206,10 @@ const Deposit = ({ history }) => {
         </div>
       }
     >
-      <div className="page-title"> Instant Deposit Cards</div>
+      <div className="page-title">
+        {" "}
+        <h3 className="pt5">Withdraw To Bank</h3>
+      </div>
       <div className="t-menu second">
         {gateways.map((gateway) => (
           <a
@@ -302,7 +309,7 @@ const Deposit = ({ history }) => {
                 paystack: (
                   <PaystackButton
                     amount={config.amount * 100}
-                    email={user?.email}
+                    email="sigbenu@gmail.com"
                     publicKey={config.PBFPubKey}
                     onSuccess={verifyPayment}
                     text="Make Payment"
@@ -319,4 +326,4 @@ const Deposit = ({ history }) => {
   );
 };
 
-export default Deposit;
+export default WithdrawToBank;
