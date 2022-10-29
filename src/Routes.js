@@ -60,6 +60,7 @@ import Pending from "./Views/Account/PendingWithdrawal";
 import AccountSettings from "./Views/Account/AccountSettings";
 import SportsBonus from "./Views/Account/SportsBonus";
 import Casino from "./Views/Casino";
+import WithdrawToBank from "./Views/Account/WithdrawToBank";
 
 export default function Routes() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -125,11 +126,17 @@ export default function Routes() {
           });
           dispatch({
             type: UPDATE_VIRTUAL_LINK,
-            payload: `${process.env.REACT_APP_GLOBALBET_PROD}/engine/web/autologin/account?login=${user.username}-${
+            payload: `${
+              process.env.REACT_APP_GLOBALBET_PROD
+            }/engine/web/autologin/account?login=${user.username}-${
               process.env.REACT_APP_GLOBALBET_ID
-            }&code=${user.auth_code}&webRedirectTo=%2Fresponsive%2Fext%2Fskinbs%2Fvspro.jsp%3FhomeUrl%3D${
+            }&code=${
+              user.auth_code
+            }&webRedirectTo=%2Fresponsive%2Fext%2Fskinbs%2Fvspro.jsp%3FhomeUrl%3D${
               process.env.REACT_APP_SITE_URL
-            }%26signature%3D${generateSignature()}%26agent=${process.env.REACT_APP_GLOBALBET_ID}_WEB`,
+            }%26signature%3D${generateSignature()}%26agent=${
+              process.env.REACT_APP_GLOBALBET_ID
+            }_WEB`,
           });
         }
       });
@@ -151,7 +158,11 @@ export default function Routes() {
           <Route exact path="/casino" component={Casino} />
           <Route exact path="/betslip" component={Betslip} />
           <Route path="/add-to-tipster" component={AddToTipster} exact={true} />
-          <Route path="/tipster/bets/:id" component={TipsterBets} exact={true} />
+          <Route
+            path="/tipster/bets/:id"
+            component={TipsterBets}
+            exact={true}
+          />
           <Route exact path="/coupon-check" component={CouponCheck} />
           <Route exact path="/book-a-bet" component={BookBet} />
 
@@ -160,29 +171,74 @@ export default function Routes() {
           <Route exact path="/account/deposit" component={Deposit} />
           <Route exact path="/account/bonuses" component={SportsBonus} />
           <Route exact path="/account/withdraw" component={Withdrawal} />
+          <Route
+            exact
+            path="/account/withdraw-to-bank"
+            component={WithdrawToBank}
+          />
           <Route exact path="/account/my-bets" component={MyBets} />
           <Route exact path="/account/transactions" component={Transactions} />
           <Route exact path="/account/pending" component={Pending} />
-          <Route exact path="/account/self-exclusion" component={SelfExclusion} />
-          <Route exact path="/account/responsible-gambling" component={ResponsibleGambling} />
-          <Route exact path="/account/account-limits" component={AccountLimits} />
+          <Route
+            exact
+            path="/account/self-exclusion"
+            component={SelfExclusion}
+          />
+          <Route
+            exact
+            path="/account/responsible-gambling"
+            component={ResponsibleGambling}
+          />
+          <Route
+            exact
+            path="/account/account-limits"
+            component={AccountLimits}
+          />
           <Route exact path="/account/close-account" component={CloseAccount} />
-          <Route exact path="/account/settings/change-password" component={ChangePassword} />
-          <Route exact path="/account/settings/marketing-preferences" component={MarketingPreferences} />
+          <Route
+            exact
+            path="/account/settings/change-password"
+            component={ChangePassword}
+          />
+          <Route
+            exact
+            path="/account/settings/marketing-preferences"
+            component={MarketingPreferences}
+          />
           <Route exact path="/account/settings" component={AccountSettings} />
           <Route exact path="/account" component={Account} />
 
-          <Route exact path="/BecomeAnAgent/Register" component={BecomeAnAgent} />
+          <Route
+            exact
+            path="/BecomeAnAgent/Register"
+            component={BecomeAnAgent}
+          />
           <Route exact path="/dailybundle/soccer" component={DailyBundle} />
           <Route exact path="/pages/:slug" component={CMSPages} />
-          <Route exact path="/couponCheckResult/:betslip" component={CouponCheckResult} />
+          <Route
+            exact
+            path="/couponCheckResult/:betslip"
+            component={CouponCheckResult}
+          />
           <Route exact path="/sport/zoomsoccer" component={ZoomFixtures} />
           <Route exact path="/sport/livebetting" component={Live} />
-          <Route exact path="/liveEventDetail/:sport/:tournament/:event/:eventId" component={ViewLiveFixture} />
+          <Route
+            exact
+            path="/liveEventDetail/:sport/:tournament/:event/:eventId"
+            component={ViewLiveFixture}
+          />
 
           <Route exact path="/sport/:sport/:sid" component={Sport} />
-          <Route exact path="/events/:sport/:tournament/:tid" component={ViewFixtures} />
-          <Route exact path="/eventdetail/:sport/:country/:tournament/:event/:eventId" component={ViewFixture} />
+          <Route
+            exact
+            path="/events/:sport/:tournament/:tid"
+            component={ViewFixtures}
+          />
+          <Route
+            exact
+            path="/eventdetail/:sport/:country/:tournament/:event/:eventId"
+            component={ViewFixture}
+          />
           <Route path={["/404", "*"]} component={NotFound} />
         </Switch>
       </Router>

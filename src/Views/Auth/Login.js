@@ -43,8 +43,8 @@ export default function Login({ history }) {
       })
       .catch((err) => {
         btn.disabled = false;
-        if (err.response.status === 401) {
-          toast.error(err.response.data.error, { position: "top-right" });
+        if (err?.response?.status === 401) {
+          toast.error(err?.response?.data?.error, { position: "top-right" });
           // setErrMsg(true);
         }
       });
@@ -54,18 +54,26 @@ export default function Login({ history }) {
     <Layout
       bottom={false}
       headerLeft={
-        <div className="h-s__wrap-trigger px15 py10" onClick={() => goBack(history)}>
+        <div
+          className="h-s__wrap-trigger px15 py10"
+          onClick={() => goBack(history)}
+        >
           <i className="icon-back" />
           <span className="d-ib ml5">Back</span>
         </div>
       }
-      headerRight="&nbsp;">
+      headerRight="&nbsp;"
+    >
       <div className="login-form">
         {errMsg && <div className="info">Your details weren't recognised</div>}
         <div className="login-form__wrap">
           <div className="login-form__heading">
             <div>
-              <a href="javascript:;" className="login-form__heading--lg" style={{ pointerEvents: "none" }}>
+              <a
+                href="javascript:;"
+                className="login-form__heading--lg"
+                style={{ pointerEvents: "none" }}
+              >
                 Login
               </a>
             </div>
@@ -108,14 +116,22 @@ export default function Login({ history }) {
               />
             </div>
           </div>
-          {error && <div className="txt-red pull-left mt10">Please enter a valid username and password</div>}
+          {error && (
+            <div className="txt-red pull-left mt10">
+              Please enter a valid username and password
+            </div>
+          )}
 
           <button className="btn w-full mt15" onClick={(e) => submitForm(e)}>
             Login
           </button>
 
           <div className="mt20 txt-c">
-            <NavLink to="/forgot-password" className="login-form--link" title="Forgotten Details?">
+            <NavLink
+              to="/forgot-password"
+              className="login-form--link"
+              title="Forgotten Details?"
+            >
               Forgot your password?
             </NavLink>
           </div>
