@@ -1,198 +1,90 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../Layout";
-import { getGatewayKeys, saveTransaction } from "../../Services/apis";
-import { SET_LOADING_PROP, UPDATE_USER_BALANCE } from "../../Redux/types";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { formatNumber, goBack } from "../../Utils/helpers";
-import { PaystackButton } from "react-paystack";
+import "../../Assets/scss/_deposit.scss";
+import { getAllBanks, bankWithdrawal } from "../../Services/apis";
+import { ErrorPopUp, SuccessPopUp } from "../../Utils/toastify";
+import Layout from "../Layout";
+import { goBack } from "../../Utils/helpers";
+import { formatNumber } from "../../Utils/helpers";
 
-const gateways = [
-  { slug: "paystack", name: "Paystack" },
-  { slug: "monnify", name: "Monnify" },
-];
+const BankWithdrawal = ({ history }) => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState();
+  const [data, setData] = useState([]);
+  const [amount, setAmount] = useState(0);
+  const [inputObject, setObject] = useState({
+    amount: 0,
+    bank_id: "",
+    bankCode: "",
+    account: 0,
+  });
 
-const WithdrawToBank = ({ history }) => {
-  const [amount, setAmount] = useState("");
-  const { SportsbookGlobalVariable } = useSelector((state) => state.sportsBook);
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const handleChange = (e) => {
+    e.preventDefault();
+    setObject({
+      ...inputObject,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      history.replace("/");
-    } else {
-      if (user?.emaill === null) {
-        history.replace("/account/details");
-      }
-    }
-  }, [isAuthenticated]);
+    fetchBanks();
+  }, []);
 
-  const [activeTab, setActiveTab] = useState({
-    slug: "monnify",
-    name: "monnify",
-  });
-  const [config, setConfig] = useState({
-    txref: new Date().getTime(),
-    customer_email: user.email,
-    customer_phone: "",
-    amount: "",
-    PBFPubKey: "",
-    contractCode: "",
-    production: process.env.NODE_ENV === "production",
-  });
-  const [paymentSuccess, setPaymentSuccess] = useState("");
-  const dispatch = useDispatch();
+  const fetchBanks = (page) => {
+    setLoading(true);
+
+    getAllBanks()
+      .then((res) => {
+        setLoading(false);
+        setData(res);
+      })
+      .catch((err) => {
+        setLoading(false);
+      });
+  };
 
   const updateAmount = (value) => {
     if (value === 0) {
-      setConfig({ ...config, amount: 0 });
+      setObject({ ...inputObject, amount: 0 });
       return;
     }
-    let currentAmount = config.amount;
+    let currentAmount = amount;
     if (currentAmount === "") {
       currentAmount = 0;
     }
     const newAmount = currentAmount + value;
-    setConfig({ ...config, amount: newAmount });
+    setObject({ ...inputObject, amount: newAmount });
   };
 
-  const verifyPayment = (response) => {
-    if (config.amount > 0) {
-      if (response.message === "Approved") {
-        setPaymentSuccess(
-          `Success!! Your account has been credited with ${formatNumber(
-            config.amount
-          )}`
-        );
-        // update user balance
-        dispatch({
-          type: UPDATE_USER_BALANCE,
-          payload: user.balance + config.amount,
-        });
-
-        response.paymentMethod = "paystack";
-        response.channel = "mobile";
-        response.amount = config.amount;
-        setConfig({ ...config, amount: "" });
-        saveTransaction(response);
-        // dispatch({type: SHOW_MODAL, payload: {show: true, type: 'error', message: 'Your'}})
-      } else {
-        // dispatch({type: SHOW_MODAL, payload: {show: true, type: 'error', message: 'We were unable to process your request'}})
-      }
-    }
-  };
-
-  const getGateway = (gateway) => {
-    setActiveTab(gateway);
-    getGatewayKeys(gateway.slug)
-      .then((res) => {
-        if (res.success) {
-          setConfig({
-            ...config,
-            PBFPubKey: res.pub_key,
-            contractCode:
-              gateway.slug === "monnify" ? res.monnify_contract_code : "",
-          });
+  const withdraw = () => {
+    const bankItem = data.find((u) => u.code == inputObject?.bankCode);
+    const payload = {
+      amount: parseInt(inputObject.amount, 10),
+      bank_id: bankItem?.id,
+      bank_code: inputObject?.bankCode,
+      account_number: inputObject?.account,
+      account_type: "nuban",
+    };
+    bankWithdrawal(payload)
+      .then((r) => {
+        if (r.success) {
+          SuccessPopUp(r.message);
+          setLoading(false);
+          goBack(history);
         } else {
-          dispatch({
-            type: SET_LOADING_PROP,
-            payload: { show: false, message: res.message },
-          });
+          ErrorPopUp(r.message);
+          setLoading(false);
         }
+        setLoading(false);
+        // SuccessPopUp("Successfully sent request");
       })
       .catch((err) => {
-        dispatch({
-          type: SET_LOADING_PROP,
-          payload: { show: false, message: err.message },
-        });
+        ErrorPopUp("Error occured");
+        setLoading(false);
       });
   };
-
-  const onSuccess = (response) => {
-    response.paymentMethod = activeTab.slug;
-    response.channel = "website";
-    response.amount = config.amount;
-
-    switch (activeTab.slug) {
-      case "rave":
-        // console.log(response);
-        if (response.respcode === "00") {
-          response.reference = response.tx.txRef;
-          setPaymentSuccess(
-            `Success!! Your account has been credited with ${formatNumber(
-              config.amount
-            )}`
-          );
-          // update user balance
-          dispatch({
-            type: UPDATE_USER_BALANCE,
-            payload: user.balance + config.amount,
-          });
-
-          saveTransaction(response);
-        }
-        break;
-      case "paystack":
-        if (response.message === "Approved") {
-          setPaymentSuccess(
-            `Success!! Your account has been credited with ${formatNumber(
-              config.amount
-            )}`
-          );
-          // update user balance
-          dispatch({
-            type: UPDATE_USER_BALANCE,
-            payload: user.balance + config.amount,
-          });
-
-          saveTransaction(response);
-        } else {
-        }
-        break;
-      case "monnify":
-        if (response.status === "SUCCESS") {
-          setPaymentSuccess(
-            `Success!! Your account has been credited with ${formatNumber(
-              config.amount
-            )}`
-          );
-          // update user balance
-          dispatch({
-            type: UPDATE_USER_BALANCE,
-            payload: user.balance + config.amount,
-          });
-          response.reference = response.transactionReference;
-
-          saveTransaction(response);
-        }
-        break;
-    }
-    setConfig({ ...config, amount: "" });
-  };
-
-  useEffect(() => {
-    getGateway(activeTab);
-  }, []);
-
-  function payWithMonnify() {
-    window.MonnifySDK.initialize({
-      amount: config.amount,
-      currency: "NGN",
-      reference: "" + Math.floor(Math.random() * 1000000000 + 1),
-      customerEmail: user.email,
-      apiKey: config.PBFPubKey,
-      contractCode: config.contractCode,
-      paymentDescription: "Gaming Account funding",
-      isTestMode: config.production,
-      paymentMethods: ["CARD", "ACCOUNT_TRANSFER"],
-      onComplete: function (response) {
-        //Implement what happens when transaction is completed.
-        onSuccess(response);
-      },
-      onClose: function (data) {
-        //Implement what should happen when the modal is closed here
-      },
-    });
-  }
 
   return (
     <Layout
@@ -206,119 +98,123 @@ const WithdrawToBank = ({ history }) => {
         </div>
       }
     >
-      <div className="page-title">
-        {" "}
-        <h3 className="pt5">Withdraw To Bank</h3>
-      </div>
-      <div className="t-menu second">
-        {gateways.map((gateway) => (
-          <a
-            key={gateway.slug}
-            className={`t-menu__item ${
-              gateway.slug === activeTab.slug ? "active" : ""
-            }`}
-            href={`#/Deposit/InstantCardDeposit/${gateway.name}`}
-            onClick={() => getGateway(gateway)}
-          >
-            <strong className="t-menu__item-title"> {gateway.name}</strong>
-          </a>
-        ))}
-      </div>
-      {paymentSuccess !== "" && (
-        <div className="info-box green">{paymentSuccess}</div>
-      )}
-      <div className="page__body p15">
-        <div className="form">
-          <div className="clear-both" />
-          <div className="">
-            <div className="form-row">
-              <div className="form-label">
-                <strong>
-                  {" "}
-                  Deposit Amount ({SportsbookGlobalVariable.Currency})
-                </strong>
+      <div className="deposit">
+        <div className="deposit-step">
+          <div className="left mt-2">
+            <h3>
+              <strong>KINDLY NOTE</strong>
+            </h3>
+            <p className="my-1 text-1">
+              For easier and faster process verification, please ensure your
+              bank account information matches the details in your OurBet
+              account.
+            </p>
+            <p className="my-1 text-1">
+              In line with the regulation, winings above{" "}
+              <strong>#400,000</strong>
+              require a valid means of ID for your withdrawal to be processed
+              promptly. Simply email cs@...com with your user ID and a picture
+              of your <strong> valid ID card.</strong>
+            </p>
+            <p className="my-1 text-1">
+              <strong>IMPORTANT UPDATE</strong> Payouts to{" "}
+              <strong>FIRST BANK </strong> accounts take longer than 48hours due
+              to <strong>delays from the bank. </strong>
+            </p>
+          </div>
+          <div className="right">
+            <h1 className="pl-1 mt-2 mb-1">Withdrawal</h1>
+            <div className="flex by-1 py-1">
+              <p>Total Balance: </p>
+              <p className="ml-1">{formatNumber(user.balance)}</p>
+            </div>
+            <div>
+              <div className="flex">
+                <label className="w-2"></label>
+                <ul className="flex-list">
+                  <li onClick={() => updateAmount(1000)}>
+                    <span>N</span> <br />
+                    1,000
+                  </li>
+                  <li onClick={() => updateAmount(5000)}>
+                    <span>N</span> <br />
+                    5,000
+                  </li>
+                  <li onClick={() => updateAmount(10000)}>
+                    <span>N</span> <br />
+                    10,000
+                  </li>{" "}
+                  <li onClick={() => updateAmount(25000)}>
+                    <span>N</span> <br />
+                    25,000
+                  </li>{" "}
+                  <li onClick={() => updateAmount(50000)}>
+                    <span>N</span> <br />
+                    50,000
+                  </li>
+                </ul>
               </div>
-              <div className="form-input">
+              <div className="flex my-1">
+                <label className="w-2">Amount:</label>
                 <input
                   name="amount"
-                  className="big"
+                  min={500}
+                  value={inputObject.amount}
+                  onChange={handleChange}
                   type="number"
-                  step="100"
-                  maxLength={5}
-                  min={SportsbookGlobalVariable.MinDeposit}
-                  max="10000"
-                  value={config.amount}
-                  onChange={(e) =>
-                    setConfig({ ...config, amount: e.target.value })
-                  }
+                  className="deposit-input"
                 />
-                <div className="form-input--stake">
-                  {" "}
-                  Min {SportsbookGlobalVariable.MinDeposit}
-                </div>
               </div>
-              <div className="quickstake mt10">
-                <div
-                  className="quickstake__item"
-                  onClick={() => updateAmount(0)}
+              <div className="flex my-1">
+                <label className="w-2">Bank:</label>
+                <select
+                  name="bankCode"
+                  type="text"
+                  onChange={(e) => handleChange(e)}
                 >
-                  {" "}
-                  Clear
-                </div>
-                <div
-                  className="quickstake__item"
-                  onClick={() => updateAmount(100)}
-                >
-                  {" "}
-                  +100
-                </div>
-                <div
-                  className="quickstake__item"
-                  onClick={() => updateAmount(200)}
-                >
-                  {" "}
-                  +200
-                </div>
-                <div
-                  className="quickstake__item"
-                  onClick={() => updateAmount(500)}
-                >
-                  {" "}
-                  +500
-                </div>
-                <div
-                  className="quickstake__item"
-                  onClick={() => updateAmount(1000)}
-                >
-                  {" "}
-                  +1000
-                </div>
+                  <option value="Card">Select a bank..</option>
+                  {data &&
+                    data?.map((item, i) => (
+                      <option value={item.code} key={i}>
+                        {item?.name}
+                      </option>
+                    ))}
+                </select>
+              </div>
+              <div className="flex my-1">
+                <label className="w-2">Account Number:</label>
+                <input
+                  name="account"
+                  onChange={(e) => handleChange(e)}
+                  type="number"
+                  className="deposit-input"
+                />
+              </div>
+
+              <div className="flex my-1">
+                <label className="w-2">Minimum Withdrawal:</label>
+                <input
+                  name="amount"
+                  type="text"
+                  className="deposit-input"
+                  value="N1,0000"
+                />
+              </div>
+              <div className="flex my-1">
+                <label className="w-2">Total Withdrawal:</label>
+                <input
+                  name="amount"
+                  type="text"
+                  className="deposit-input"
+                  value={inputObject.amount}
+                  disabled={true}
+                />
               </div>
             </div>
-            {
-              {
-                monnify: (
-                  <button
-                    className="btn mt20 mb20 w-full"
-                    onClick={payWithMonnify}
-                  >
-                    {" "}
-                    Make Payment
-                  </button>
-                ),
-                paystack: (
-                  <PaystackButton
-                    amount={config.amount * 100}
-                    email="sigbenu@gmail.com"
-                    publicKey={config.PBFPubKey}
-                    onSuccess={verifyPayment}
-                    text="Make Payment"
-                    disabled={parseInt(config.amount) === 0}
-                    className="btn mt20 mb20 w-full"
-                  />
-                ),
-              }[activeTab.slug]
-            }
+
+            <div className="btn-bank">
+              <button onClick={withdraw}>PROCEED</button>
+            </div>
           </div>
         </div>
       </div>
@@ -326,4 +222,4 @@ const WithdrawToBank = ({ history }) => {
   );
 };
 
-export default WithdrawToBank;
+export default BankWithdrawal;
