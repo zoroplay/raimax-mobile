@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../Layout";
-import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { Formik, Field } from "formik";
+import { useSelector } from "react-redux";
 import { updateProfile } from "../../Services/apis";
-import { REMOVE_USER_DATA, SET_TOAST_PROPS } from "../../Redux/types";
 import { goBack } from "../../Utils/helpers";
 import { toast } from "react-toastify";
 
 const AccountDetails = ({ history }) => {
   const [isSubmitting, setSubmitting] = useState(false);
+  const [errMsg, setErrmsg] = useState("");
+  const [err, setErr] = useState(false);
   const [inputObj, setInputObj] = useState({
     accountId: "",
-    firstName: "",
-    Surname: "",
+    first_name: "",
+    last_name: "",
     DOB: "",
     phone: "",
     address: "",
@@ -33,8 +32,8 @@ const AccountDetails = ({ history }) => {
   useEffect(() => {
     setInputObj({
       code: user?.code,
-      firstName: user?.details?.first_name,
-      Surname: user?.details?.last_name,
+      first_name: user?.details?.first_name,
+      last_name: user?.details?.last_name,
       DOB: user?.details?.date_of_birth,
       phone: user?.details?.phone_number,
       address: user?.details?.address,
@@ -42,8 +41,14 @@ const AccountDetails = ({ history }) => {
       state: user.details.state,
       email: user.email,
       username: user.username,
+      date_of_birth: "",
+      city: "",
+      country_id: 160,
+      state_id: 3,
+      address: "",
+      gender: "",
     });
-  }, []);
+  }, [user]);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -54,23 +59,39 @@ const AccountDetails = ({ history }) => {
     });
   };
 
-  const submit = () => {
+  const submit = (e) => {
+    e.preventDefault();
     const payload = {
       email: inputObj.email,
+      details: {
+        first_name: inputObj.first_name,
+        last_name: inputObj.last_name,
+      },
     };
-    updateProfile(payload)
-      .then((res) => {
-        setSubmitting(false);
-      })
-      .catch((err) => {
-        setSubmitting(false);
-        if (err.response.status === 422) {
-          let errors = Object.values(err.response.data.errors);
-          errors = errors.flat();
-          toast.error(errors);
-        }
-        toast.error(err?.response?.data?.message);
-      });
+    if (
+      inputObj.email === null ||
+      inputObj.first_name === null ||
+      inputObj.last_name === null
+    ) {
+      setErrmsg("All fields are required");
+      setErr(true);
+    } else {
+      setErr(false);
+      updateProfile(payload)
+        .then((res) => {
+          setSubmitting(false);
+          goBack(history);
+        })
+        .catch((err) => {
+          setSubmitting(false);
+          if (err.response.status === 422) {
+            let errors = Object.values(err.response.data.errors);
+            errors = errors.flat();
+            toast.error(errors);
+          }
+          toast.error(err?.response?.data?.message);
+        });
+    }
   };
 
   return (
@@ -131,22 +152,25 @@ const AccountDetails = ({ history }) => {
                 onChange={(e) => handleChange(e)}
               />
             </div>
-            {/* <div className="table-f mt5">
+            <div className="table-f mt5">
               <div>First Name</div>
               <input
-                name="firstName"
-                value={inputObj.firstName}
-                onChange={(e) => handleChange(e)}
-              />
-            </div> */}
-            {/* <div className="table-f mt5">
-              <div>Surname</div>
-              <input
-                name="surname"
-                value={inputObj.surname}
+                name="first_name"
+                required
+                value={inputObj.first_name}
                 onChange={(e) => handleChange(e)}
               />
             </div>
+            <div className="table-f mt5">
+              <div>Last Name</div>
+              <input
+                required
+                name="last_name"
+                value={inputObj.last_name}
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            {/*
 
             <div className="table-f mt5">
               <div>Date of birth</div>
@@ -196,8 +220,21 @@ const AccountDetails = ({ history }) => {
                 onChange={(e) => handleChange(e)}
               />
             </div> */}
-            <div className="table-f mt20">
-              <input type="button" value="UPDATE" onClick={submit} />
+            {err && (
+              <p
+                style={{
+                  color: "red",
+                  fontSize: "1.5rem",
+                  textAlign: "center",
+                }}
+              >
+                {errMsg}
+              </p>
+            )}
+            <div className="table-f mt20" style={{ width: "100%" }}>
+              <button type="submit" className="but" onClick={submit}>
+                UPDATE
+              </button>
             </div>
           </div>
         </div>

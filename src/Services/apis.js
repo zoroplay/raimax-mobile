@@ -145,3 +145,8 @@ export const updateDepositLimit = (data) =>
 
 export const updateMarketingPreferences = (data) =>
   Http.post("/user/account/marketing-preferences", data);
+
+export const getAllBanks = () => Http.get(`/utilities/list-banks`);
+
+export const bankWithdrawal = (payload) =>
+  Http.post("user/account/withdraw", payload);
