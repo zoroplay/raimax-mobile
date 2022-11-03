@@ -773,6 +773,8 @@ main {
   .pending-card{
     margin: 2rem auto;
     padding: 1rem ;
+    display: flex;
+    padding: 1rem .5rem;
     background: rgba(169, 167, 167, 0.132);
     h4{
       margin-bottom: 1rem;

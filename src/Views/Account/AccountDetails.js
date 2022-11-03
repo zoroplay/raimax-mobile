@@ -80,15 +80,17 @@ const AccountDetails = ({ history }) => {
       updateProfile(payload)
         .then((res) => {
           setSubmitting(false);
-          goBack(history);
+          goBack("/account");
+          console.log(res.data);
         })
         .catch((err) => {
           setSubmitting(false);
-          if (err.response.status === 422) {
-            let errors = Object.values(err.response.data.errors);
-            errors = errors.flat();
-            toast.error(errors);
-          }
+          console.log(err.response.data);
+          // if (err.response.status === 422) {
+          //   let errors = Object.values(err.response.data.errors);
+          //   errors = errors.flat();
+          //   toast.error(errors);
+          // }
           toast.error(err?.response?.data?.message);
         });
     }
@@ -128,6 +130,7 @@ const AccountDetails = ({ history }) => {
                 value={inputObj.username}
                 onChange={(e) => handleChange(e)}
                 disabled={true}
+                autoComplete={false}
               />
             </div>
             <div className="table-f mt5">
@@ -138,6 +141,7 @@ const AccountDetails = ({ history }) => {
                 type="email"
                 name="email"
                 value={inputObj.email}
+                autoComplete={false}
                 required
                 onChange={(e) => handleChange(e)}
               />
@@ -158,6 +162,7 @@ const AccountDetails = ({ history }) => {
                 name="first_name"
                 required
                 value={inputObj.first_name}
+                autoComplete={false}
                 onChange={(e) => handleChange(e)}
               />
             </div>
@@ -167,6 +172,7 @@ const AccountDetails = ({ history }) => {
                 required
                 name="last_name"
                 value={inputObj.last_name}
+                autoComplete={false}
                 onChange={(e) => handleChange(e)}
               />
             </div>

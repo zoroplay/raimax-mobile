@@ -31,15 +31,24 @@ const PendingWithdrawal = ({ history }) => {
     fetchTransactions();
   }, []);
 
+  const handleCopy = (e) => {
+    e.preventDefault();
+    e.clipboardData.setData("Text", transactions[0]?.withdraw_code);
+    console.log(37);
+  };
   return (
     <Layout
       headerLeft={
-        <div className="h-s__wrap-trigger px15 py10" onClick={() => goBack(history)}>
+        <div
+          className="h-s__wrap-trigger px15 py10"
+          onClick={() => goBack(history)}
+        >
           <i className="icon-back" />
           <span className="d-ib ml5">Back</span>
         </div>
       }
-      footer={false}>
+      footer={false}
+    >
       <div className="page-title" style={{ paddingTop: ".6rem" }}>
         Pending Withdrawal Request
       </div>
@@ -48,17 +57,17 @@ const PendingWithdrawal = ({ history }) => {
         transactions?.map((item, i) => (
           <div className="pending-cards" key={i}>
             <div className="pending-card">
-              <h4>Amount</h4>
+              <h3 className="ml-4">Amount: </h3>
               <span>{item?.amount}</span>
             </div>
             <div className="pending-card">
-              <h4>Created</h4>
+              <h3 className="ml-4">Created</h3>
               <span>{moment(item?.created_at).format("DD/MM/YYYY")}</span>
             </div>
-            <div className="pending-card">
-              <h4>Withdrawal Pin</h4>
+            <button className="pending-card" onClick={(e) => handleCopy(e)}>
+              <h3 className="ml-4">Withdrawal Pin</h3>
               <span>{item?.withdraw_code}</span>
-            </div>
+            </button>
           </div>
         ))}
 

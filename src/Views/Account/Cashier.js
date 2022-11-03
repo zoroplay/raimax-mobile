@@ -35,15 +35,15 @@ const Cashier = ({ history }) => {
       }
     >
       <div className="page-title">
-        <div>Cashier</div>
+        <div>Select Withdrawal Method </div>
       </div>
       <div className="access">
         <div className="access__menu" id="main-menu">
-          <div className="access__item main-menu-item" id="1000">
+          {/* <div className="access__item main-menu-item" id="1000">
             <NavLink to="/account/deposit" className="access__item-title">
               Deposit
             </NavLink>
-          </div>
+          </div> */}
 
           <div className="access__item main-menu-item" id="1004">
             <NavLink to="/account/withdraw" className="access__item-title">

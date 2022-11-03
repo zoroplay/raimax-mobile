@@ -25,25 +25,24 @@ display: flex;
 align-items: center;
 justify-content: center;
     }
-    display: flex;
+    // display: flex;
  
 .deposit-step{
     // display: flex;
     // justify-content: space-between;
-    // width: 100%;
+    width: 100%;
+    padding: .5rem 1.5rem;
 
-    .left{
-        padding: 0 1rem;
-        // width: 50%;
-        // border: 1px solid white;
-        li{
-            margin: 1rem 0;
+    .form-box{
+        label{
+            display: block;
         }
     }
-    .right{
         width: 100%;
         input, select{
-            width: 70%;
+            width: 100%;
+            margin: 1rem 0;
+            
         }
         // border: 1px solid white;
         .top{
@@ -61,7 +60,7 @@ justify-content: center;
                 }
             }
         }
-    }
+    // }
 }
 .flex-list{
     display: flex;
@@ -106,11 +105,13 @@ select{
     button{
         background: $red;
         color: white;
-      
+      width:100%;
+      padding: 1rem;
+      border-radius: 5px;
     }
     button:hover{
-        background:white;
-        color:  $red;
+        background:black;
+        color:  white;
     }
 }
 }
@@ -146,6 +147,10 @@ select{
 .ml-1{
     margin-left: 1rem;
 }
+.ml-4{
+    width: 30%;
+    text-align: left;
+}
 .py-1{
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -167,4 +172,11 @@ select{
     background: black;
     color: white;
 
+}
+.bank{
+    background: black;
+    padding: 2rem 1rem;
+}
+.bank-details{
+    display: flex;
 }
