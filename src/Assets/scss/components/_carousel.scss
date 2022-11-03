@@ -13,14 +13,17 @@
 }
 
 .carousel__item {
-  //height: 96px;
-  //width: 240px;
+  height: 120px;
+  width:100% ;
   display: inline-block;
   vertical-align: middle;
   border-radius: 2px;
   overflow: hidden;
   position: relative;
   opacity: 0.7;
+  img{
+    object-fit: cover;
+  }
 }
 
 //.carousel__item:before {

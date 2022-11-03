@@ -150,3 +150,15 @@ export const getAllBanks = () => Http.get(`/utilities/list-banks`);
 
 export const bankWithdrawal = (payload) =>
   Http.post("user/account/withdraw", payload);
+
+export const getBankDetails = () => Http.get(`/user/account/get-bank-account`);
+
+export const fetchFixturesByDateRangeSport = (
+  startDate,
+  endDate,
+  sport_id,
+  page
+) =>
+  Http.get(
+    `/sports/get-fixtures-by-date?date=${startDate}&end_date=${endDate}&sid=${sport_id}&channel=mobile&limit=10&page=${page}`
+  );

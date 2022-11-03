@@ -5,6 +5,7 @@ import {
   getFixtures,
   getLiveFixtures,
   upcomingFixtures,
+  fetchFixturesByDateRangeSport,
 } from "../../Services/apis";
 import LiveFixtures from "./LiveFixtures";
 import ZoomLeagueMenu from "./ZoomLeagueMenu";
@@ -13,6 +14,8 @@ import FixturesSkeleton from "./FixturesSkeleton";
 import TipstersList from "./TipstersList";
 import useSWR from "swr";
 import { NavLink } from "react-router-dom";
+import moment from "moment";
+import InfiniteScroll from "react-infinite-scroll-component";
 const tabs = ["Highlights", "Live", "Top Leagues", "Tipsters"];
 
 export default function NavTabMenu({ sportsData, dispatch }) {
@@ -23,7 +26,13 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   const [activeSport, setActiveSport] = useState(null);
   // const [zoomFixtures, setZoomFixtures] = useState([]);
   // const [predictions, setZoomPredictions] = useState([]);
-
+  const [startDate, setStartDate] = useState(moment().format("YYYY-MM-DD"));
+  const [endDate, setEndDate] = useState(
+    moment().add(14, "days").format("YYYY-MM-DD")
+  );
+  const [fixtures, setFixtures] = useState([]);
+  const [predictions, setPredictions] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const { data: topbets, error } = useSWR("sports/top-bets");
 
   const setActiveTab = (tab) => {
@@ -65,13 +74,15 @@ export default function NavTabMenu({ sportsData, dispatch }) {
       });
   };
 
-  const getHighlightedFixtures = () => {
-    fetchHighlights()
+  const getHighlightedFixtures = (page) => {
+    fetchFixturesByDateRangeSport(startDate, endDate, 1, page)
       .then((res) => {
-        console.log(res.data, 71);
         setLoading(false);
         setSports(res);
         setActiveSport(res[0]);
+        setFixtures((fixtures) => [...fixtures, ...res.fixtures.data]);
+        setPredictions(res.predictions);
+        setCurrentPage(res.fixtures.current_page);
       })
       .catch((err) => {
         setLoading(false);
@@ -83,7 +94,6 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   //         setZoomPredictions(res.predictions);
   //         setZoomFixtures(res.fixtures);
   //     }).catch(err => {
-  //         console.log(err);
   //     });
   // }
 
@@ -111,14 +121,13 @@ export default function NavTabMenu({ sportsData, dispatch }) {
         setSports(data);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
       });
   };
 
   useEffect(() => {
-    getHighlightedFixtures();
-  }, []);
+    getHighlightedFixtures(1);
+  }, [selected]);
 
   useEffect(() => {
     if (selected === 1) {
@@ -145,7 +154,6 @@ export default function NavTabMenu({ sportsData, dispatch }) {
     }
   }, [sports]);
 
-  console.log(activeSport, 147);
   return (
     <>
       <div className="nav__tabs-holder">
@@ -160,29 +168,41 @@ export default function NavTabMenu({ sportsData, dispatch }) {
             </div>
           ))}
         </div>
-        {!loading && showSports && (
-          <div className="nav__options">
-            {sports.map((sport, i) => (
-              <div
-                className={`nav__options-item ${
-                  sport.sport_id === activeSport?.sport_id ? "selected" : ""
-                }`}
-                key={i}
-                onClick={() => setActiveSport(sport)}
-              >
-                <span className="nav__options-icon mr5">
-                  <svg style={{ pointerEvents: "none" }}>
-                    <use
-                      xmlnsXlink="http://www.w3.org/1999/xlink"
-                      xlinkHref={`#tabHome-${slugify(sport.name)}`}
-                    />
-                  </svg>
-                </span>
-                <span>{sport.name}</span>
-              </div>
-            ))}
-          </div>
-        )}
+        {/* {!loading && showSports && (
+          // <div className="nav__options">
+          //   {fixtures?.map((sport, i) => (
+          //     <div
+          //       className={`nav__options-item ${
+          //         sport?.sport_id === activeSport?.sport_id ? "selected" : ""
+          //       }`}
+          //       key={i}
+          //       onClick={() => setActiveSport(sport)}
+          //     >
+          //       <span className="nav__options-icon mr5">
+          //         <svg style={{ pointerEvents: "none" }}>
+          //           <use
+          //             xmlnsXlink="http://www.w3.org/1999/xlink"
+          //             xlinkHref={`#tabHome-${slugify(sport.name)}`}
+          //           />
+          //         </svg>
+          //       </span>
+          //       <span>{sport.name}</span>
+          //     </div>
+          //   ))}
+          // </div>
+        )} */}
+        <InfiniteScroll
+          dataLength={fixtures.length} //This is important field to render the next data
+          next={() => getHighlightedFixtures(currentPage + 1)}
+          hasMore={true}
+          loader={<FixturesSkeleton />}
+        >
+          <Fixtures
+            showLeague={true}
+            fixtures={fixtures}
+            predictions={predictions}
+          />
+        </InfiniteScroll>
       </div>
       {{
         1: !loading && <LiveFixtures activeSport={activeSport} />,

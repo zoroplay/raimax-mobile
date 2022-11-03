@@ -20,7 +20,12 @@ const Deposit = ({ history }) => {
     if (!isAuthenticated) history.replace("/");
   }, [isAuthenticated]);
 
-  console.log(user);
+  useEffect(() => {
+    if (user?.email === null) {
+      history.replace("/account/details");
+    }
+  }, [user]);
+
   const [activeTab, setActiveTab] = useState({
     slug: "paystack",
     name: "Paystack",
