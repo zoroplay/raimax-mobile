@@ -1,7 +1,12 @@
 import React, { useRef, useState } from "react";
 import Layout from "../Layout";
 import { formattedPhoneNumber, goBack } from "../../Utils/helpers";
-import { confirmVerification, login, register, sendVerification } from "../../Services/apis";
+import {
+  confirmVerification,
+  login,
+  register,
+  sendVerification,
+} from "../../Services/apis";
 import { useDispatch } from "react-redux";
 import { SET_USER_DATA } from "../../Redux/types";
 import { Formik, Field } from "formik";
@@ -16,7 +21,9 @@ const error = {
 
 const RegisterSchema = Yup.object().shape({
   phone: Yup.string().required("Enter a username"),
-  password: Yup.string().min(3, "Minimum 3 letters").required("Enter a password"),
+  password: Yup.string()
+    .min(3, "Minimum 3 letters")
+    .required("Enter a password"),
   term: Yup.boolean().required("You have not accepted"),
   confirm_password: Yup.string()
     .min(3, "Minimum 4 letters")
@@ -77,12 +84,16 @@ export default function Register({ history }) {
     <Layout
       bottom={false}
       headerLeft={
-        <div className="h-s__wrap-trigger px15 py10" onClick={() => goBack(history)}>
+        <div
+          className="h-s__wrap-trigger px15 py10"
+          onClick={() => goBack(history)}
+        >
           <i className="icon-back" />
           <span className="d-ib ml5">Back</span>
         </div>
       }
-      headerRight="&nbsp;">
+      headerRight="&nbsp;"
+    >
       <div className="login-form">
         {errMsgs.map((message, i) => (
           <div key={i} className="info">
@@ -92,7 +103,11 @@ export default function Register({ history }) {
         <div className="login-form__wrap">
           <div className="login-form__heading">
             <div>
-              <a href="javascript:;" className="login-form__heading--lg" style={{ pointerEvents: "none" }}>
+              <a
+                href="javascript:;"
+                className="login-form__heading--lg"
+                style={{ pointerEvents: "none" }}
+              >
                 Register
               </a>
             </div>
@@ -221,7 +236,13 @@ function RegisterForm({ errors, handleSubmit, isSubmitting }) {
 
         <div className="dnxreg-age">
           <div className="check">
-            <Field className="check-age" style={errors.age ? error : null} id="check-age" type="checkbox" name="age" />
+            <Field
+              className="check-age"
+              style={errors.age ? error : null}
+              id="check-age"
+              type="checkbox"
+              name="age"
+            />
             <span className="checkmark" />
           </div>
           <label htmlFor="check-age" className="dnxreg-age-txt error">
@@ -237,7 +258,8 @@ function RegisterForm({ errors, handleSubmit, isSubmitting }) {
       </div>
 
       <button type="submit" className="btn w-full mt15" disabled={isSubmitting}>
-        Create My Account {isSubmitting ? <i className="fa fa-spin fa-spinner" /> : ""}
+        Create My Account{" "}
+        {isSubmitting ? <i className="fa fa-spin fa-spinner" /> : ""}
       </button>
     </form>
   );
