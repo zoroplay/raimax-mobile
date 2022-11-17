@@ -201,3 +201,34 @@ export const liveScore = (score, team) => {
         }
     }
 }
+
+export const formatLiveMarkets = (data) => {
+    const market = {
+      active: data.active,
+      changed: data.changed,
+      name: data.freetext || null,
+      id: data.id,
+      type_id: data.typeid,
+      type: data.type || null,
+      specialOddsValue: data.specialoddsvalue || null,
+      odds: [],
+    };
+    if (data.OddsField) {
+      if (Array.isArray(data.OddsField)) {
+        for (const odd of data.OddsField) {
+          market.odds.push({
+            active: odd.active,
+            type: odd.type,
+            odds: odd.$t,
+          });
+        }
+      } else {
+        market.odds.push({
+          active: data.OddsField.active,
+          type: data.OddsField.type,
+          odds: data.OddsField.$t,
+        });
+      }
+    }
+    return market;
+}
