@@ -1,10 +1,6 @@
-import store from '../Redux/store';
 import * as _ from 'lodash';
 import {CANCEL_BET, SET_COUPON_DATA} from "../Redux/types";
-import {getCombos, getLiveFixtureData, getSplitProps} from "../Services/apis";
-import { updateComboWinningsFromTotal } from '../Redux/actions';
-
-const state = store.getState();
+import { formatLiveMarkets } from './helpers';
 
 export const calculateWinnings = (couponData, globalVars, bonusList) => {
     //calculate winnings
@@ -133,6 +129,86 @@ export const getSpread = (eventMarkets, market) => {
     return specialValue;
 }
 
+
+export const updateLiveData = (msg, fixtures) => {
+    const fixtureIndex = fixtures.findIndex(item => item.provider_id === parseInt(msg.Match.matchid));
+
+    if (fixtureIndex !== -1) {
+        console.log('found fixture', )
+
+        if (msg.Match.active !== '1') {// remove fixture from array
+            fixtures.splice(fixtureIndex, 1);
+
+        } else {// update fixture markets
+            const fixture = fixtures[fixtureIndex];
+            console.log(fixture.sport_name, fixture.event_name);
+            const liveData = fixture.live_data;
+            let markets = [];
+    
+            if (liveData && liveData.markets) {
+                markets = liveData.markets;
+            }
+    
+            if (Array.isArray(msg.Match.Odds)) {
+                for (const odds of msg.Match.Odds) {
+                    if (markets.length) {
+                        //find market in existing markets
+                        const marketIndex = markets.findIndex(
+                            (item) => item.id === odds.id,
+                        );
+                        if (marketIndex !== -1) {
+                            markets[marketIndex] = formatLiveMarkets(odds);
+                        } else {
+                            const market = formatLiveMarkets(odds);
+                            markets.push(market);
+                        }
+                    } else {
+                        const market = formatLiveMarkets(odds);
+                        markets.push(market);
+                    }
+                }
+            } else {
+                const odds = msg.Match.Odds;
+                if (markets.length) {
+                    //find market in existing markets
+                    const marketIndex = markets.findIndex(
+                        (item) => item.id === odds.id,
+                    );
+                    if (marketIndex !== -1) {
+                        markets[marketIndex] = formatLiveMarkets(odds);
+                    } else {
+                        const market = formatLiveMarkets(odds);
+                        markets.push(market);
+                    }
+                } else {
+                    const market = formatLiveMarkets(odds);
+                    markets.push(market);
+                }
+            }
+            
+            fixture.score = msg.Match.score;
+            fixture.match_status = msg.Match.status;
+            fixture.status = msg.Match.active;
+    
+            const live_data = {
+                betstatus: msg.Match.betstatus || null,
+                match_time: msg.Match.matchtime || null,
+                homeRedCards: msg.Match.redcardshome,
+                homeYellowCards: msg.Match.yellowcardshome,
+                awayRedCards: msg.Match.redcardsaway,
+                markets,
+                awayYellowCards: msg.Match.yellowcardsaway,
+            };
+    
+            fixture.live_data = live_data;
+    
+            if (msg.Match.setscores) fixture.setscores = msg.Match.setscores;
+            
+            fixtures[fixtureIndex] = fixture;
+        }
+        return fixtures;
+    }
+}
 
 
 export const checkOddsChange = async (couponData, dispatch, globalVars, bonusList) => {

@@ -19,7 +19,7 @@ export default function Header({right, left, center, showDownload, auth}) {
             <div className="app-dl">
                 <div className="app-dl__item app-dl__item-close" >
                     <a href="javascript:;" onClick={() => dispatch({type: SET_SHOW_DOWNLOAD})} >
-                        <img src="/img/close-icon--rounded.png" />
+                        <img src="/img/close-info.png" style={{height: '16px'}}  />
                     </a>
                 </div>
                 <div className="app-dl__item app-dl__item-logo" />

@@ -36,6 +36,7 @@
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",
     "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.5.3",
     "swr": "^0.3.2",
     "unslugify": "^1.0.1",
     "workbox-core": "^6.1.0",

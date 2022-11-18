@@ -8,7 +8,6 @@ import {
   fetchFixturesByDateRangeSport,
 } from "../../Services/apis";
 import LiveFixtures from "./LiveFixtures";
-import ZoomLeagueMenu from "./ZoomLeagueMenu";
 import Fixtures from "./Fixtures";
 import FixturesSkeleton from "./FixturesSkeleton";
 import TipstersList from "./TipstersList";
@@ -16,12 +15,15 @@ import useSWR from "swr";
 import { NavLink } from "react-router-dom";
 import moment from "moment";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { updateLiveData } from "../../Utils/couponHelpers";
+import socket from '../../Utils/socket';
+
 const tabs = ["Highlights", "Live", "Top Leagues", "Tipsters"];
 
 export default function NavTabMenu({ sportsData, dispatch }) {
   const [selected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [showSports, setShowSports] = useState(true);
+  const [showSports, setShowSports] = useState(false);
   const [sports, setSports] = useState([]);
   const [activeSport, setActiveSport] = useState(null);
   // const [zoomFixtures, setZoomFixtures] = useState([]);
@@ -35,28 +37,57 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: topbets, error } = useSWR("sports/top-bets");
 
+  useEffect(() => {
+    if (selected === 1 && fixtures.length) {
+      socket.on("change", (data) => {
+        const updateFixtures = updateLiveData(data, fixtures);
+        if (updateFixtures) {
+          const oldSports = [...sports];
+          const data = [];
+          let tournaments = groupLiveFixtures(updateFixtures);
+          oldSports.forEach((item, key) => {
+            item.Tournaments = [];
+            tournaments.forEach((tournament) => {
+              if (tournament.sport_id === item.sport_id)
+                item.tournaments = tournament;
+            });
+            
+          });
+          // // console.log(data);
+          setSports(data);
+        }
+      });
+      return () => {
+        socket.close();
+        setFixtures([]);
+      };
+    }
+  }, [socket, selected, fixtures]);
+
   const setActiveTab = (tab) => {
     setActiveSport(null);
     switch (tab) {
       case 0:
-        setShowSports(true);
+        setShowSports(false);
         setLoading(true);
         getHighlightedFixtures();
-        getUpcomingFixtures();
+        // getUpcomingFixtures();
         break;
       case 1:
+        setFixtures([]);
         setShowSports(true);
         setLoading(true);
         getLiveData();
         break;
       case 2:
-        // setShowSports(false);
-        // setLoading(true);
-        // getUpcomingFixtures();
+        setFixtures([]);
+        setShowSports(false);
+        setLoading(true);
+        getUpcomingFixtures();
         break;
       case 3:
         setShowSports(false);
-        // getZoomFixtures(852)
+        // getZoomFixtures(852);
         break;
     }
     setSelected(tab);
@@ -89,18 +120,9 @@ export default function NavTabMenu({ sportsData, dispatch }) {
       });
   };
 
-  // const getZoomFixtures = (league) => {
-  //     getFixtures(league, 30).then(res => {
-  //         setZoomPredictions(res.predictions);
-  //         setZoomFixtures(res.fixtures);
-  //     }).catch(err => {
-  //     });
-  // }
-
   const getLiveData = () => {
     getLiveFixtures()
       .then((res) => {
-        setLoading(false);
         const data = [];
         if (res.success) {
           let tournaments = groupLiveFixtures(res.data.fixtures);
@@ -117,8 +139,10 @@ export default function NavTabMenu({ sportsData, dispatch }) {
               tournaments: item.Tournaments,
             });
           });
+          setSports(data);
+          setFixtures(res.data.fixtures);
         }
-        setSports(data);
+        setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
@@ -127,17 +151,17 @@ export default function NavTabMenu({ sportsData, dispatch }) {
 
   useEffect(() => {
     getHighlightedFixtures(1);
-  }, [selected]);
+  }, []);
 
-  useEffect(() => {
-    if (selected === 1) {
-      const interval = setInterval(() => {
-        getLiveData();
-      }, 5000);
+  // useEffect(() => {
+  //   if (selected === 1) {
+  //     const interval = setInterval(() => {
+  //       getLiveData();
+  //     }, 5000);
 
-      return () => clearInterval(interval);
-    }
-  }, [selected]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [selected]);
 
   useEffect(() => {
     if (selected === 1) {
@@ -154,6 +178,8 @@ export default function NavTabMenu({ sportsData, dispatch }) {
     }
   }, [sports]);
 
+  // console.log(sports);
+
   return (
     <>
       <div className="nav__tabs-holder">
@@ -168,44 +194,61 @@ export default function NavTabMenu({ sportsData, dispatch }) {
             </div>
           ))}
         </div>
-        {/* {!loading && showSports && (
-          // <div className="nav__options">
-          //   {fixtures?.map((sport, i) => (
-          //     <div
-          //       className={`nav__options-item ${
-          //         sport?.sport_id === activeSport?.sport_id ? "selected" : ""
-          //       }`}
-          //       key={i}
-          //       onClick={() => setActiveSport(sport)}
-          //     >
-          //       <span className="nav__options-icon mr5">
-          //         <svg style={{ pointerEvents: "none" }}>
-          //           <use
-          //             xmlnsXlink="http://www.w3.org/1999/xlink"
-          //             xlinkHref={`#tabHome-${slugify(sport.name)}`}
-          //           />
-          //         </svg>
-          //       </span>
-          //       <span>{sport.name}</span>
-          //     </div>
-          //   ))}
-          // </div>
-        )} */}
-        <InfiniteScroll
-          dataLength={fixtures.length} //This is important field to render the next data
-          next={() => getHighlightedFixtures(currentPage + 1)}
-          hasMore={true}
-          loader={<FixturesSkeleton />}
-        >
-          <Fixtures
-            showLeague={true}
-            fixtures={fixtures}
-            predictions={predictions}
-          />
-        </InfiniteScroll>
+        {!loading && showSports && (
+          <div className="nav__options">
+            {sports?.map((sport, i) => (
+              <div
+                className={`nav__options-item ${
+                  sport?.sport_id === activeSport?.sport_id ? "selected" : ""
+                }`}
+                key={i}
+                onClick={() => setActiveSport(sport)}
+              >
+                <span className="nav__options-icon mr5">
+                  <svg style={{ pointerEvents: "none" }}>
+                    <use
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      xlinkHref={`#tabHome-${slugify(sport.name)}`}
+                    />
+                  </svg>
+                </span>
+                <span>{sport.name}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       {{
-        1: !loading && <LiveFixtures activeSport={activeSport} />,
+        0: !loading && (
+          <InfiniteScroll
+            dataLength={fixtures.length} //This is important field to render the next data
+            next={() => getHighlightedFixtures(currentPage + 1)}
+            hasMore={true}
+            loader={<FixturesSkeleton />}
+          >
+            <Fixtures
+              showLeague={true}
+              fixtures={fixtures}
+              predictions={predictions}
+            />
+          </InfiniteScroll>
+        ),
+        1:
+          !loading && activeSport?.length === 0 ? (
+            <h2
+              style={{
+                color: "white",
+                textAlign: "center",
+                background: "#373a45",
+                fontSize: "2rem",
+                paddingBottom: "2rem",
+              }}
+            >
+              No Game found{" "}
+            </h2>
+          ) : (
+            <LiveFixtures activeSport={activeSport} />
+          ),
         2: (
           <div className="accordion-menu">
             {topbets &&
