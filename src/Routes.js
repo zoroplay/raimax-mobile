@@ -14,7 +14,8 @@ import Betslip from "./Views/Betslip";
 import CouponCheck from "./Views/CouponCheck";
 import BookBet from "./Views/BookBet";
 import CouponCheckResult from "./Views/CouponCheckResult";
-import Deposit from "./Views/Account/Deposit";
+import DepositCard from "./Views/Account/DepositCard";
+import DepositType from "./Views/Account/DepositType";
 import Register from "./Views/Auth/Register";
 import DailyBundle from "./Views/DailyBundle";
 import MyBets from "./Views/Account/MyBets";
@@ -61,6 +62,7 @@ import AccountSettings from "./Views/Account/AccountSettings";
 import SportsBonus from "./Views/Account/SportsBonus";
 import Casino from "./Views/Casino";
 import WithdrawToBank from "./Views/Account/WithdrawToBank";
+import DepositShop from "./Views/Account/DepositShop";
 
 export default function Routes() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -168,7 +170,9 @@ export default function Routes() {
 
           <Route exact path="/account/cashier" component={Cashier} />
           <Route exact path="/account/details" component={AccountDetails} />
-          <Route exact path="/account/deposit" component={Deposit} />
+          <Route exact path="/account/deposit" component={DepositType} />
+          <Route exact path="/account/deposit/card" component={DepositCard} />
+          <Route exact path="/account/deposit/shop" component={DepositShop} />
           <Route exact path="/account/bonuses" component={SportsBonus} />
           <Route exact path="/account/withdraw" component={Withdrawal} />
           <Route

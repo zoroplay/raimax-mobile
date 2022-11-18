@@ -128,6 +128,9 @@ export const sendWithdrawal = (data) =>
 export const playerWithdrawal = (data) =>
   Http.post("/user/account/online/withdraw", data);
 
+export const shopDeposit = (data) =>
+  Http.post("/user/account/deposit?channel=mobile", data);
+
 export const getTipsters = () => Http.get("/sports/tipsters/all");
 
 export const getJackpots = () => Http.get("/sports/jackpots");

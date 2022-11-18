@@ -11,7 +11,7 @@ const gateways = [
   { slug: "monnify", name: "Monnify" },
 ];
 
-const Deposit = ({ history }) => {
+const DepositCard = ({ history }) => {
   const [amount, setAmount] = useState("");
   const { SportsbookGlobalVariable } = useSelector((state) => state.sportsBook);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -324,4 +324,4 @@ const Deposit = ({ history }) => {
   );
 };
 
-export default Deposit;
+export default DepositCard;
