@@ -10,18 +10,9 @@ const DepositType = ({ history }) => {
   useEffect(() => {
     if (!isAuthenticated) {
       history.replace("/");
-    } else {
-      if (user?.emaill === null) {
-        history.replace("/account/details");
-      }
     }
   }, [isAuthenticated]);
 
-  useEffect(() => {
-    if (user?.email === null) {
-      history.replace("/account/details");
-    }
-  }, [user]);
   return (
     <Layout
       headerLeft={
