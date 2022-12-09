@@ -56,7 +56,7 @@ export default function Header({right, left, center, showDownload, auth}) {
                                     <div className="account pr5" onClick={toggleAccountMenu}>
                                         <div id="header_togglemenu" className="account__info"><small
                                             className="account__info-item txt-secondary">My Account</small>
-                                            <div className="account__info-item">{formatNumber(auth.user.balance)}</div>
+                                            <div className="account__info-item">{formatNumber(auth.user.available_balance)}</div>
                                         </div>
                                         <div className="account__logo">
                                             <div className="account__logo-img"><i className="icon-account" id="account-icon"/></div>
