@@ -1,0 +1,116 @@
+.headline__bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: #373a45;
+}
+.icon.zoom {
+  background-image: url(/img/zoom.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.tipster {
+  background-image: url(/img/leaderboard.svg);
+  width: 24px;
+  height: 24px;
+}
+.headline__bar-title {
+  text-transform: uppercase;
+}
+.league-stats {
+  width: 25px;
+  height: 25px;
+  background-image: url(/img/stats.svg);
+  cursor: pointer;
+  background-size: contain;
+  background-position: 50%;
+  position: absolute;
+  top: 0;
+  right: 6px;
+}
+
+.headline__bar .league-stats {
+  position: static;
+}
+.league-stats.zoom {
+  background-image: url(/img/zoom-stats.png);
+}
+.league-stats.tipster {
+  background-image: url(/img/help--featured.svg);
+}
+.league-stats.open {
+  background-image: url(/img/close-stats.svg);
+}
+.nav__options-flags {
+  background-color: #1f2128;
+}
+
+.nav__options-item-flag {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 7px 15px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.nav__options-item-flag.selected {
+  background-color: #4e5261;
+  border-radius: 4px;
+}
+
+.zoom-info__heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.zoom-info__heading .zoom {
+  width: 30px;
+}
+.zoom-info__heading div:last-child {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.zoom-info__heading .icon.arrow {
+  background-size: 11px;
+}
+.zoom-info.open .zoom-info__heading .arrow {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.zoom-info__content {
+  display: none;
+  color: hsla(0,0%,100%,.8);
+  border-top: 1px solid #494d59;
+}
+.zoom-info.open .zoom-info__content {
+  display: block;
+}
+.zoom-info.open .zoom-info__content {
+  display: block;
+}

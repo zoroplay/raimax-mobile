@@ -1,0 +1,137 @@
+.carousel {
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.carousel__items {
+  white-space: nowrap;
+  //display: inline-block;
+  font-size: 0;
+  padding: 5px;
+  transition: transform 0.45s cubic-bezier(0.13, 1.03, 0.78, 0.96);
+}
+
+.carousel__item {
+  height: 120px;
+  width:100% ;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  opacity: 0.7;
+  img{
+    object-fit: cover;
+  }
+}
+
+//.carousel__item:before {
+//  content: "";
+//  position: absolute;
+//  bottom: 0;
+//  left: 0;
+//  right: 0;
+//  height: 50px;
+//  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%);
+//}
+
+.selected .carousel__item {
+  opacity: 1;
+}
+
+.carousel__item+.carousel__item {
+  margin-left: 5px;
+}
+
+.carousel__item-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  font-size: 11px;
+  display: table;
+  text-align: left;
+  padding-left: 15px;
+}
+
+.carousel__item-info h4 {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.carousel__item-tag {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 4px 6px;
+  border-radius: 3px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.carousel__item-tag.green {
+  background-color: #0F9247 !important;
+}
+
+.carousel__item-tag.red {
+  background-color: #C24253 !important;
+}
+
+.carousel__item-tag.yellow {
+  background-color: #FFCA03 !important;
+  color: #000;
+}
+
+.carousel__item-tag.blue {
+  background-color: #2964B4 !important;
+}
+
+.carousel--link {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.carousel-image {
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.carousel__control {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.carousel__control-left,
+.carousel__control-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 45px;
+  background-size: 13px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.carousel__control-left {
+  left: 0;
+  //background-image: url(../../img/mobile/carousel-controls-left.svg);
+}
+
+.carousel__control-right {
+  right: 0;
+  //background-image: url(../../img/mobile/carousel-controls-right.svg);
+}

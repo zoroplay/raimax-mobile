@@ -1,0 +1,230 @@
+.page-title {
+  height: 27px;
+  background-color: #32353d;
+  font-size: 11px;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  z-index: 5;
+  position: relative;
+}
+.form-input--stake {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 15px;
+  color: hsla(0,0%,100%,.7);
+}
+.quickstake {
+  font-size: 0;
+}
+
+.quickstake__item {
+  display: inline-block;
+  vertical-align: middle;
+  width: 19.2%;
+  font-size: 13px;
+  text-align: center;
+  background-color: #494d59;
+  border-radius: 3px;
+  height: 38px;
+}
+
+div.quickstake__item, div.txt-blue, strong.txt-blue {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+.quickstake__item:before {
+  height: 104%;
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+}
+.quickstake__item+.quickstake__item {
+  margin-left: 1%;
+}
+
+.accordion__item {
+  border-radius: 3px;
+}
+
+.bg-darkgray {
+  background-color: #32353d!important;
+}
+
+.bg-white {
+  background-color: #ffffff !important;
+  color: #0e1012;
+}
+
+.accordion__header {
+  padding: 15px;
+}
+
+.accordion__header.collapsible {
+  position: relative;
+}
+.accordion__header.collapsible .accordion-toggle {
+  position: absolute;
+  top: 14px;
+  background-image: url(/img/icon-arrow.svg);
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  height: 20px;
+  width: 20px;
+}
+.accordion__cnt {
+  display: table;
+  height: 100%;
+  width: 100%;
+  table-layout: fixed;
+}
+.accordion__cnt-item {
+  display: table-cell;
+  vertical-align: middle;
+}
+.accordion__header.collapsible .accordion__cnt {
+  padding-left: 20px;
+}
+.accordion__body {
+  padding: 0;
+  -webkit-transition: padding-top .3s ease;
+  -o-transition: padding-top .3s ease;
+  transition: padding-top .3s ease;
+}
+
+.accordion__body.indent {
+  padding: 0;
+}
+.accordion.funds .indent {
+  background-color: #373a45;
+}
+
+.accordion__content {
+  display: none;
+}
+.steps {
+  border-radius: 3px;
+  background-color: #494d59;
+  padding: 15px;
+  display: table;
+  width: 100%;
+  position: relative;
+}
+.accordion__item.opened .accordion__body.indent {
+  padding: 8px;
+}
+.steps__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.steps__item:first-child {
+  min-width: 40%;
+}
+.steps__item:last-child {
+  word-break: break-all;
+}
+.steps__row+.steps__row {
+  margin-top: 8px;
+}
+.accordion.funds .steps__item:first-child {
+  width: 100px;
+}
+// MY BETS
+.bets-nav {
+  display: table-row;
+  -webkit-box-shadow: inset 0 1px 0 0 hsla(0,0%,100%,.06);
+  box-shadow: inset 0 1px 0 0 hsla(0,0%,100%,.06);
+  position: relative;
+  z-index: 2;
+  background-color: #32353d;
+}
+.bets-nav__elem {
+  display: table-cell;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 15px;
+  height: 44px;
+  vertical-align: middle;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 13px;
+  color: hsla(0,0%,100%,.7);
+}
+.bets-nav__elem.active {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+.mybets-filter__title {
+  position: relative;
+  z-index: 2;
+  background-color: #3d414b;
+}
+.mybets-filter__title span {
+  position: relative;
+}
+
+.filter__settings {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #fff;
+  z-index: 3;
+}
+.filter__settings {
+  display: none;
+}
+.mybets-filter__title span:after {
+  content: "";
+  display: inline-block;
+  border: 5px solid transparent;
+  border-top-color: #fff;
+  position: absolute;
+  left: 105%;
+  top: 6px;
+}
+.mybets-filter.opened .mybets-filter__title span:after {
+  border-top-color: transparent;
+  border-bottom-color: #fff;
+  top: 0;
+}
+.mybets-filter.opened .filter__settings {
+  display: block!important;
+  position: absolute;
+  //top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: #32353d;
+}
+.mybets-filter.opened .filter--mask {
+  position: fixed;
+  background: rgba(0,0,0,.8);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200%;
+  z-index: 1;
+}
+.react-datepicker-wrapper {
+  width: 100%;
+}
+

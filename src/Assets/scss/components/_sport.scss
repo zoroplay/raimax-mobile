@@ -1,0 +1,131 @@
+.callout-sb {
+  color: #fff;
+  padding: 7px 0;
+  background-color: #32353d;
+  position: relative;
+  z-index: 2;
+}
+.callout-sb>div {
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.time-filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 15px 12px;
+}
+.time-filter__holder {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 auto;
+  flex: 1 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.time-filter__item {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 20px;
+  height: 26px;
+  padding: 0 15px;
+  color: hsla(0,0%,100%,.3);
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 13px;
+}
+.time-filter__item.selected {
+  background-color: #ffca28;
+  color: #000;
+}
+.icon-s {
+  width: 16px!important;
+  height: 16px!important;
+}
+.icon.soccer {
+  background-image: url(/img/soccer.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.tennis {
+  background-image: url(/img/icons/tennis.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.basketball {
+  background-image: url(/img/icons/basketball.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.darts {
+  background-image: url(/img/icons/darts.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.handball {
+  background-image: url(/img/icons/handball.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.ice-hockey {
+  background-image: url(/img/icons/ice-hockey.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.snooker {
+  background-image: url(/img/icons/snooker.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.table-tennis {
+  background-image: url(/img/icons/table-tennis.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.volleyball {
+  background-image: url(/img/icons/volleyball.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.rugby {
+  background-image: url(/img/icons/rugby.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.football {
+  background-image: url(/img/icons/football.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.cricket {
+  background-image: url(/img/icons/cricket.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.baseball {
+  display: inline-block;
+  background-image: url(/img/icons/baseball.svg);
+  width: 24px;
+  height: 24px;
+}
+.icon.esport-soccer, .icon.esport-basketball {
+  background-image: url(/img/icons/e-sport.svg);
+  width: 24px;
+  height: 24px;
+}
