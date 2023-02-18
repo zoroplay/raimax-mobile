@@ -18,7 +18,6 @@ export default function Home({ history }) {
 
   return (
     <Layout isHome={true}>
-      <input style={{width: '100%', height: '30px', backgroundColor: 'white', color: 'black'}} placeholder="Search for event" />
       <QuickLinks />
       <CarouselComponent />
       <NavTabMenu sportsData={sportsData} dispatch={dispatch} />

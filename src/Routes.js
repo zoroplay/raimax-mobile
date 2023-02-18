@@ -62,6 +62,7 @@ import AccountSettings from "./Views/Account/AccountSettings";
 import SportsBonus from "./Views/Account/SportsBonus";
 import Casino from "./Views/Casino";
 import WithdrawToBank from "./Views/Account/WithdrawToBank";
+import SearchFixtures from "./Views/SearchFixtures";
 
 export default function Routes() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -216,6 +217,7 @@ export default function Routes() {
             component={BecomeAnAgent}
           />
           <Route exact path="/dailybundle/soccer" component={DailyBundle} />
+          <Route exact path="/soccer/search" component={SearchFixtures} />
           <Route exact path="/pages/:slug" component={CMSPages} />
           <Route
             exact

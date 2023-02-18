@@ -20,6 +20,8 @@ export const upcomingFixtures = () => Http.get(`/sports/mobile/upcoming`);
 
 export const fetchHighlights = () => Http.get(`/sports/mobile/highlights`);
 
+export const searchFixtures = (q) => Http.get(`/sports/search?q=${q}&channel=mobile`);
+
 export const getFixture = (eventId) =>
   Http.get(`sports/get-fixture/${eventId}`);
 

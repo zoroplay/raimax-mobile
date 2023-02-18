@@ -7,6 +7,7 @@ import Menu from "../Components/Menu";
 import AccountMenu from "../Components/AccountMenu";
 import Modal from "../Components/Modal";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export default function Index({
   contained = true,
@@ -22,7 +23,13 @@ export default function Index({
 }) {
   const { showDownload } = useSelector((state) => state.sportsData);
   const auth = useSelector((state) => state.auth);
+  const [searchKey, setSearchKey] = useState('');
+  const history = useHistory();
 
+  const searchFixtures = (e) => {
+    e.preventDefault();
+    history.push(`/soccer/search?q=${searchKey}`);
+  }
   return (
     <div>
       <Menu />
@@ -40,6 +47,16 @@ export default function Index({
           />
         )}
         <main>
+          <form onSubmit={searchFixtures}>
+            <input 
+              value={searchKey}
+              onChange={(e) =>  setSearchKey(e.target.value)}
+              // onKeyUp={(e) => e.key === 'enter'}
+              style={{width: '100%', height: '30px', backgroundColor: 'white', color: 'black'}}
+              placeholder="Search for event" 
+            />
+          </form>
+
           {children}
           <Modal />
         </main>
