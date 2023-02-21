@@ -241,14 +241,17 @@
   font-size: 11px;
   line-height: 13px;
 }
-.pml .heading__search {
+.pml .heading__search, .cnt .heading__search {
   padding: 10px;
   background-color: #27292f;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
-.pml .heading__search-left {
+.cnt .heading__search {
+  padding: 0;
+}
+.pml .heading__search-left, .cnt .heading__search-left {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -256,7 +259,7 @@
   -webkit-box-shadow: inset 0 2px 1px 0 rgba(0,0,0,.08), inset 0 -1px 0 0 hsla(0,0%,100%,.1), inset 0 0 0 1px #3b3d43, 0 -1px 0 0 rgba(20,22,26,.7);
   box-shadow: inset 0 2px 1px 0 rgba(0,0,0,.08), inset 0 -1px 0 0 hsla(0,0%,100%,.1), inset 0 0 0 1px #3b3d43, 0 -1px 0 0 rgba(20,22,26,.7);
 }
-.pml .heading__search-left input {
+.pml .heading__search-left input, .cnt .heading__search-left input {
   display: block;
   width: 100%;
   height: 100%;
@@ -268,7 +271,7 @@
   line-height: 14px;
   letter-spacing: .55px;
 }
-.pml .heading__search-right {
+.pml .heading__search-right, .cnt .heading__search-right {
   width: 48px;
   height: 44px;
   border-radius: 0 3px 3px 0;
@@ -277,6 +280,10 @@
   box-shadow: inset 0 1px 0 0 hsla(0,0%,100%,.04);
   cursor: pointer;
 }
+.cnt .heading__search-right {
+  width: 45px;
+  height: 35px;
+}
 .pml .search {
   height: 44px;
 }
@@ -284,7 +291,7 @@
   display: inline-block;
   vertical-align: middle;
 }
-.pml .heading__search-right .icon.search {
+.pml .heading__search-right .icon.search, .cnt .heading__search-right .icon.search {
   background-position: 50%;
   background-size: 22px;
   width: 100%;

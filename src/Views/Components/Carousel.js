@@ -7,7 +7,7 @@ export default function CarouselComponent() {
     const {data: sliders} = useSWR(`sports/mobile/sliders?banner_type=web`);
 
     return (
-        <div className="carousel">
+        <div className="carousel" style={{backgroundColor: '#000'}} >
             <div className="carousel__container">
                 <Carousel
                     autoPlay={true}
@@ -18,7 +18,10 @@ export default function CarouselComponent() {
                     showIndicators={false} className="carousel__items">
 
                     {sliders && sliders.map(slider =>
-                        <div className="carousel__item" key={slider.id}>
+                        <div 
+                            className="carousel__item"
+                            style={{width: '72%', height: '75px'}}
+                            key={slider.id}>
                             <img src={slider.image_path} alt="Euro List" className="carousel-image" />
                             <div className="carousel__item-info">
                                 <div className="table-cell">

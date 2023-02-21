@@ -47,14 +47,21 @@ export default function Index({
           />
         )}
         <main>
-          <form onSubmit={searchFixtures}>
-            <input 
-              value={searchKey}
-              onChange={(e) =>  setSearchKey(e.target.value)}
-              // onKeyUp={(e) => e.key === 'enter'}
-              style={{width: '100%', height: '30px', backgroundColor: 'white', color: 'black'}}
-              placeholder="Search for event" 
-            />
+          <form onSubmit={searchFixtures} className="cnt">
+            <div class="heading__search">
+              <div class="heading__search-left">
+              <input 
+                value={searchKey}
+                onChange={(e) =>  setSearchKey(e.target.value)}
+                // onKeyUp={(e) => e.key === 'enter'}
+                // style={{width: '100%', height: '30px', backgroundColor: 'white', color: 'black'}}
+                placeholder="Search for event" 
+              />
+              </div>
+              <div class="heading__search-right">
+                <span class="icon search" id="pushmenu_search_icon"></span>
+              </div>
+            </div>
           </form>
 
           {children}

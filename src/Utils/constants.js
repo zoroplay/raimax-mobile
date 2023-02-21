@@ -1,9 +1,10 @@
 export const periods = [
+    {value: 'all', label: 'All'},
     {value: 'today', label: 'Today'},
-    {value: '3hour', label: '3Hrs'},
-    {value: '48hour', label: '48Hrs'},
-    {value: '72hour', label: '72Hrs'},
-    {value: 'all', label: 'All'}
+    {value: 'tomorrow', label: 'Tomorrow'},
+    {value: '72hour', label: 'Next 3 Days'},
+    {value: '7days', label: 'Next 7 Days'},
+    {value: 'weekend', label: 'This Weekend'},
 ];
 
 export const LiveEventsOverview = [

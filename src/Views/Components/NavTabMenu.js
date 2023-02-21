@@ -4,6 +4,7 @@ import {
   getLiveFixtures,
   upcomingFixtures,
   fetchFixturesByDateRangeSport,
+  getSports,
 } from "../../Services/apis";
 import LiveFixtures from "./LiveFixtures";
 import Fixtures from "./Fixtures";
@@ -21,9 +22,9 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   const [selected, setSelected] = useState(0);
   const [changePeriod, setChangePeriod] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [showSports, setShowSports] = useState(false);
+  const [showSports, setShowSports] = useState(true);
   const [sports, setSports] = useState([]);
-  const [activeSport, setActiveSport] = useState(null);
+  const [activeSport, setActiveSport] = useState(1);
   const [activePeriod, setActivePeriod] = useState({value: 'all', label: 'All'});
   const [startDate, setStartDate] = useState(moment().format("YYYY-MM-DD"));
   const [endDate, setEndDate] = useState(
@@ -65,8 +66,9 @@ export default function NavTabMenu({ sportsData, dispatch }) {
     setActiveSport(null);
     switch (tab) {
       case 0:
-        setShowSports(false);
+        setShowSports(true);
         setLoading(true);
+        getSportsData();
         getHighlightedFixtures();
         // getUpcomingFixtures();
         break;
@@ -80,7 +82,6 @@ export default function NavTabMenu({ sportsData, dispatch }) {
         setFixtures([]);
         setShowSports(false);
         setLoading(true);
-        getUpcomingFixtures();
         break;
       case 3:
         setShowSports(false);
@@ -90,24 +91,20 @@ export default function NavTabMenu({ sportsData, dispatch }) {
     setSelected(tab);
   };
 
-  const getUpcomingFixtures = () => {
-    upcomingFixtures()
+  const getSportsData = () => {
+    getSports(startDate, endDate)
       .then((res) => {
-        setLoading(false);
         setSports(res);
-        setActiveSport(res[0]);
+        setActiveSport(res[0].sport_id);
       })
       .catch((err) => {
-        setLoading(false);
       });
   };
 
-  const getHighlightedFixtures = (page) => {
-    fetchFixturesByDateRangeSport(startDate, endDate, 1, page)
+  const getHighlightedFixtures = (sport, page) => {
+    fetchFixturesByDateRangeSport(startDate, endDate, sport, page)
       .then((res) => {
         setLoading(false);
-        setSports(res);
-        setActiveSport(res[0]);
         setFixtures((fixtures) => [...fixtures, ...res.fixtures.data]);
         setPredictions(res.predictions);
         setCurrentPage(res.fixtures.current_page);
@@ -152,17 +149,21 @@ export default function NavTabMenu({ sportsData, dispatch }) {
         setStartDate(moment().startOf('day').format('YYYY-MM-DD HH:mm'));
         setEndDate(moment().endOf('day').format('YYYY-MM-DD HH:mm'));
         break;
-      case '3hour': 
-        setStartDate(moment().format('YYYY-MM-DD HH:mm'));
-        setEndDate(moment().add(3, "hours").format("YYYY-MM-DD HH:mm"));
+      case 'tomorrow': 
+        setStartDate(moment().add(1, 'day').startOf('day').format('YYYY-MM-DD HH:mm'));
+        setEndDate(moment().add(1, "day").endOf('day').format("YYYY-MM-DD HH:mm"));
         break;
-      case '48hour': 
+      case '7days': 
         setStartDate(moment().format('YYYY-MM-DD HH:mm'));
-        setEndDate(moment().add(48, "hours").format("YYYY-MM-DD HH:mm"));
+        setEndDate(moment().add(7, "days").endOf('days').format("YYYY-MM-DD HH:mm"));
         break;
       case '72hour': 
         setStartDate(moment().format('YYYY-MM-DD HH:mm'));
-        setEndDate(moment().add(72, "hours").format("YYYY-MM-DD HH:mm"));
+        setEndDate(moment().add(72, "hours").endOf('day').format("YYYY-MM-DD HH:mm"));
+        break;
+      case 'weekend': 
+        setStartDate(moment().day(5).startOf('day').format('YYYY-MM-DD HH:mm'));
+        setEndDate(moment().day(7).endOf('day').format("YYYY-MM-DD HH:mm"));
         break;
       default:
         setStartDate(moment().format('YYYY-MM-DD'));
@@ -174,25 +175,10 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   }, [activePeriod]);
 
   useEffect(() => {
-    getHighlightedFixtures(1);
+    getSportsData();
+    getHighlightedFixtures(activeSport, 1);
   }, [endDate]);
 
-  useEffect(() => {
-    if (selected === 1) {
-      if (sports.length > 0) {
-        const sport = sports.find(
-          (el) => el.sport_id === activeSport?.sport_id
-        );
-        if (sport) {
-          setActiveSport(activeSport);
-        } else {
-          setActiveSport(sports[0]);
-        }
-      }
-    }
-  }, [sports]);
-
-  // console.log(sports);
 
   return (
     <>
@@ -231,15 +217,21 @@ export default function NavTabMenu({ sportsData, dispatch }) {
               Top League
             </div>
         </div>
-        {!loading && showSports && (
+        {showSports && (
           <div className="nav__options">
             {sports?.map((sport, i) => (
               <div
                 className={`nav__options-item ${
-                  sport?.sport_id === activeSport?.sport_id ? "selected" : ""
+                  sport?.sport_id === activeSport ? "selected" : ""
                 }`}
                 key={i}
-                onClick={() => setActiveSport(sport)}
+                onClick={() => {
+                  setActiveSport(sport.sport_id);
+                  if(selected === 0) {
+                    setLoading(true);
+                    getHighlightedFixtures(sport.sport_id);
+                  }
+                }}
               >
                 <span className="nav__options-icon mr5">
                   <svg style={{ pointerEvents: "none" }}>
@@ -271,7 +263,7 @@ export default function NavTabMenu({ sportsData, dispatch }) {
           </div> : (
           <InfiniteScroll
             dataLength={fixtures.length} //This is important field to render the next data
-            next={() => getHighlightedFixtures(currentPage + 1)}
+            next={() => getHighlightedFixtures(activeSport, currentPage + 1)}
             hasMore={true}
             loader={<FixturesSkeleton />}
           >

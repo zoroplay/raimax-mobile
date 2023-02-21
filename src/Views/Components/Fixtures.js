@@ -6,7 +6,7 @@ import {
   slugify,
 } from "../../Utils/helpers";
 import moment from "moment";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { createID } from "../../Utils/couponHelpers";
 import { addToCoupon } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
   const coupon = useSelector(({ couponData }) => couponData.coupon);
   const [showStat, setShowStat] = useState(null);
   const [activeWidget, setActiveWidget] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     if (showStat !== null) {
@@ -68,6 +69,10 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
     }
   };
 
+  const goTo = (tournament) => {
+    history.push(`/events/${slugify(tournament.sport_name)}/${slugify(tournament.sport_tournament_name)}/${tournament.sport_tournament_id}`)
+  }
+
   return (
     <Fragment>
       {fixtures &&
@@ -97,7 +102,7 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
               <div key={match.provider_id}>
                 <div className={`match-content`}>
                   {showLeague && (
-                    <div className="table-f">
+                    <div className="table-f" onClick={() => goTo(match)}>
                       <div className="match-content__row--league">
                         {match.sport_category_name} -{" "}
                         {match.sport_tournament_name}

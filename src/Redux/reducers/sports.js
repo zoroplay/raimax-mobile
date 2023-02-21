@@ -30,7 +30,7 @@ const initialState = {
     loadingProp: {},
     modal: {},
     actionProp: {},
-    showDownload: true
+    showDownload: false
 }
 
 export const sportsBook = persistReducer(

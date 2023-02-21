@@ -18,6 +18,8 @@ export const fetchFixturesByDateSport = (date, sport_id) =>
 
 export const upcomingFixtures = () => Http.get(`/sports/mobile/upcoming`);
 
+export const getSports = (startDate, endDate) => Http.get(`/sports/group-fixtures-by-sport?date=${startDate}&end_date=${endDate}`);
+
 export const fetchHighlights = () => Http.get(`/sports/mobile/highlights`);
 
 export const searchFixtures = (q) => Http.get(`/sports/search?q=${q}&channel=mobile`);
