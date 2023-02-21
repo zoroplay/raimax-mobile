@@ -31,7 +31,7 @@ const ViewFixtures = ({history, match}) => {
             setPredictions(res.predictions);
             setMarkets(res.markets);
             setGroups(res.groups);
-            setActiveMarket(res.selected_market);
+            setActiveMarket(res.selected_group);
             setFixtures(res.fixtures);
         }).catch(err => {
             setLoading(false);
