@@ -30,6 +30,8 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   const [endDate, setEndDate] = useState(
     moment().add(14, "days").format("YYYY-MM-DD")
   );
+  const [markets, setMarkets] = useState([]);
+  const [activeMarket, setActiveMarket] = useState(null);
   const [fixtures, setFixtures] = useState([]);
   const [predictions, setPredictions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -246,6 +248,44 @@ export default function NavTabMenu({ sportsData, dispatch }) {
             ))}
           </div>
         )}
+        {/* {markets && */}
+          <div className="filter">
+            {/* {markets?.map(market => ( */}
+                {/* ( */}
+                  <div id="markets_filter_S_1X2"
+                      key={`markets_filter_S_`}
+                      // onClick={() => setActiveMarket(market)}
+                      className={`filter--btn`}>
+                    <p>1x2</p>
+                </div>
+                <div id="markets_filter_S_1X2"
+                      key={`markets_filter_S_`}
+                      // onClick={() => setActiveMarket(market)}
+                      className={`filter--btn`}>
+                    <p>GG/NG</p>
+                </div>
+                <div id="markets_filter_S_1X2"
+                      key={`markets_filter_S_`}
+                      // onClick={() => setActiveMarket(market)}
+                      className={`filter--btn`}>
+                    <p>O/U 2.5</p>
+                </div>
+                <div id="markets_filter_S_1X2"
+                      key={`markets_filter_S_`}
+                      // onClick={() => setActiveMarket(market)}
+                      className={`filter--btn`}>
+                    <p>Double Chance</p>
+                </div>
+                <div id="markets_filter_S_1X2"
+                      key={`markets_filter_S_`}
+                      // onClick={() => setActiveMarket(market)}
+                      className={`filter--btn`}>
+                    <p>DNB</p>
+                </div>
+                {/* )
+            ))} */}
+          </div>
+        {/* } */}
       </div>
       {{
         0: !loading && fixtures.length === 0 ?
