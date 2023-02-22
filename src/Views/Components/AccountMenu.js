@@ -53,6 +53,10 @@ export default function AccountMenu({showDownload}) {
                     </div>
                     <div className="myacc-ddmenu-s__balance-td bonus table-cell pr10">
                         <div className="table">
+                            {/* <NavLink to="/account/deposit" onClick={toggleAccountMenu} id="myaccountmenu_deposit" style={{color: 'white'}}
+                                 className="myacc-ddmenu-s__balance-deposit table-cell txt-c">Deposit
+                            </NavLink> */}
+
                             <NavLink to="/account/deposit" onClick={toggleAccountMenu} id="myaccountmenu_deposit" style={{color: 'white'}}
                                  className="myacc-ddmenu-s__balance-deposit table-cell txt-c">Deposit
                             </NavLink>

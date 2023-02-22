@@ -24,7 +24,6 @@ export default function Login({ history }) {
     setError(false);
     const btn = e.target;
     btn.disabled = true;
-
     login({ username: phone, password })
       .then((res) => {
         btn.disabled = false;
