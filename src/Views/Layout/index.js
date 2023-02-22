@@ -58,7 +58,7 @@ export default function Index({
                 placeholder="Search for event" 
               />
               </div>
-              <div class="heading__search-right">
+              <div class="heading__search-right" onClick={searchFixtures}>
                 <span class="icon search" id="pushmenu_search_icon"></span>
               </div>
             </div>
