@@ -34,7 +34,7 @@ const RegisterSchema = Yup.object().shape({
 export default function Register({ history }) {
   const [errMsgs] = useState([]);
   const dispatch = useDispatch();
-  const [pre] = useState("+234");
+  const [pre] = useState("+211");
 
   const submitForm = (values, { setSubmitting }) => {
     const payload = {
@@ -149,7 +149,7 @@ function RegisterForm({ errors, handleSubmit, isSubmitting }) {
             <div className="dnxreg-box-b">
               <div className="nxmob">
                 <select name="pre" id="" className="nxmob-select">
-                  <option value="+234">+234</option>
+                  <option value="+211">+211</option>
                 </select>
                 <Field
                   style={errors.phone ? error : null}
