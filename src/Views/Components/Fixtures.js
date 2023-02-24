@@ -77,7 +77,7 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
     <Fragment>
       {fixtures &&
         groupFixtures(fixtures).map((fixture, i) => (
-          <div key={i}>
+          <div key={`group-${i}`}>
             <div className="match-info table-f">
               <div className="match-info--title">
                 {fixture.event_date === today
@@ -89,7 +89,7 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
                   {predictions && (
                     <div className="table-f">
                       {predictions.map((prediction, i) => (
-                        <div className="match-odds--value" key={i}>
+                        <div className="match-odds--value" key={`odds-${i}-${prediction.odd_id}`}>
                           {prediction.odd_name}
                         </div>
                       ))}
@@ -98,8 +98,8 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
                 </div>
               )}
             </div>
-            {fixture.events.map((match) => (
-              <div key={match.provider_id}>
+            {fixture.events.map((match, i) => (
+              <div key={`match-${match.provider_id}-${i}`}>
                 <div className={`match-content`}>
                   {showLeague && (
                     <div className="table-f" onClick={() => goTo(match)}>
