@@ -161,7 +161,7 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
                       <div className="bets">
                         <div className="bets__row table-f">
                           {match.odds.map((odd) => (
-                            <button
+                            <div
                               onClick={() =>
                                 dispatch(
                                   addToCoupon(
@@ -193,18 +193,15 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
                                 )
                                   ? "active"
                                   : ""
-                              }`}
+                              } ${odd.odds <= 1.01 ? 'locked' : ''}`}
                               key={odd.id}
-                              disabled={odd.odds <= 1.02 ? true : false}
                             >
                               <a className="bets__item--link">
                                 <span>
-                                  {odd.odds <= 1.02
-                                    ? "-"
-                                    : parseFloat(odd.odds)?.toFixed(2)}
+                                  {parseFloat(odd.odds)?.toFixed(2)}
                                 </span>
                               </a>
-                            </button>
+                            </div>
                           ))}
                         </div>
                       </div>

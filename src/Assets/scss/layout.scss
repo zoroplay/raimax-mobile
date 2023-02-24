@@ -314,6 +314,8 @@ main {
   cursor: pointer;
 }
 .match-content__info {
+  flex: 1 auto;
+  max-width: calc(100% - 160px);
   padding-right: 10px;
 }
 .match-content__row {
@@ -372,11 +374,12 @@ main {
   border-left: 1px solid var(--ion-color-tertiary-shade);
 }
 .bets {
-  vertical-align: middle;
-  width: 160px;
   display: table;
+  min-width: 160px;
   table-layout: fixed;
   text-align: right;
+  vertical-align: middle;
+  width: 160px;
 }
 .bets__row {
   width: 100%;
@@ -387,7 +390,7 @@ main {
   line-height: 15px;
   font-weight: 400;
   text-align: center;
-  min-width: 33.3%;
+  min-width: 32px;
   border: none;
   cursor: pointer;
   vertical-align: middle;
