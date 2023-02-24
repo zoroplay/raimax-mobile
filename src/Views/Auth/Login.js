@@ -13,8 +13,8 @@ export default function Login({ history }) {
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState(false);
   const dispatch = useDispatch();
-  // const [pre] = useState("+234");
-  const [pre] = useState("+234");
+  // const [pre] = useState("+211");
+  const [pre] = useState("+211");
 
   const submitForm = (e) => {
     if (phone === "" || password === "") {
@@ -24,7 +24,6 @@ export default function Login({ history }) {
     setError(false);
     const btn = e.target;
     btn.disabled = true;
-
     login({ username: phone, password })
       .then((res) => {
         btn.disabled = false;
@@ -88,7 +87,7 @@ export default function Login({ history }) {
             <div className="dnxreg-box-b">
               <div className="nxmob">
                 <select name="pre" id="" className="nxmob-select">
-                  <option value="+234">+234</option>
+                  <option value="+211">+211</option>
                 </select>
                 <input
                   className="form-input"

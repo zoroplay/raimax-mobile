@@ -147,6 +147,9 @@ export const updateSelfExclusion = (data) =>
 export const updateDepositLimit = (data) =>
   Http.post("/user/account/deposit-limit", data);
 
+  export const shopDeposit = (data) =>
+  Http.post("/user/account/deposit?channel=mobile", data);
+
 export const updateMarketingPreferences = (data) =>
   Http.post("/user/account/marketing-preferences", data);
 

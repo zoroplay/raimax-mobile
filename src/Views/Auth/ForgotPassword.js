@@ -107,7 +107,7 @@ export default function ForgotPassword({history}) {
             <div className="dnxreg-box-b">
               <div className="nxmob">
                 <select name="" id="" className="nxmob-select">
-                  <option value="+254">+234</option>
+                  <option value="+211">+211</option>
                 </select>
                 <input className="form-input" type="text" autoComplete="username"
                        placeholder="Username" value={username} onChange={(e) => {setUsername(e.target.value)} } />

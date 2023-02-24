@@ -11,9 +11,9 @@ export default function Home({ history }) {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (user?.verified === 0) {
-      history.replace("/Verify");
-    }
+    // if (user?.verified === 0) {
+    //   history.replace("/Verify");
+    // }
   }, [user]);
 
   return (
