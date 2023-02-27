@@ -64,8 +64,8 @@ const Withdrawal = ({ history }) => {
           setShow(true);
           setShowErr(false);
 
-          setData(res?.balance);
-          dispatch({ type: UPDATE_USER_BALANCE, payload: res.balance });
+          setData(res?.data.requests);
+          dispatch({ type: UPDATE_USER_BALANCE, payload: res.data.user.available_balance });
         } else {
           setShow(false);
 
