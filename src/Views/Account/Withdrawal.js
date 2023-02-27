@@ -114,7 +114,7 @@ const Withdrawal = ({ history }) => {
         <p className="code-card" style={{ background: "green" }}>
           {" "}
           Your Withdrawal Pin is:{" "}
-          <strong>{withdrawalData?.requests?.withdraw_code}</strong>
+          <strong>{withdrawalData?.withdraw_code}</strong>
           <br />
           Take to the shop for payment.
         </p>
