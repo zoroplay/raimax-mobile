@@ -163,11 +163,12 @@ export const getBankDetails = () => Http.get(`/user/account/get-bank-account`);
 export const fetchFixturesByDateRangeSport = (
   startDate,
   endDate,
+  market_id,
   sport_id,
   page
 ) =>
   Http.get(
-    `/sports/get-fixtures-by-date?date=${startDate}&end_date=${endDate}&sid=${sport_id}&channel=mobile&limit=10&page=${page}`
+    `/sports/get-fixtures-by-date?date=${startDate}&end_date=${endDate}&sid=${sport_id}&market=${market_id}&channel=mobile&limit=10&page=${page}`
   );
 
 export const sendOtp = () => Http.post(`/sendsms`);

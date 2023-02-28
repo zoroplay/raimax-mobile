@@ -48,8 +48,8 @@ export default function Index({
         )}
         <main>
           <form onSubmit={searchFixtures} className="cnt">
-            <div class="heading__search">
-              <div class="heading__search-left">
+            <div className="heading__search">
+              <div className="heading__search-left">
               <input 
                 value={searchKey}
                 onChange={(e) =>  setSearchKey(e.target.value)}
@@ -58,8 +58,8 @@ export default function Index({
                 placeholder="Search for event" 
               />
               </div>
-              <div class="heading__search-right" onClick={searchFixtures}>
-                <span class="icon search" id="pushmenu_search_icon"></span>
+              <div className="heading__search-right" onClick={searchFixtures}>
+                <span className="icon search" id="pushmenu_search_icon"></span>
               </div>
             </div>
           </form>

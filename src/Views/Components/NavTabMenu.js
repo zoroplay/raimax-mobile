@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { groupLiveFixtures, slugify } from "../../Utils/helpers";
 import {
   getLiveFixtures,
-  upcomingFixtures,
   fetchFixturesByDateRangeSport,
   getSports,
 } from "../../Services/apis";
@@ -25,13 +24,14 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   const [showSports, setShowSports] = useState(true);
   const [sports, setSports] = useState([]);
   const [activeSport, setActiveSport] = useState(1);
+  const [liveFixtures, setLiveFixtures] = useState(null);
   const [activePeriod, setActivePeriod] = useState({value: 'all', label: 'All'});
   const [startDate, setStartDate] = useState(moment().format("YYYY-MM-DD"));
   const [endDate, setEndDate] = useState(
     moment().add(14, "days").format("YYYY-MM-DD")
   );
   const [markets, setMarkets] = useState([]);
-  const [activeMarket, setActiveMarket] = useState(null);
+  const [activeMarket, setActiveMarket] = useState(1);
   const [fixtures, setFixtures] = useState([]);
   const [predictions, setPredictions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,29 +65,28 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   }, [socket, selected, fixtures]);
 
   const setActiveTab = (tab) => {
-    setActiveSport(null);
+    setActiveSport(1);
+    setMarkets([]);
+    setFixtures([]);
     switch (tab) {
-      case 0:
-        setShowSports(true);
-        setLoading(true);
-        getSportsData();
-        getHighlightedFixtures();
-        // getUpcomingFixtures();
-        break;
       case 1:
-        setFixtures([]);
         setShowSports(true);
         setLoading(true);
         getLiveData();
         break;
       case 2:
-        setFixtures([]);
         setShowSports(false);
         setLoading(true);
         break;
       case 3:
         setShowSports(false);
         // getZoomFixtures(852);
+        break;
+      default:
+        setShowSports(true);
+        setLoading(true);
+        getSportsData();
+        getHighlightedFixtures();
         break;
     }
     setSelected(tab);
@@ -98,13 +97,15 @@ export default function NavTabMenu({ sportsData, dispatch }) {
       .then((res) => {
         setSports(res);
         setActiveSport(res[0].sport_id);
+        setMarkets(res[0].markets || []);
+        setActiveMarket(res[0].markets[0].id || 0);
       })
       .catch((err) => {
       });
   };
 
   const getHighlightedFixtures = (sport, page) => {
-    fetchFixturesByDateRangeSport(startDate, endDate, sport, page)
+    fetchFixturesByDateRangeSport(startDate, endDate, activeMarket, sport, page)
       .then((res) => {
         setLoading(false);
         setFixtures((fixtures) => [...fixtures, ...res.fixtures.data]);
@@ -136,7 +137,8 @@ export default function NavTabMenu({ sportsData, dispatch }) {
             });
           });
           setSports(data);
-          setFixtures(res.data.fixtures);
+          setActiveSport(data[0].sport_id);
+          setLiveFixtures(data[0]);
         }
         setLoading(false);
       })
@@ -177,10 +179,33 @@ export default function NavTabMenu({ sportsData, dispatch }) {
   }, [activePeriod]);
 
   useEffect(() => {
+    setLoading(true);
+    setFixtures([]);
+    getHighlightedFixtures(activeSport, 1)
+  }, [activeMarket]);
+
+  useEffect(() => {
     getSportsData();
     getHighlightedFixtures(activeSport, 1);
   }, [endDate]);
 
+  useEffect(() => {
+    if (selected === 1) {
+      if (sports.length > 0) {
+        const sport = sports.find(
+          (el) => el.sport_id === activeSport
+        );
+        if (sport) {
+          setLiveFixtures(sport);
+        } else {
+          setLiveFixtures(sports[0]);
+        }
+      }
+    } else {
+      getSportsData();
+      getHighlightedFixtures(activeSport, 1);
+    }
+  }, [activeSport]);
 
   return (
     <>
@@ -188,7 +213,7 @@ export default function NavTabMenu({ sportsData, dispatch }) {
         <div className="nav__tab-menu">
             <div
               className={`nav__tab ${selected === 0 ? "selected" : ""}`}
-              onClick={() => {if (selected !== 0) setActiveTab(0)}}
+              onClick={() => {if (selected !== 0) setActiveTab(0) }}
               style={{flexDirection: 'row', justifyContent: 'space-between',position: 'relative'}}
             >
               <span>
@@ -248,44 +273,20 @@ export default function NavTabMenu({ sportsData, dispatch }) {
             ))}
           </div>
         )}
-        {/* {markets && */}
+        {markets &&
           <div className="filter">
-            {/* {markets?.map(market => ( */}
-                {/* ( */}
+            {markets?.map(market => (
+                ( 
                   <div id="markets_filter_S_1X2"
-                      key={`markets_filter_S_`}
-                      // onClick={() => setActiveMarket(market)}
-                      className={`filter--btn`}>
-                    <p>1x2</p>
+                      key={`markets_filter_S_${market.id}`}
+                      onClick={() => setActiveMarket(market.id)}
+                      className={`filter--btn ${activeMarket === market.id ? 'active' : ''}`}>
+                      <p>{market.name}</p>
                 </div>
-                <div id="markets_filter_S_1X2"
-                      key={`markets_filter_S_`}
-                      // onClick={() => setActiveMarket(market)}
-                      className={`filter--btn`}>
-                    <p>GG/NG</p>
-                </div>
-                <div id="markets_filter_S_1X2"
-                      key={`markets_filter_S_`}
-                      // onClick={() => setActiveMarket(market)}
-                      className={`filter--btn`}>
-                    <p>O/U 2.5</p>
-                </div>
-                <div id="markets_filter_S_1X2"
-                      key={`markets_filter_S_`}
-                      // onClick={() => setActiveMarket(market)}
-                      className={`filter--btn`}>
-                    <p>Double Chance</p>
-                </div>
-                <div id="markets_filter_S_1X2"
-                      key={`markets_filter_S_`}
-                      // onClick={() => setActiveMarket(market)}
-                      className={`filter--btn`}>
-                    <p>DNB</p>
-                </div>
-                {/* )
-            ))} */}
+                )
+            ))}
           </div>
-        {/* } */}
+        }
       </div>
       {{
         0: !loading && fixtures.length === 0 ?
@@ -315,7 +316,7 @@ export default function NavTabMenu({ sportsData, dispatch }) {
           </InfiniteScroll>
         ),
         1:
-          !loading && activeSport?.length === 0 ? (
+          !loading && liveFixtures === null ? (
             <h2
               style={{
                 color: "white",
@@ -328,7 +329,7 @@ export default function NavTabMenu({ sportsData, dispatch }) {
               No Game found{" "}
             </h2>
           ) : (
-            <LiveFixtures activeSport={activeSport} />
+            <LiveFixtures activeSport={liveFixtures} />
           ),
         2: (
           <div className="accordion-menu">

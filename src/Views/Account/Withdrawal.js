@@ -64,8 +64,8 @@ const Withdrawal = ({ history }) => {
           setShow(true);
           setShowErr(false);
 
-          setData(res?.balance);
-          dispatch({ type: UPDATE_USER_BALANCE, payload: res.balance });
+          setData(res?.data.requests);
+          dispatch({ type: UPDATE_USER_BALANCE, payload: res.data.user.available_balance });
         } else {
           setShow(false);
 
@@ -114,7 +114,7 @@ const Withdrawal = ({ history }) => {
         <p className="code-card" style={{ background: "green" }}>
           {" "}
           Your Withdrawal Pin is:{" "}
-          <strong>{withdrawalData?.requests?.withdraw_code}</strong>
+          <strong>{withdrawalData?.withdraw_code}</strong>
           <br />
           Take to the shop for payment.
         </p>
