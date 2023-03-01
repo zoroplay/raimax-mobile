@@ -50,14 +50,14 @@ const Cashier = ({ history }) => {
               Withdraw from shop
             </NavLink>
           </div>
-          <div className="access__item main-menu-item" id="1004">
+          {/* <div className="access__item main-menu-item" id="1004">
             <NavLink
               to="/account/withdraw-to-bank"
               className="access__item-title"
             >
               Withdraw to bank account
             </NavLink>
-          </div>
+          </div> */}
           <div className="access__item main-menu-item" id="1004">
             <NavLink to="/account/pending" className="access__item-title">
               Pending Withdrawal
