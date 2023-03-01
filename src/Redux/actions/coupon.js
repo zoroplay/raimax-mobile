@@ -9,7 +9,8 @@ import {
     calculateTotalOdds,
     calculateWinnings,
     checkBetType, checkIfHasLive,
-    groupSelections
+    groupSelections,
+    groupTournament
 } from "../../Utils/couponHelpers";
 import {Http} from "../../Utils";
 import history from "../../Services/history";
@@ -85,6 +86,8 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
             couponData.wthTax = winnings.wthTax;
             couponData.grossWin = winnings.grossWin;
             couponData.grouped = groupSelections(couponData.selections, 'provider_id');
+            couponData.tournaments = groupTournament(couponData.selections);
+
             // check if event is live
             if (type === 'live')
                 couponData.hasLive = true;
@@ -99,8 +102,8 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
                     couponData.selections.splice(i, 1);
                     //check if couponData still has selections
                     if (couponData.selections.length > 0) {
-                        //group selections by match
-                        // couponData.grouped = groupSelections(couponData.selections, 'provider_id');
+                        //group selections by tournament
+                        couponData.tournaments = groupTournament(couponData.selections);
                         //check bet type
                         couponData.bet_type = checkBetType(couponData.grouped);
 
@@ -123,6 +126,8 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
                     couponData.selections.splice(i, 1);
                     // add new selection
                     couponData.selections.push(data);
+                    couponData.tournaments = groupTournament(couponData.selections);
+
                     // recalculate total odds
                     couponData.totalOdds = calculateTotalOdds(couponData.selections);
                     //calculate and get pot winnings with bonus
@@ -138,6 +143,8 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
             couponData.totalOdds = (parseFloat(couponData.totalOdds) * parseFloat(data.odds)).toFixed(2);
             //add selection to selections list
             couponData.selections.push(data);
+            //group selections by tournament
+            couponData.tournaments = groupTournament(couponData.selections);
             //group selections by match
             couponData.grouped = groupSelections(couponData.selections, 'provider_id');
             //check bet type
@@ -369,7 +376,7 @@ export function placeBet(e, type, giftCode){
         // add giftCode to coupondata
         coupondata.giftCode = giftCode;
 
-        if (coupondata.stake === 0){
+        if (type === 'bet' && coupondata.stake === 0){
             dispatch({type: LOADING});
             toast.error('Stake cannot be 0');
             return;
