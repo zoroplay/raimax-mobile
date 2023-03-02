@@ -3,7 +3,6 @@ import { placeBet, removeSelection} from "../../Redux/actions";
 import {CANCEL_BET, SET_COUPON_DATA, SET_USE_BONUS} from "../../Redux/types";
 import {formatNumber} from "../../Utils/helpers";
 import {useSelector} from "react-redux";
-import { checkOddsChange, } from "../../Utils/couponHelpers";
 import {SplitBet} from "./Coupon/SplitBet";
 import {Multiple} from "./Coupon/Multiple";
 import {Combine} from "./Coupon/Combine";
@@ -164,8 +163,7 @@ export default function Selections({coupon, dispatch}){
                             <div className="txt-orange txt-c mt10">{coupon.errorMsg}</div>
                         </>
                     }
-                    {!isAuthenticated && <button onClick={(e) => dispatch(placeBet(e, 'booking'))} className="btn w-full mt10">Book a bet</button> }
-                    {user && user?.bonus_balance >= coupon.stake && parseFloat(coupon.totalOdds) >= process.env.REACT_APP_MIN_BONUS_ODD
+                    {user && coupon.stake !== 0 && user?.bonus_balance >= coupon.stake && parseFloat(coupon.totalOdds) >= process.env.REACT_APP_MIN_BONUS_ODD
                         && coupon.bet_type !== 'Split' && coupon.bet_type !== 'Combo' &&
                         <button onClick={async (e) => {
                             await dispatch({type: SET_USE_BONUS});
@@ -173,7 +171,10 @@ export default function Selections({coupon, dispatch}){
                             placeBetBtn.click();
                         }} id="bonusBtn" className="btn green w-full mt10">Use Bonus</button>
                     }
-                    {isAuthenticated && <button onClick={(e) => dispatch(placeBet(e,'bet'))} id="placeBetBtn" className="btn w-full mt10">Place bet</button>}
+                    <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <button onClick={(e) => dispatch(placeBet(e, 'booking'))} className="btn mt10" style={{backgroundColor: '#0378ce', width: '40%'}}>Book Bet</button>
+                        <button onClick={(e) => dispatch(placeBet(e,'bet'))} id="placeBetBtn" className="btn w-full mt10">Place Bet</button>
+                    </div>
                 </div>
             </div>
         </Fragment>
