@@ -22,9 +22,9 @@ export default function Footer({bottom}) {
                           </a>
                       </div>
                       <div className="f-s__ql-item">
-                          <NavLink className="f-s__ql-link" to="/BecomeAnAgent/Register"
+                          <NavLink className="f-s__ql-link" to="/pages/betting-rules"
                              id="footer_link_responsible_gambling"
-                             title="Responsible Gambling">Become an Agent
+                             title="Responsible Gambling">Betting Rules
                           </NavLink>
                       </div>
                       <div className="f-s__ql-item">

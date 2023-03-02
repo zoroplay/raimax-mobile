@@ -213,13 +213,19 @@ export default function NavTabMenu({ sportsData, dispatch }) {
         <div className="nav__tab-menu">
             <div
               className={`nav__tab ${selected === 0 ? "selected" : ""}`}
-              onClick={() => {if (selected !== 0) setActiveTab(0) }}
+              onClick={() => {
+                if (selected !== 0) {
+                  setActiveTab(0) 
+                } else {
+                  setChangePeriod(!changePeriod)
+                }
+              }}
               style={{flexDirection: 'row', justifyContent: 'space-between',position: 'relative'}}
             >
               <span>
                 Upcoming ({activePeriod.label})
               </span>
-              <span onClick={() => setChangePeriod(!changePeriod)}>
+              <span>
                 {changePeriod ? <img src="./img/arrow-up.svg" /> : <img src="./img/arrow-down.svg" />}
               </span>
               {changePeriod && <div className="periods">
