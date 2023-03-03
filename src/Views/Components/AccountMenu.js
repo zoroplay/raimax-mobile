@@ -47,7 +47,7 @@ export default function AccountMenu({showDownload}) {
                             <div id="myaccountmenu_refresh" className="myacc-ddmenu-s__balance-refresh table-cell" onClick={refreshBalance}/>
                             <div className="myacc-ddmenu-s__balance-hold table-cell txt-l pl10 mt5">
                                 <div className="myacc-ddmenu-s__balance-head">Withdrawable</div>
-                                <div className="myacc-ddmenu-s__balance-amount">{formatNumber(user.balance)}</div>
+                                <div className="myacc-ddmenu-s__balance-amount">{formatNumber(user.available_balance)}</div>
                             </div>
                         </div>
                     </div>
