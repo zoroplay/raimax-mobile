@@ -41,7 +41,7 @@ export default function ViewFixtures({match, history}) {
             }
             setSports(data);
         }).catch(err => {
-            console.log(err)
+            // console.log(err)
             setLoading(false);
         });
     }
@@ -109,8 +109,8 @@ export default function ViewFixtures({match, history}) {
                     </div>
                 )}
             </div>
-            {activeSport && activeSport?.tournaments?.map(tournament =>
-                <div key={slugify(tournament.Name)} className="accordion-item league live-event open">
+            {activeSport && activeSport?.tournaments?.map((tournament, t) =>
+                <div key={`tourn-${t}-${slugify(tournament.Name)}`} className="accordion-item league live-event open">
                     <div className="accordion-toggle live-event table-f">
                         <div className="accordion-toggle__btn">
                             {tournament.Name}
@@ -123,8 +123,8 @@ export default function ViewFixtures({match, history}) {
                                     {activeMarket?.outcomes?.map(selection => <div className="event-tips__holder-item" key={selection.id}>{selection.name}</div> )}
                                 </div>
                             </div>
-                            {tournament.Events.map(match => (
-                                <div className={`match-content ${activeMarket?.outcomes?.length <= 3 ? 'table-a' : 'match-content-score'}`} key={match.provider_id}>
+                            {tournament.Events.map((match, i) => (
+                                <div className={`match-content ${activeMarket?.outcomes?.length <= 3 ? 'table-a' : 'match-content-score'}`} key={`fixture-${i}-${match.provider_id}`}>
                                     <NavLink
                                         to={`/liveEventDetail/${slugify(activeSport.name)}/${slugify(tournament.Name)}/${slugify(match.event_name)}/${match.provider_id}`}
                                         className="match-content__info" id={`match_info_${match.provider_id}`}>
