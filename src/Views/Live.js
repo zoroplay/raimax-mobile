@@ -147,7 +147,7 @@ export default function ViewFixtures({match, history}) {
                                                         {matchStatus(match.match_status)}
                                                         {match.live_data?.match_time ? `, ${match.live_data?.match_time}'` : ''}
                                                     </span>
-                                                    &nbsp;● {match.live_data?.markets.length}&nbsp;Markets
+                                                    &nbsp;● {match.live_data?.markets?.length}&nbsp;Markets
                                                 </span>
                                             </div>
                                         </div>
