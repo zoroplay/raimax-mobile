@@ -64,10 +64,10 @@ const PendingWithdrawal = ({ history }) => {
               <h3 className="ml-4">Created</h3>
               <span>{moment(item?.created_at).format("DD/MM/YYYY")}</span>
             </div>
-            <button className="pending-card" onClick={(e) => handleCopy(e)}>
-              <h3 className="ml-4">Withdrawal Pin</h3>
-              <span>{item?.withdraw_code}</span>
-            </button>
+            <div className="pending-card">
+              <h3 className="ml-4">Withdrawal Pin:</h3>
+             <span>{item?.withdraw_code}</span> 
+            </div>
           </div>
         ))}
 
