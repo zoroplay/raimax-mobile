@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 import * as _ from 'lodash';
 import { unslugify } from "unslugify";
 import * as CryptoJS from "crypto-js";
@@ -111,7 +111,7 @@ export const groupBy = (data, field) => {
 }
 
 export const formatDate = (str, format = 'YYYY-MM-DD HH:mm') =>
-    moment(str).format(format);
+    moment(str).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format(format);
 
 export const goBack = (history) => {
     history.goBack();
