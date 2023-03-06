@@ -86,7 +86,7 @@ export default function NavTabMenu({ sportsData, dispatch }) {
         setShowSports(true);
         setLoading(true);
         getSportsData();
-        getHighlightedFixtures();
+        getHighlightedFixtures(activeSport, 1);
         break;
     }
     setSelected(tab);
@@ -202,11 +202,12 @@ export default function NavTabMenu({ sportsData, dispatch }) {
         }
       }
     } else {
-      getSportsData();
+      // getSportsData();
       getHighlightedFixtures(activeSport, 1);
     }
   }, [activeSport]);
 
+  
   return (
     <>
       <div className="nav__tabs-holder">
@@ -322,20 +323,24 @@ export default function NavTabMenu({ sportsData, dispatch }) {
           </InfiniteScroll>
         ),
         1:
-          !loading && liveFixtures === null ? (
-            <h2
-              style={{
-                color: "white",
-                textAlign: "center",
-                background: "#373a45",
-                fontSize: "2rem",
-                paddingBottom: "2rem",
-              }}
-            >
-              No Game found{" "}
-            </h2>
-          ) : (
-            <LiveFixtures activeSport={liveFixtures} />
+          loading ?
+            <FixturesSkeleton />
+          : (
+            !loading && liveFixtures === null ? (
+              <h2
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                  background: "#373a45",
+                  fontSize: "2rem",
+                  paddingBottom: "2rem",
+                }}
+              >
+                No Game found{" "}
+              </h2>
+            ) : (
+              <LiveFixtures activeSport={liveFixtures} />
+            )
           ),
         2: (
           <div className="accordion-menu">
