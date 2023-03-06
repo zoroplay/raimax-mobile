@@ -151,7 +151,7 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
                       <div className="match-content__row table-f">
                         <div className="match-content__row--info">
                           <span>
-                            <span>{formatDate(match.schedule, 'HH:mm')}</span> ●{" "}
+                            <span>{match.event_time}</span> ●{" "}
                             {match.markets_count}&nbsp;Markets
                           </span>
                         </div>

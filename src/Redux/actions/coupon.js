@@ -39,7 +39,7 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
             odd_id: odd_id,
             odds: odds,
             element_id: ele_id,
-            start_date: formatDate(fixture.schedule, 'YYYY-MM-DD HH:mm'),
+            start_date: fixture.event_date + ' ' + fixture.event_time,
             tournament: fixture.sport_tournament_name,
             category: fixture.sport_category_name,
             sport: fixture.sport_name,

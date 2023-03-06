@@ -110,8 +110,11 @@ export const groupBy = (data, field) => {
     }, {});
 }
 
-export const formatDate = (str, format = 'YYYY-MM-DD HH:mm') =>
-    moment(str).tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format(format);
+export const formatDate = (str, format = 'YYYY-MM-DD HH:mm') => {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    console.log(timezone, str);
+    return moment(str).tz(timezone).format(format);
+}
 
 export const goBack = (history) => history.goBack();
 
