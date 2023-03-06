@@ -116,7 +116,7 @@ export default function ViewFixture({match, history}) {
                                 </div>
                             </div>
                             <div className="match__info">
-                                <div className="match__time"><span><span>{ formatDate(parseInt(fixture.schedule), 'DD MMM, HH:mm') }</span></span></div>
+                                <div className="match__time"><span><span>{ formatDate(fixture.schedule, 'DD MMM, HH:mm') }</span></span></div>
                                 <div className="match__details">
                                     <div>
                                         <div>
