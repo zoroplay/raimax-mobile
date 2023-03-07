@@ -61,7 +61,7 @@ export default function Virtual() {
   const [token, setToken] = useState("111111");
   const [hash, setHash] = useState("");
   const [group, setGroup] = useState(process.env.REACT_APP_SITE_KEY);
-  const backurl = process.env.REACT_APP_URL;
+  const backurl = process.env.REACT_APP_SITE_URL;
   const privateKey = process.env.REACT_APP_XPRESS_PRIVATE_KEY;
 
   const goTo = (path) => {
