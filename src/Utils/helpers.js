@@ -32,16 +32,19 @@ export const toggleAccordion = (e, id) => {
 }
 
 export const getSpread = (eventMarkets, market) => {
-    let specialValue = 0;
-    if (eventMarkets.length) {
-        _.each(eventMarkets, function (value, key) {
-            if (value.TypeId === market.id) {
-                specialValue = value.SpecialValue;
-            }
-        });
-    }
-
-    return specialValue;
+    let specialValue;
+  if (eventMarkets && eventMarkets.length) {
+    _.each(eventMarkets, (value, key) => {
+      if (
+        value.specialOddsValue &&
+        value.type_id === market.id &&
+        value.active === "1"
+      ) {
+        if (value.specialOddsValue > 0) specialValue = value.specialOddsValue;
+      }
+    });
+  }
+  return specialValue;
 }
 
 export const slugify = (text) => {

@@ -122,18 +122,6 @@ export const getLiveOdds = (eventMarkets, market, selection) => {
 
     return odd;
 }
-export const getSpread = (eventMarkets, market) => {
-    let specialValue;
-    if (eventMarkets && eventMarkets.length) {
-        _.each(eventMarkets, (value, key) => {
-            if (value.specialOddsValue && value.type_id === market.id && value.active === '1') {
-                if(value.specialOddsValue > 0) specialValue = value.specialOddsValue;
-            }
-        });
-    }
-    return specialValue;
-}
-
 
 export const updateLiveData = (msg, fixtures) => {
     const fixtureIndex = fixtures.findIndex(item => item.provider_id === parseInt(msg.Match.matchid));

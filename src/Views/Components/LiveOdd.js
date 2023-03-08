@@ -34,9 +34,7 @@ export const LiveOdd = ({
           oddsData.market_id,
           market.name +
             " " +
-            (getSpread(fixture.live_data?.markets, market) !== undefined
-              ? getSpread(fixture.live_data?.markets, market)
-              : ""),
+            (getSpread(fixture.live_data?.markets, market) !== undefined ? getSpread(fixture.live_data?.markets, market) : ''),
           oddsData.odds,
           selection.id,
           oddsData.type,

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {addToCoupon} from "../../Redux/actions";
 import {checkOddsChange, createID} from "../../Utils/couponHelpers";
 import {useDispatch} from "react-redux";
-import {formatOdd, isSelected} from "../../Utils/helpers";
+import {formatOdd, getSpread, isSelected} from "../../Utils/helpers";
 
 
 export const LiveOddAlt = ({newOdds, selection, market, fixture, tournament, sport, coupon, globalVars, bonusList}) => {
@@ -22,7 +22,9 @@ export const LiveOddAlt = ({newOdds, selection, market, fixture, tournament, spo
         if (oddsData !== 0) {
             fixture.TournamentName = tournament;
             fixture.SportName = sport;
-            dispatch(addToCoupon(fixture, market.TypeId, market.Name, oddsData.Odds[0].Value, oddsData.Id, selection.Name,
+            dispatch(addToCoupon(fixture, market.TypeId, market.name +
+                " " +
+                (getSpread(fixture.live_data?.markets, market) !== undefined ? getSpread(fixture.live_data?.markets, market) : ''), oddsData.Odds[0].Value, oddsData.Id, selection.Name,
                 createID(fixture.ProviderId, market.TypeId, selection.Name, oddsData.Id),'live'))
         }
     }
