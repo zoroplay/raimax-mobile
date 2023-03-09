@@ -32,11 +32,11 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
         statWrapper.style.backgroundColor = "#fff";
 
         // window.SIR("addWidget", `.sr-widget-1`, "season.liveTable", {matchId:showStat});
-        window.SRLive.addWidget(`widgets.matchhead2head`, {
-          matchId: showStat,
-          showTitle: !1,
-          container: `#sr-widget-${showStat}`,
-        });
+        // window.SRLive.addWidget(`widgets.matchhead2head`, {
+        //   matchId: showStat,
+        //   showTitle: !1,
+        //   container: `#sr-widget-${showStat}`,
+        // });
       } else {
         statWrapper.innerHTML = "";
       }
@@ -51,11 +51,11 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
     statWrapper.style.color = "#000";
     statWrapper.style.backgroundColor = "#fff";
     // if(widget.value === 'matchhead2head') {
-    window.SRLive.addWidget(`widgets.${activeWidget.value}`, {
-      matchId: showStat,
-      showTitle: !1,
-      container: `#sr-widget-${showStat}`,
-    });
+    // window.SRLive.addWidget(`widgets.${activeWidget.value}`, {
+    //   matchId: showStat,
+    //   showTitle: !1,
+    //   container: `#sr-widget-${showStat}`,
+    // });
     // } else {
     //     window.SIR("addWidget", `.sr-widget-1`, widget.value, {matchId:showStat});
     // }
@@ -121,7 +121,12 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
                       <div className="match-content__row table-f">
                         <div
                           className="match-content__stats"
-                          onClick={() => toggleStat(match.provider_id)}
+                          onClick={() =>
+                            window.open(
+                              `https://s5.sir.sportradar.com/betradar/en/match/${match.provider_id}`,
+                              "stats"
+                            )
+                          }
                         >
                           <div
                             className={`match-content__stats-icon ${
