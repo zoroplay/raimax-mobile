@@ -99,6 +99,7 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
               )}
             </div>
             {fixture.events.map((match, i) => (
+              match.markets_count > 0 && 
               <div key={`match-${match.provider_id}-${i}`}>
                 <div className={`match-content`}>
                   {showLeague && (
