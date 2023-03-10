@@ -15,7 +15,7 @@ import {
 import {Http} from "../../Utils";
 import history from "../../Services/history";
 import * as _ from 'lodash';
-import {calculateExclusionPeriod, formatDate, validateCombinability} from "../../Utils/helpers";
+import {calculateExclusionPeriod, validateCombinability} from "../../Utils/helpers";
 import {getCombos, getSplitProps} from "../../Services/apis";
 import {toast} from "react-toastify";
 
@@ -102,6 +102,8 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
                     couponData.selections.splice(i, 1);
                     //check if couponData still has selections
                     if (couponData.selections.length > 0) {
+                        // recalculate total odds
+                        couponData.totalOdds = calculateTotalOdds(couponData.selections);
                         //group selections by tournament
                         couponData.tournaments = groupTournament(couponData.selections);
                         //check bet type
