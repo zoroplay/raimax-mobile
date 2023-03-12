@@ -109,7 +109,7 @@ export default function ViewFixtures({match, history}) {
                     </div>
                 )}
             </div>
-            {activeSport && activeSport?.tournaments?.map((tournament, t) =>
+            {/* {activeSport && activeSport?.tournaments?.map((tournament, t) =>
                 <div key={`tourn-${t}-${slugify(tournament.Name)}`} className="accordion-item league live-event open">
                     <div className="accordion-toggle live-event table-f">
                         <div className="accordion-toggle__btn">
@@ -194,8 +194,8 @@ export default function ViewFixtures({match, history}) {
                         </div>
                     </div>
                 </div>
-            )}
-            {/*<Loader loading={loading} />*/}
+            )} */}
+            <Loader loading={loading} />
         </Layout>
     );
 }

@@ -326,7 +326,7 @@ export default function NavTabMenu({ sportsData, dispatch }) {
           loading ?
             <FixturesSkeleton />
           : (
-            !loading && liveFixtures === null ? (
+            // !loading && liveFixtures === null ? (
               <h2
                 style={{
                   color: "white",
@@ -338,9 +338,9 @@ export default function NavTabMenu({ sportsData, dispatch }) {
               >
                 No Game found{" "}
               </h2>
-            ) : (
-              <LiveFixtures activeSport={liveFixtures} />
-            )
+            // ) : (
+            //   <LiveFixtures activeSport={liveFixtures} />
+            // )
           ),
         2: (
           <div className="accordion-menu">
