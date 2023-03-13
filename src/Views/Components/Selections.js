@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
-import { placeBet, removeSelection} from "../../Redux/actions";
-import {CANCEL_BET, SET_COUPON_DATA, SET_USE_BONUS} from "../../Redux/types";
+import { oddsChange, placeBet, removeSelection} from "../../Redux/actions";
+import {CANCEL_BET, SET_USE_BONUS} from "../../Redux/types";
 import {formatNumber} from "../../Utils/helpers";
 import {useSelector} from "react-redux";
 import {SplitBet} from "./Coupon/SplitBet";
@@ -9,36 +9,25 @@ import {Combine} from "./Coupon/Combine";
 // import {toast} from "react-toastify";
 
 export default function Selections({coupon, dispatch}){
-    const {isAuthenticated, user} = useSelector((state) => state.auth);
-    const {SportsbookGlobalVariable, SportsbookBonusList} = useSelector((state) => state.sportsBook);
+    const {user} = useSelector((state) => state.auth);
     const [allowChange, setAllowChange] = useState(true);
+    const [interval, setIntervalVal] = useState(null);
 
-    // const listenForOddsChange = async (couponData) => {
-    //     if (couponData.hasLive) {
-    //         await checkOddsChange(couponData, dispatch, SportsbookGlobalVariable, SportsbookBonusList);
-    //     }
-    // }
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const interval = setInterval(async () => {
-    //         await listenForOddsChange(coupon);
-    //     }, 10000);
+        if(coupon.selections.length) {
+            if (interval) clearInterval(interval);
 
-    //     return () => clearInterval(interval);
-    // }, [coupon]);
+            const start = setInterval(() => {
+                dispatch(oddsChange());
+            }, 15000);
 
-    const setTab = (tab) => {
-        let newCoupon = {...coupon};
-        if (tab === 'Single' && coupon.selections.length > 1) {
-            newCoupon.bet_type = 'Single';
-        } else if (coupon.selections.length === 1){
-            return;
-        } else {
-            newCoupon.bet_type = tab;
+            setIntervalVal(start);
         }
-        return dispatch({type: SET_COUPON_DATA, payload: newCoupon});
-    }
+        
+        return () => clearInterval(interval);
+    }, [coupon]);
 
     return (
         <Fragment>

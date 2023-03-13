@@ -30,7 +30,7 @@ export default function AccountMenu({showDownload}) {
                 const user = resp.user;
                 dispatch({
                     type: UPDATE_USER_BALANCE,
-                    payload: user.balance
+                    payload: user.available_balance
                 });
             }
         }).catch(err => {

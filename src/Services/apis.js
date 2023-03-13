@@ -18,6 +18,8 @@ export const fetchFixturesByDateSport = (date, sport_id) =>
 
 export const upcomingFixtures = () => Http.get(`/sports/mobile/upcoming`);
 
+export const getOddsChange = (data) => Http.post("/sports/live/oddschanged", data);
+
 export const getSports = (startDate, endDate) => Http.get(`/sports/group-fixtures-by-sport?date=${startDate}&end_date=${endDate}`);
 
 export const fetchHighlights = () => Http.get(`/sports/mobile/highlights`);
@@ -148,7 +150,7 @@ export const updateDepositLimit = (data) =>
   Http.post("/user/account/deposit-limit", data);
 
   export const shopDeposit = (data) =>
-  Http.post("/user/account/deposit?channel=mobile", data);
+  Http.post("/user/account/deposit?channel=mobile&source=shop", data);
 
 export const updateMarketingPreferences = (data) =>
   Http.post("/user/account/marketing-preferences", data);
