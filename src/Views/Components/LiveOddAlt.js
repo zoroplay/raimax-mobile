@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {addToCoupon} from "../../Redux/actions";
-import {checkOddsChange, createID} from "../../Utils/couponHelpers";
+import {createID} from "../../Utils/couponHelpers";
 import {useDispatch} from "react-redux";
 import {formatOdd, getSpread, isSelected} from "../../Utils/helpers";
 
@@ -12,10 +12,6 @@ export const LiveOddAlt = ({newOdds, selection, market, fixture, tournament, spo
 
     useEffect(() => {
         setOddsData(newOdds);
-        // check if current selection has event in it and update
-        if (coupon.selections.length) {
-            checkOddsChange(coupon, fixture, newOdds, dispatch, globalVars, bonusList);
-        }
     }, [newOdds]);
 
     const selectOdds = () => {
