@@ -85,7 +85,7 @@ export default function Routes() {
   useEffect(() => {
     if (isAuthenticated) {
       LEcho.channel(`deposits.${user.username}`).listen("DepositEvent", (e) => {
-        dispatch({ type: UPDATE_USER_BALANCE, payload: e.user.balance });
+        dispatch({ type: UPDATE_USER_BALANCE, payload: e.user.available_balance });
         // show alert
       });
     }

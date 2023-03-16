@@ -49,9 +49,9 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
 
         };
         if (type === 'live') {
-            data.in_play_time = fixture.MatchTime;
-            data.score = fixture.Score;
-            // data.ht_score = fixture.SetScores;
+            data.in_play_time = fixture.live_data?.match_time ? fixture.live_data?.match_time : "";
+            data.in_play_score = fixture.score;
+            // data.ht_score = fixture.setscores.;
         }
 
         let couponData = {...state.couponData.coupon};
