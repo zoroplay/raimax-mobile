@@ -113,7 +113,7 @@ export default function ViewFixtures({match, history}) {
                 <div key={`tourn-${t}-${slugify(tournament.Name)}`} className="accordion-item league live-event open">
                     <div className="accordion-toggle live-event table-f">
                         <div className="accordion-toggle__btn">
-                            {tournament.Name}
+                        {tournament.category} - {tournament.Name}
                         </div>
                     </div>
                     <div className="accordion-content">
