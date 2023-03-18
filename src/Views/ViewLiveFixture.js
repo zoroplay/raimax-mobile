@@ -44,7 +44,7 @@ export default function ViewFixture({match, history}) {
 
         const interval = setInterval(() => {
             fetchFixture();
-        }, 5000);
+        }, 10000);
 
         return () => clearInterval(interval);
     }, []);
@@ -82,7 +82,7 @@ export default function ViewFixture({match, history}) {
         } else {
             setMarkets(liveData?.markets);
         }
-    }, [fixture]);
+    }, [liveData]);
 
 
     const selectOdds = (market, selection) => {
@@ -126,7 +126,6 @@ export default function ViewFixture({match, history}) {
         });
         return outcome;
     }
-
 
     return (
         <Layout
