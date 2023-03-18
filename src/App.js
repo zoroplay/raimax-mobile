@@ -41,7 +41,6 @@ export default function App() {
         init();
     }, [init]);
 
-    console.log(Intl.DateTimeFormat().resolvedOptions().timeZone);
   return (
       <ErrorBoundary>
           <SWRConfig

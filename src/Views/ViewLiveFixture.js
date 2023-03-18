@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useState} from "react";
 import Layout from './Layout';
-import {getFixture, getLiveFixtureData} from "../Services/apis";
-import {formatDate, formatOdd, goBack, isSelected, liveScore, slugify, sortTeams} from "../Utils/helpers";
+import {getLiveFixtureData} from "../Services/apis";
+import {formatOdd, goBack, isSelected, liveScore} from "../Utils/helpers";
 import * as _ from 'lodash';
 import Loader from "./Components/Loader";
 import {addToCoupon} from "../Redux/actions";
 import {createID} from "../Utils/couponHelpers";
 import {useDispatch, useSelector} from "react-redux";
+import useSWR from "swr";
 
 export default function ViewFixture({match, history}) {
     const { eventId } = match.params;
@@ -16,15 +17,18 @@ export default function ViewFixture({match, history}) {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const coupon = useSelector(({couponData}) => couponData.coupon);
+    const { data } = useSWR("/sports/live/outcomes");
+
+    const liveOutcomes = data?.data;
 
     const fetchFixture = () => {
         getLiveFixtureData(eventId).then(res => {
             setLoading(false);
             if (res.success && (res.data.match_status === 'ended' || res.data.match_status === 'interrupted'))
                 history.push('/sport/livebetting');
-
+                
                 setFixture(res.data);
-                setLiveData(JSON.parse(res.data.live_data));
+                setLiveData(res.data.live_data);
         }).catch(err => {
             setLoading(false)
             // console.log(err);
@@ -82,9 +86,47 @@ export default function ViewFixture({match, history}) {
 
 
     const selectOdds = (market, selection) => {
-        dispatch(addToCoupon(fixture, market.id, market.name, selection.odds, selection.id, selection.type,
-                createID(fixture.provider_id, market.id, selection.type, selection.id),'live'))
+        if (selection.odds !== 0) {
+            const outcome = getOutcome(market, selection);
+            dispatch(
+                addToCoupon(
+                    fixture,
+                    outcome.market_id,
+                    outcome.market_name,
+                    outcome.odds,
+                    outcome.odd_id,
+                    outcome.odd_name,
+                    createID(
+                        fixture.provider_id,
+                        outcome.market_id,
+                        outcome.odd_name, 
+                        outcome.odd_id
+                    ),
+                    'live'
+                )
+            )
+        }
     }
+
+    const getOutcome = (market, selection) => {
+        let outcome;
+        liveOutcomes.forEach((liveOutcome) => {
+            if (market.name === liveOutcome.market_name && selection.type == liveOutcome.name) {
+                outcome = {
+                    market_id: market.id,
+                    market_name: `${market.name} ${
+                        market.specialOddsValue && market.specialOddsValue !== '-1' ? 
+                        market.specialOddsValue : ""}`,
+                    odds: selection.odds,
+                    odd_name: selection.type,
+                    odd_id: liveOutcome.id,
+                };
+                return
+            }
+        });
+        return outcome;
+    }
+
 
     return (
         <Layout
