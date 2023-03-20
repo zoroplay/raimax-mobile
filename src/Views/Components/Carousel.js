@@ -20,7 +20,7 @@ export default function CarouselComponent() {
                     {sliders && sliders.map(slider =>
                         <div 
                             className="carousel__item"
-                            style={{width: '72%', height: '75px'}}
+                            style={{width: '100%', height: '75px'}}
                             key={slider.id}>
                             <img src={slider.image_path} alt="Euro List" className="carousel-image" />
                             <div className="carousel__item-info">
