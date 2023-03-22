@@ -51,8 +51,8 @@ const MyBets = ({history}) => {
     const settledBets = () => {
         setLoading(true);
         getSettledBets({
-            from: moment(form.from).format('DD/MM/YYYY'),
-            to: moment(form.to).format('DD/MM/YYYY')
+            from: moment(form.from).format('YYYY-MM-DD'),
+            to: moment(form.to).format('YYYY-MM-DD')
         }).then((res) => {
             setLoading(false);
             setBetslips(res.bets.data);
