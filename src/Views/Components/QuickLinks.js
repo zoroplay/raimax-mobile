@@ -73,9 +73,9 @@ export default function QuickLinks() {
           </div>
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">
             {/* <a className="quicklinks__icon"  href={virtualURL} id="iconslider_321892_zoom_link"> */}
-            <a
+            <NavLink
               className="quicklinks__icon"
-              href={"/crash-game"}
+              to={"/crash-game"}
               id="iconslider_321892_zoom_link"
             >
               <i
@@ -86,7 +86,7 @@ export default function QuickLinks() {
                   height: "24px",
                 }}
               />
-            </a>
+            </NavLink>
             <span className="quicklinks__item-label">Crash</span>
           </div>
 
