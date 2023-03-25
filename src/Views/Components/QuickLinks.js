@@ -55,9 +55,8 @@ export default function QuickLinks() {
           </div>
 
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">
-            <a
-              href={`${process.env.REACT_APP_CASINO_URL}/?cid=1&token=${user?.auth_code}-${process.env.REACT_APP_SITE_KEY}`}
-              target="_blank"
+          <NavLink
+              to={"/spinmatic"}
               className="quicklinks__icon"
               id="iconslider_321892_zoom_link"
             >
@@ -69,8 +68,26 @@ export default function QuickLinks() {
                   height: "24px",
                 }}
               />
-            </a>
+            </NavLink>
             <span className="quicklinks__item-label">Casino</span>
+          </div>
+          <div className="quicklinks__item" id="iconslider_321892_zoom_element">
+            {/* <a className="quicklinks__icon"  href={virtualURL} id="iconslider_321892_zoom_link"> */}
+            <a
+              className="quicklinks__icon"
+              href={"/crash-game"}
+              id="iconslider_321892_zoom_link"
+            >
+              <i
+                className="icon"
+                style={{
+                  backgroundImage: "url(/img/spaceship.png)",
+                  width: "24px",
+                  height: "24px",
+                }}
+              />
+            </a>
+            <span className="quicklinks__item-label">Crash</span>
           </div>
 
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">

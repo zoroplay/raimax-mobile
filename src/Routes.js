@@ -66,6 +66,9 @@ import Casino from "./Views/Casino";
 import WithdrawToBank from "./Views/Account/WithdrawToBank";
 import SearchFixtures from "./Views/SearchFixtures";
 import DepositShop from "./Views/Account/DepositShop";
+import CrashGame from "./Views/Crash";
+import Spinmatic from "./Views/Spinmatic";
+import SpinmaticDetailPage from "./Views/SpinmaticDetailPage";
 
 export default function Routes() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -162,6 +165,9 @@ export default function Routes() {
           <Route exact path="/virtual" component={Virtual} />
           <Route exact path="/jackpot" component={Jackpot} />
           <Route exact path="/casino" component={Casino} />
+          <Route exact path="/crash-game" component={CrashGame} />
+          <Route exact path="/spinmatic/:id" component={SpinmaticDetailPage} />
+          <Route exact path="/spinmatic" component={Spinmatic} />
           <Route exact path="/betslip" component={Betslip} />
           <Route path="/add-to-tipster" component={AddToTipster} exact={true} />
           <Route

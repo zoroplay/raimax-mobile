@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
+// import React, { useEffect } from "react";
 import Layout from "./Layout";
 import { useSelector } from "react-redux";
 import { goBack } from "../Utils/helpers";
-import { useHistory } from "react-router-dom";
 
-export default function Casino({ history }) {
+export default function CrashGame({ history }) {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const [token, setToken] = useState('demo');
-  const goHistory = useHistory();
-
-  const goTo = (path) => {
-    goHistory.push(path);
-  };
 
   useEffect(() => {
     if (isAuthenticated) {
-      setToken(`${user?.auth_code}-${process.env.REACT_APP_SITE_KEY}`)
-    } else {
-      goTo("/login");
+      setToken(`${user?.code}-${user?.auth_code}-${process.env.REACT_APP_SITE_KEY}`)
     }
   }, [isAuthenticated]);
 
@@ -37,8 +31,10 @@ export default function Casino({ history }) {
       <iframe
         title="casino"
         style={{ width: "100%", border: 0, height: "100vh" }}
-        src={`https://xgame.sportsbookengine.com/?cid=1&token=${token}`}
+        src={`https://xgame.sportsbookengine.com?token=${token}&cid=1`}
+
       />
     </Layout>
   );
 }
+

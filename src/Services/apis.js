@@ -174,5 +174,7 @@ export const fetchFixturesByDateRangeSport = (
   );
 
 export const sendOtp = () => Http.post(`/sendsms`);
-export const verifyCode = (otp) =>
-  Http.post(`/sms/pin_verification/verify`, otp);
+
+export const verifyCode = (otp) => Http.post(`/sms/pin_verification/verify`, otp);
+
+export const getAllGames = () => Http.post(`/xpress/getgames`);
