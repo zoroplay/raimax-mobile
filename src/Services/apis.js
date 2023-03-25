@@ -177,4 +177,5 @@ export const sendOtp = () => Http.post(`/sendsms`);
 
 export const verifyCode = (otp) => Http.post(`/sms/pin_verification/verify`, otp);
 
-export const getAllGames = () => Http.post(`/xpress/getgames`);
+export const getAllGames = () =>
+  Http.post("https://sports-api.sportsbookengine.com/api/xpress/getgames");
