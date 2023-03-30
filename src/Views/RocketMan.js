@@ -8,10 +8,12 @@ import { goBack } from "../Utils/helpers";
 export default function RocketMan({ history }) {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const [token, setToken] = useState('demo');
-
+  
   useEffect(() => {
     if (isAuthenticated) {
       setToken(`${user?.code}-${user?.auth_code}-${process.env.REACT_APP_SITE_KEY}`)
+    } else {
+      history.push('/login')
     }
   }, [isAuthenticated]);
 
