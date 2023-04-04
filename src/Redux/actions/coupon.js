@@ -24,7 +24,7 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
         // grab current state
         const state = getState();
 
-        if (odds === '-' || odds === null || odds === 0)
+        if (odds === '-' || odds === null || odds < 1)
             return false;
 
         dispatch({type: SET_BET_PLACED, payload: ''});
