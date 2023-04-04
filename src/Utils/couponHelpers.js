@@ -29,21 +29,30 @@ export const calculateTotalOdds = (selections) => {
 }
 
 export const calculateBonus = (maxWin, coupondata, globalVars, bonusList) => {
-    let ticket_length = 0,
-        minBonusOdd = globalVars.MinBonusOdd,
+    let minBonusOdd = globalVars.MinBonusOdd,
         bonusInfo = [],
         bonus = 0;
-    //count eligible tickets for bonus
+    
+    const events = [];
+    // get eligible events for bonus
     coupondata.selections.forEach((item, i) => {
-        if(item.odds >= minBonusOdd){
-            ticket_length++;
-        }
+        if(item.odds >= minBonusOdd) events.push(item);
     });
+
+    // get unique events in case of split bet
+    const uniqueEvents = _.uniqBy(events, 'provider_id');
+
     // console.log(minBonusOdd);
     //get bonus settings for ticket length
     bonusList.forEach((item, i) => {
-        if(item.ticket_length === ticket_length)
-            bonusInfo = item;
+        if (coupondata.bet_type === 'Combo') {
+            const lastGrouping = coupondata.Groupings[coupondata.Groupings.length - 1];
+            if(item.ticket_length === lastGrouping.Grouping)
+                bonusInfo = item;
+        } else {
+            if(item.ticket_length === uniqueEvents.length)
+                bonusInfo = item;
+        }
     })
     //calculate total bonus
     if(bonusInfo.bonus !== undefined){
