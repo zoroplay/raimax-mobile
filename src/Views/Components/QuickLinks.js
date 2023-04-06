@@ -73,7 +73,7 @@ export default function QuickLinks() {
           </div>
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">
           <NavLink
-              to={"/spinmatic"}
+              to={"/casino"}
               className="quicklinks__icon"
               id="iconslider_321892_zoom_link"
             >
@@ -92,7 +92,7 @@ export default function QuickLinks() {
             {/* <a className="quicklinks__icon"  href={virtualURL} id="iconslider_321892_zoom_link"> */}
             <NavLink
               className="quicklinks__icon"
-              to={"/rocket-man"}
+              to={"/space-man"}
               id="iconslider_321892_zoom_link"
             >
               <i
@@ -104,7 +104,7 @@ export default function QuickLinks() {
                 }}
               />
             </NavLink>
-            <span className="quicklinks__item-label">Rocket Man</span>
+            <span className="quicklinks__item-label">Space Man</span>
           </div>
 
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">

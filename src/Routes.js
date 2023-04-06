@@ -70,6 +70,7 @@ import CrashGame from "./Views/Crash";
 import Spinmatic from "./Views/Spinmatic";
 import SpinmaticDetailPage from "./Views/SpinmaticDetailPage";
 import RocketMan from "./Views/RocketMan";
+import SpaceMan from "./Views/SpaceMan";
 
 export default function Routes() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -167,6 +168,7 @@ export default function Routes() {
           <Route exact path="/jackpot" component={Jackpot} />
           <Route exact path="/casino" component={Casino} />
           <Route exact path="/crash-game" component={CrashGame} />
+          <Route exact path="/space-man" component={SpaceMan} />
           <Route exact path="/rocket-man" component={RocketMan} />
           <Route exact path="/spinmatic/:id" component={SpinmaticDetailPage} />
           <Route exact path="/spinmatic" component={Spinmatic} />
