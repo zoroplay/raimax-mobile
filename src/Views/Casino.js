@@ -35,7 +35,7 @@ export default function Casino({ history }) {
       <iframe
         title="casino"
         style={{ width: "100%", border: 0, height: "100vh" }}
-        src={`${process.env.REACT_APP_CASINO_URL}/?cid=${process.env.REACT_APP_CASINO_ID}&token=${token}}`} 
+        src={`${process.env.REACT_APP_CASINO_URL}/?cid=${process.env.REACT_APP_CASINO_ID}&token=${token}`} 
       />
     </Layout>
   );
