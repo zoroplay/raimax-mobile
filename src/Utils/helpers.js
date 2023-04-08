@@ -241,7 +241,7 @@ export const validateCombinability = (no_of_fixtures, tournaments) => {
                 if (no_of_fixtures < 2) {
                     res = {
                         success: false,
-                        message: 'You must select minimum of 2 games under ' + tournament.category + ' -> ' + tournament.tournamentName
+                        message: 'You must select minimum of 2 games with ' + tournament.category + ' -> ' + tournament.tournamentName
                     };
                 }
                 break;
@@ -249,7 +249,7 @@ export const validateCombinability = (no_of_fixtures, tournaments) => {
                 if (no_of_fixtures < 3) {
                     res = {
                         success: false,
-                        message: 'You must select minimum of 3 games under ' + tournament.category + ' -> ' + tournament.tournamentName
+                        message: 'You must select minimum of 3 games with ' + tournament.category + ' -> ' + tournament.tournamentName
                     };
                 }
                 break;
@@ -257,7 +257,7 @@ export const validateCombinability = (no_of_fixtures, tournaments) => {
                 if (no_of_fixtures < 5) {
                     res = {
                         success: false,
-                        message: 'You must select minimum of 5 games under ' + tournament.category + ' -> ' + tournament.tournamentName
+                        message: 'You must select minimum of 5 games with ' + tournament.category + ' -> ' + tournament.tournamentName
                     };
                 }
                 break;
