@@ -126,25 +126,12 @@ export function addToCoupon(fixture, market_id, market_name, odds, odd_id, oddna
                 if(couponData.selections[i].provider_id === data.provider_id){
                     //remove old selection
                     couponData.selections.splice(i, 1);
-                    // add new selection
-                    couponData.selections.push(data);
-                    couponData.tournaments = groupTournament(couponData.selections);
-
-                    // recalculate total odds
-                    couponData.totalOdds = calculateTotalOdds(couponData.selections);
-                    //calculate and get pot winnings with bonus
-                    const winnings = calculateWinnings(couponData, globalVars, bonusList);
-                    couponData.maxWin = winnings.maxWin;
-                    couponData.maxBonus = winnings.maxBonus;
-                    couponData.grossWin = winnings.grossWin;
-                    
-                    return dispatch({type: SET_COUPON_DATA, payload: couponData});
                 }
             }
-
-            couponData.totalOdds = (parseFloat(couponData.totalOdds) * parseFloat(data.odds)).toFixed(2);
             //add selection to selections list
             couponData.selections.push(data);
+            // recalculate total odds
+            couponData.totalOdds = calculateTotalOdds(couponData.selections);
             //group selections by tournament
             couponData.tournaments = groupTournament(couponData.selections);
             //group selections by match
