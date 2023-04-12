@@ -134,7 +134,7 @@ const DepositShop = ({ history }) => {
         <p className="code-card" style={{ background: "green" }}>
           {" "}
           Your Deposit Pin is:{" "}
-          <strong>{withdrawalData?.code}</strong>
+          <strong>{withdrawalData?.reference_no}</strong>
           <br />
           Take to any shop to complete your deposit.
         </p>
