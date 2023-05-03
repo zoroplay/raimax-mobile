@@ -63,6 +63,15 @@
   margin: 0 auto 2px;
 }
 
+.quicklinks__new {
+  position: absolute;
+  font-size: 9px;
+  font-weight: bold;
+  color: red;
+  top: -3px;
+  right: 3px;
+}
+
 .quicklinks .icon {
   width: 100%!important;
   height: 100%!important;

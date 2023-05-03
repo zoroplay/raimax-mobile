@@ -14,6 +14,7 @@ export default function Index({
   footer = true,
   nav = true,
   bottom = true,
+  search = true,
   children,
   page,
   headerLeft,
@@ -47,7 +48,7 @@ export default function Index({
           />
         )}
         <main>
-          <form onSubmit={searchFixtures} className="cnt">
+          {search && <form onSubmit={searchFixtures} className="cnt">
             <div className="heading__search">
               <div className="heading__search-left">
               <input 
@@ -62,7 +63,7 @@ export default function Index({
                 <span className="icon search" id="pushmenu_search_icon"></span>
               </div>
             </div>
-          </form>
+          </form>}
 
           {children}
           <Modal />

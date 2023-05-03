@@ -72,7 +72,8 @@ export default function QuickLinks() {
             <span className="quicklinks__item-label">Virtual</span>
           </div>
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">
-          <NavLink
+            <span className="quicklinks__new">New</span>
+            <NavLink
               to={"/casino"}
               className="quicklinks__icon"
               id="iconslider_321892_zoom_link"

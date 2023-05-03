@@ -9,7 +9,7 @@ export default function Casino({ history }) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      setToken(`${user?.auth_code}-${process.env.REACT_APP_SITE_KEY}`)
+      setToken(`${user?.code}-${user?.auth_code}-${process.env.REACT_APP_SITE_KEY}`)
     } 
   }, [isAuthenticated]);
 
@@ -26,14 +26,11 @@ export default function Casino({ history }) {
         </div>
       }
     >
-      <div style={{textAlign: 'center', padding: '20px'}}>
-        <h2>Coming Soon</h2>
-      </div>
-      {/* <iframe
+      <iframe
         title="casino"
         style={{ width: "100%", border: 0, height: "100vh" }}
         src={`${process.env.REACT_APP_CASINO_URL}/?cid=${process.env.REACT_APP_CASINO_ID}&token=${token}`} 
-      /> */}
+      />
     </Layout>
   );
 }

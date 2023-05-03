@@ -61,14 +61,6 @@ export default function Fixtures({ fixtures, predictions, showLeague }) {
     // }
   };
 
-  const toggleStat = (fixture) => {
-    if (showStat === null) {
-      setShowStat(fixture);
-    } else {
-      setShowStat(null);
-    }
-  };
-
   const goTo = (tournament) => {
     history.push(`/events/${slugify(tournament.sport_name)}/${slugify(tournament.sport_tournament_name)}/${tournament.sport_tournament_id}`)
   }
