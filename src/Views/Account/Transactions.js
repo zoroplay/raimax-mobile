@@ -80,6 +80,18 @@ const Transactions = ({ history }) => {
     }
   };
 
+  const getStatusClass = status => {
+    switch (status) {
+      case 1:
+        return 'txt-green';
+      case 2:
+        return 'txt-red';
+      default:
+        return 'txt-orange';
+        break;
+    }
+  }
+
   return (
     <Layout
       headerLeft={
@@ -181,9 +193,14 @@ const Transactions = ({ history }) => {
                 <div className="accordion-toggle" />
                 <div className="accordion__cnt">
                   <div className="accordion__cnt-item">{formatDate(transaction.created_at, "DD/MM/YYYY HH:mm:ss")}</div>
-                  <div className="accordion__cnt-item">{transaction.subject}</div>
+                  <div className={`accordion__cnt-item ${getStatusClass(transaction.status)}`}>
+                    {transaction.subject}
+                  </div>
                   <div className="accordion__cnt-item txt-r">
-                    <strong>{formatNumber(transaction.amount)}</strong>
+                    <strong className={`${transaction.tranx_type === "debit" ? 'txt-red' : 'txt-green'}`}>
+                      {transaction.tranx_type === "debit" ? '-' : '+'}
+                      {formatNumber(transaction.amount)}
+                    </strong>
                     <p>
                       {transaction.tranx_type === "debit"
                         ? formatNumber(transaction.from_user_balance)
