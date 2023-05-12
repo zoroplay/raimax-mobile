@@ -18,13 +18,18 @@ export const fetchFixturesByDateSport = (date, sport_id) =>
 
 export const upcomingFixtures = () => Http.get(`/sports/mobile/upcoming`);
 
-export const getOddsChange = (data) => Http.post("/sports/live/oddschanged", data);
+export const getOddsChange = (data) =>
+  Http.post("/sports/live/oddschanged", data);
 
-export const getSports = (startDate, endDate) => Http.get(`/sports/group-fixtures-by-sport?date=${startDate}&end_date=${endDate}`);
+export const getSports = (startDate, endDate) =>
+  Http.get(
+    `/sports/group-fixtures-by-sport?date=${startDate}&end_date=${endDate}`
+  );
 
 export const fetchHighlights = () => Http.get(`/sports/mobile/highlights`);
 
-export const searchFixtures = (q) => Http.get(`/sports/search?q=${q}&channel=mobile`);
+export const searchFixtures = (q) =>
+  Http.get(`/sports/search?q=${q}&channel=mobile`);
 
 export const getFixture = (eventId) =>
   Http.get(`sports/get-fixture/${eventId}`);
@@ -68,12 +73,6 @@ export const redeemBonus = () =>
   Http.get(`user/account/redeem-bonus?source=mobile`);
 
 export const getWithdrawalInfo = () => Http.get(`user/account/withdrawal-info`);
-
-export function saveTransaction(res) {
-  Http.post("utilities/save-payment-transaction", res)
-    .then((res) => {})
-    .catch((err) => {});
-}
 
 export const getGatewayKeys = (gateway) =>
   Http.get(`utilities/get-gateway-keys/${gateway}`);
@@ -149,7 +148,7 @@ export const updateSelfExclusion = (data) =>
 export const updateDepositLimit = (data) =>
   Http.post("/user/account/deposit-limit", data);
 
-  export const shopDeposit = (data) =>
+export const shopDeposit = (data) =>
   Http.post("/user/account/deposit?channel=mobile&source=shop", data);
 
 export const updateMarketingPreferences = (data) =>
@@ -175,7 +174,17 @@ export const fetchFixturesByDateRangeSport = (
 
 export const sendOtp = () => Http.post(`/sendsms`);
 
-export const verifyCode = (otp) => Http.post(`/sms/pin_verification/verify`, otp);
+export const verifyCode = (otp) =>
+  Http.post(`/sms/pin_verification/verify`, otp);
 
 export const getAllGames = () =>
   Http.post("https://sports-api.sportsbookengine.com/api/xpress/getgames");
+
+export const initializeTransaction = (data) =>
+  Http.post("user/account/deposit?channel=mobile", data);
+
+export function saveTransaction(res) {
+  Http.post("utilities/save-payment-transaction", res)
+    .then((res) => {})
+    .catch((err) => {});
+}

@@ -90,7 +90,10 @@ export default function Routes() {
   useEffect(() => {
     if (isAuthenticated) {
       LEcho.channel(`deposits.${user.username}`).listen("DepositEvent", (e) => {
-        dispatch({ type: UPDATE_USER_BALANCE, payload: e.user.available_balance });
+        dispatch({
+          type: UPDATE_USER_BALANCE,
+          payload: e.user.available_balance,
+        });
         // show alert
       });
     }
@@ -188,6 +191,7 @@ export default function Routes() {
           <Route exact path="/account/deposit" component={DepositType} />
           <Route exact path="/account/deposit/card" component={DepositCard} />
           <Route exact path="/account/deposit/shop" component={DepositShop} />
+          <Route exact path="/account/deposit/:type" component={Deposit} />
           <Route exact path="/account/bonuses" component={SportsBonus} />
           <Route exact path="/account/withdraw" component={Withdrawal} />
           <Route

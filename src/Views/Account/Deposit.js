@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../Layout";
-import { getGatewayKeys, saveTransaction } from "../../Services/apis";
-import { SET_LOADING_PROP, UPDATE_USER_BALANCE } from "../../Redux/types";
 import { useDispatch, useSelector } from "react-redux";
-import { formatNumber, goBack } from "../../Utils/helpers";
-import { PaystackButton } from "react-paystack";
-
-const gateways = [
-  { slug: "paystack", name: "Paystack" },
-  { slug: "monnify", name: "Monnify" },
-];
+import { goBack } from "../../Utils/helpers";
+import { useParams } from "react-router";
+import {
+  SET_ACTION_PROP,
+  SET_LOADING_PROP,
+  SET_TOAST_PROPS,
+} from "../../Redux/types";
+import { initializeTransaction } from "../../Services/apis";
 
 const Deposit = ({ history }) => {
   const [amount, setAmount] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
   const { SportsbookGlobalVariable } = useSelector((state) => state.sportsBook);
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const [panel, setPanel] = useState("form");
+  const { type } = useParams();
 
   useEffect(() => {
     if (!isAuthenticated) history.replace("/");
@@ -24,174 +27,65 @@ const Deposit = ({ history }) => {
     if (user?.email === null) {
       history.replace("/account/details");
     }
-  }, [user]);
+  }, [type]);
 
-  const [activeTab, setActiveTab] = useState({
-    slug: "paystack",
-    name: "Paystack",
-  });
-  const [config, setConfig] = useState({
-    txref: new Date().getTime(),
-    customer_email: user.email,
-    customer_phone: "",
-    amount: "",
-    PBFPubKey: "",
-    contractCode: "",
-    production: process.env.NODE_ENV === "production",
-  });
   const [paymentSuccess, setPaymentSuccess] = useState("");
   const dispatch = useDispatch();
 
   const updateAmount = (value) => {
     if (value === 0) {
-      setConfig({ ...config, amount: 0 });
+      setAmount(0);
       return;
     }
-    let currentAmount = config.amount;
+    let currentAmount = amount;
     if (currentAmount === "") {
       currentAmount = 0;
     }
     const newAmount = currentAmount + value;
-    setConfig({ ...config, amount: newAmount });
+    setAmount(newAmount);
   };
 
-  const verifyPayment = (response) => {
-    if (config.amount > 0) {
-      if (response.message === "Approved") {
-        setPaymentSuccess(
-          `Success!! Your account has been credited with ${formatNumber(
-            config.amount
-          )}`
-        );
-        // update user balance
-        dispatch({
-          type: UPDATE_USER_BALANCE,
-          payload: user.balance + config.amount,
-        });
-
-        response.paymentMethod = "paystack";
-        response.channel = "mobile";
-        response.amount = config.amount;
-        setConfig({ ...config, amount: "" });
-        saveTransaction(response);
-        // dispatch({type: SHOW_MODAL, payload: {show: true, type: 'error', message: 'Your'}})
-      } else {
-        // dispatch({type: SHOW_MODAL, payload: {show: true, type: 'error', message: 'We were unable to process your request'}})
-      }
-    }
-  };
-
-  const getGateway = (gateway) => {
-    setActiveTab(gateway);
-    getGatewayKeys(gateway.slug)
+  const submit = (e) => {
+    e.preventDefault();
+    setBusy(true);
+    dispatch({ type: SET_LOADING_PROP, payload: { show: true, message: "" } });
+    initializeTransaction({ amount: amount, payment_method: type })
       .then((res) => {
+        dispatch({
+          type: SET_LOADING_PROP,
+          payload: { show: false, message: "" },
+        });
         if (res.success) {
-          setConfig({
-            ...config,
-            PBFPubKey: res.pub_key,
-            contractCode:
-              gateway.slug === "monnify" ? res.monnify_contract_code : "",
-          });
+          setAmount("");
+          if (type === "shop") {
+            setPaymentSuccess(res.data);
+          } else {
+            window.location.href = res.url;
+          }
         } else {
+          setErrMsg(res?.message);
           dispatch({
-            type: SET_LOADING_PROP,
-            payload: { show: false, message: res.message },
+            type: SET_TOAST_PROPS,
+            payload: { show: true, message: res.message, color: "danger" },
           });
         }
       })
       .catch((err) => {
+        setBusy(false);
         dispatch({
           type: SET_LOADING_PROP,
-          payload: { show: false, message: err.message },
+          payload: { show: false, message: "" },
+        });
+        dispatch({
+          type: SET_ACTION_PROP,
+          payload: {
+            show: true,
+            title: "Error",
+            message: "Unable to process request. Please try again",
+          },
         });
       });
   };
-
-  const onSuccess = (response) => {
-    response.paymentMethod = activeTab.slug;
-    response.channel = "website";
-    response.amount = config.amount;
-
-    switch (activeTab.slug) {
-      case "rave":
-        if (response.respcode === "00") {
-          response.reference = response.tx.txRef;
-          setPaymentSuccess(
-            `Success!! Your account has been credited with ${formatNumber(
-              config.amount
-            )}`
-          );
-          // update user balance
-          dispatch({
-            type: UPDATE_USER_BALANCE,
-            payload: user.balance + config.amount,
-          });
-
-          saveTransaction(response);
-        }
-        break;
-      case "paystack":
-        if (response.message === "Approved") {
-          setPaymentSuccess(
-            `Success!! Your account has been credited with ${formatNumber(
-              config.amount
-            )}`
-          );
-          // update user balance
-          dispatch({
-            type: UPDATE_USER_BALANCE,
-            payload: user.balance + config.amount,
-          });
-
-          saveTransaction(response);
-        } else {
-        }
-        break;
-      case "monnify":
-        if (response.status === "SUCCESS") {
-          setPaymentSuccess(
-            `Success!! Your account has been credited with ${formatNumber(
-              config.amount
-            )}`
-          );
-          // update user balance
-          dispatch({
-            type: UPDATE_USER_BALANCE,
-            payload: user.balance + config.amount,
-          });
-          response.reference = response.transactionReference;
-
-          saveTransaction(response);
-        }
-        break;
-    }
-    setConfig({ ...config, amount: "" });
-  };
-
-  useEffect(() => {
-    getGateway(activeTab);
-  }, []);
-
-  function payWithMonnify() {
-    window.MonnifySDK.initialize({
-      amount: config.amount,
-      currency: "NGN",
-      reference: "" + Math.floor(Math.random() * 1000000000 + 1),
-      customerEmail: user.email,
-      apiKey: config.PBFPubKey,
-      contractCode: config.contractCode,
-      paymentDescription: "Gaming Account funding",
-      isTestMode: config.production,
-      paymentMethods: ["CARD", "ACCOUNT_TRANSFER"],
-      onComplete: function (response) {
-        //Implement what happens when transaction is completed.
-        onSuccess(response);
-      },
-      onClose: function (data) {
-        //Implement what should happen when the modal is closed here
-      },
-    });
-  }
 
   return (
     <Layout
@@ -205,23 +99,37 @@ const Deposit = ({ history }) => {
         </div>
       }
     >
-      <div className="page-title"> Instant Deposit Cards</div>
+      <div className="page-title"> Deposit from {type}</div>
       <div className="t-menu second">
-        {gateways.map((gateway) => (
-          <a
-            key={gateway.slug}
-            className={`t-menu__item ${
-              gateway.slug === activeTab.slug ? "active" : ""
-            }`}
-            href={`#/Deposit/InstantCardDeposit/${gateway.name}`}
-            onClick={() => getGateway(gateway)}
-          >
-            <strong className="t-menu__item-title"> {gateway.name}</strong>
-          </a>
-        ))}
+        <a
+          className={`t-menu__item ${panel === "form" ? "active" : ""}`}
+          href={`#/Form`}
+          onClick={() => setPanel("form")}
+        >
+          <strong className="t-menu__item-title"> Deposit Form</strong>
+        </a>
+        <a
+          className={`t-menu__item ${panel === "pending" ? "active" : ""}`}
+          href={`#/Pending`}
+          onClick={() => setPanel("pending")}
+        >
+          <strong className="t-menu__item-title"> Pending Deposits</strong>
+        </a>
       </div>
-      {paymentSuccess !== "" && (
-        <div className="info-box green">{paymentSuccess}</div>
+
+      {paymentSuccess && (
+        <p className="code-card" style={{ background: "green" }}>
+          {" "}
+          Your Deposit Pin is: <strong>{paymentSuccess?.reference_no}</strong>
+          <br />
+          Take to any shop to complete your deposit.
+        </p>
+      )}
+      {errMsg && (
+        <p className="code-card" style={{ background: "red" }}>
+          {" "}
+          {errMsg}
+        </p>
       )}
       <div className="page__body p15">
         <div className="form">
@@ -242,11 +150,8 @@ const Deposit = ({ history }) => {
                   step="100"
                   maxLength={5}
                   min={SportsbookGlobalVariable.MinDeposit}
-                  max="10000"
-                  value={config.amount}
-                  onChange={(e) =>
-                    setConfig({ ...config, amount: e.target.value })
-                  }
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
                 />
                 <div className="form-input--stake">
                   {" "}
@@ -291,30 +196,15 @@ const Deposit = ({ history }) => {
                 </div>
               </div>
             </div>
-            {
-              {
-                monnify: (
-                  <button
-                    className="btn mt20 mb20 w-full"
-                    onClick={payWithMonnify}
-                  >
-                    {" "}
-                    Make Payment
-                  </button>
-                ),
-                paystack: (
-                  <PaystackButton
-                    amount={config.amount * 100}
-                    email={user?.email}
-                    publicKey={config.PBFPubKey}
-                    onSuccess={verifyPayment}
-                    text="Make Payment"
-                    disabled={parseInt(config.amount) === 0}
-                    className="btn mt20 mb20 w-full"
-                  />
-                ),
-              }[activeTab.slug]
-            }
+
+            <button
+              className="btn mt20 mb20 w-full"
+              onClick={submit}
+              disabled={busy}
+            >
+              {" "}
+              {busy ? "Processing..." : "Make Payment"}
+            </button>
           </div>
         </div>
       </div>
