@@ -187,7 +187,7 @@ export default function Routes() {
           <Route exact path="/book-a-bet" component={BookBet} />
           <Route
             exact
-            path="/payment-verification"
+            path="/payment-verification/type"
             component={PaymentVerification}
           />
 
