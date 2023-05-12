@@ -71,6 +71,7 @@ import Spinmatic from "./Views/Spinmatic";
 import SpinmaticDetailPage from "./Views/SpinmaticDetailPage";
 import RocketMan from "./Views/RocketMan";
 import SpaceMan from "./Views/SpaceMan";
+import PaymentVerification from "./Views/PaymentVerification";
 
 export default function Routes() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -184,6 +185,11 @@ export default function Routes() {
           />
           <Route exact path="/coupon-check" component={CouponCheck} />
           <Route exact path="/book-a-bet" component={BookBet} />
+          <Route
+            exact
+            path="/payment-verification"
+            component={PaymentVerification}
+          />
 
           <Route exact path="/account/cashier" component={Cashier} />
           <Route exact path="/account/details" component={AccountDetails} />
