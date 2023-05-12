@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../Layout";
-import { shopDeposit } from "../../Services/apis";
+import { initializeTransaction } from "../../Services/apis";
 import {
   SET_ACTION_PROP,
   SET_LOADING_PROP,
@@ -18,7 +18,7 @@ const DepositShop = ({ history }) => {
   const [showErr, setShowErr] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const [loading, setLoading] = useState(false);
-  const [panel, setPanel] = useState('form');
+  const [panel, setPanel] = useState("form");
   const [withdrawalData, setData] = useState({});
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -45,7 +45,7 @@ const DepositShop = ({ history }) => {
     e.preventDefault();
     setLoading(true);
     dispatch({ type: SET_LOADING_PROP, payload: { show: true, message: "" } });
-    shopDeposit({ amount: amount })
+    initializeTransaction({ amount: amount })
       .then((res) => {
         dispatch({
           type: SET_LOADING_PROP,
@@ -111,30 +111,25 @@ const DepositShop = ({ history }) => {
     >
       <div className="page-title"> Deposit Funds</div>
       <div className="t-menu second">
-          <a
-            className={`t-menu__item ${
-              panel === 'form' ? "active" : ""
-            }`}
-            href={`#/Form`}
-            onClick={() => setPanel('form')}
-          >
-            <strong className="t-menu__item-title"> Deposit Form</strong>
-          </a>
-          <a
-            className={`t-menu__item ${
-              panel === 'pending' ? "active" : ""
-            }`}
-            href={`#/Pending`}
-            onClick={() => setPanel('pending')}
-          >
-            <strong className="t-menu__item-title"> Pending Deposits</strong>
-          </a>
+        <a
+          className={`t-menu__item ${panel === "form" ? "active" : ""}`}
+          href={`#/Form`}
+          onClick={() => setPanel("form")}
+        >
+          <strong className="t-menu__item-title"> Deposit Form</strong>
+        </a>
+        <a
+          className={`t-menu__item ${panel === "pending" ? "active" : ""}`}
+          href={`#/Pending`}
+          onClick={() => setPanel("pending")}
+        >
+          <strong className="t-menu__item-title"> Pending Deposits</strong>
+        </a>
       </div>
       {show && (
         <p className="code-card" style={{ background: "green" }}>
           {" "}
-          Your Deposit Pin is:{" "}
-          <strong>{withdrawalData?.reference_no}</strong>
+          Your Deposit Pin is: <strong>{withdrawalData?.code}</strong>
           <br />
           Take to any shop to complete your deposit.
         </p>
