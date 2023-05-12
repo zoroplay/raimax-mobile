@@ -188,3 +188,8 @@ export function saveTransaction(res) {
     .then((res) => {})
     .catch((err) => {});
 }
+
+export const verifyTransaction = (data) =>
+  Http.get(
+    `user/account/verify-payment?paymentChannel=${data.paymentChannel}&trxRef=${data.trxRef}`
+  );
