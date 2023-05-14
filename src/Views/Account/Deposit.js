@@ -55,9 +55,11 @@ const Deposit = ({ history }) => {
           type: SET_LOADING_PROP,
           payload: { show: false, message: "" },
         });
+        setBusy(false);
+
         if (res.success) {
           setAmount("");
-          if (type === "shop") {
+          if (type === "sbengine") {
             setPaymentSuccess(res.data);
           } else {
             window.location.href = res.url;

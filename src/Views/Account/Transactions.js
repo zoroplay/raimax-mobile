@@ -57,38 +57,41 @@ const Transactions = ({ history }) => {
         setForm({
           ...form,
           period: value,
-          from: moment().toISOString(),
-          to: moment().toISOString(),
+          from: moment().toDate(),
+          to: moment().toDate(),
         });
         break;
       case "7":
         setForm({
           ...form,
           period: value,
-          from: moment().subtract(1, "w").toISOString(),
-          to: moment().toISOString(),
+          from: moment().subtract(1, "w").toDate(),
+          to: moment().toDate(),
         });
         break;
       case "30":
         setForm({
           ...form,
           period: value,
-          from: moment().subtract(30, "days").toISOString(),
-          to: moment().toISOString(),
+          from: moment().subtract(30, "days").toDate(),
+          to: moment().toDate(),
         });
         break;
     }
   };
 
-  const getStatusClass = status => {
-    switch (status) {
-      case 1:
-        return 'txt-green';
-      case 2:
-        return 'txt-red';
-      default:
-        return 'txt-orange';
-        break;
+  const getStatusClass = t => {
+    if(t.status === 0) {
+      return 'txt-orange';
+    } else {
+      switch (t.tranx_type) {
+        case 'credit':
+          return 'txt-green';
+        case 'debit':
+          return 'txt-red';
+        default:
+          return 'txt-orange';
+      }
     }
   }
 
@@ -193,11 +196,11 @@ const Transactions = ({ history }) => {
                 <div className="accordion-toggle" />
                 <div className="accordion__cnt">
                   <div className="accordion__cnt-item">{formatDate(transaction.created_at, "DD/MM/YYYY HH:mm:ss")}</div>
-                  <div className={`accordion__cnt-item ${getStatusClass(transaction.status)}`}>
+                  <div className={`accordion__cnt-item ${getStatusClass(transaction)}`}>
                     {transaction.subject}
                   </div>
                   <div className="accordion__cnt-item txt-r">
-                    <strong className={`${transaction.tranx_type === "debit" ? 'txt-red' : 'txt-green'}`}>
+                    <strong className={`${getStatusClass(transaction)}`}>
                       {transaction.tranx_type === "debit" ? '-' : '+'}
                       {formatNumber(transaction.amount)}
                     </strong>
