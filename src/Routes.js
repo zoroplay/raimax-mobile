@@ -64,7 +64,6 @@ import SportsBonus from "./Views/Account/SportsBonus";
 import Casino from "./Views/Casino";
 import WithdrawToBank from "./Views/Account/WithdrawToBank";
 import SearchFixtures from "./Views/SearchFixtures";
-import DepositShop from "./Views/Account/DepositShop";
 import CrashGame from "./Views/Crash";
 import Spinmatic from "./Views/Spinmatic";
 import SpinmaticDetailPage from "./Views/SpinmaticDetailPage";
