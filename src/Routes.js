@@ -195,8 +195,6 @@ export default function Routes() {
           <Route exact path="/account/details" component={AccountDetails} />
           {/* <Route exact path="/account/deposit" component={Deposit} /> */}
           <Route exact path="/account/deposit" component={DepositType} />
-          <Route exact path="/account/deposit/card" component={DepositCard} />
-          <Route exact path="/account/deposit/shop" component={DepositShop} />
           <Route exact path="/account/deposit/:type" component={Deposit} />
           <Route exact path="/account/bonuses" component={SportsBonus} />
           <Route exact path="/account/withdraw" component={Withdrawal} />
