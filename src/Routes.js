@@ -15,7 +15,6 @@ import CouponCheck from "./Views/CouponCheck";
 import BookBet from "./Views/BookBet";
 import CouponCheckResult from "./Views/CouponCheckResult";
 import Deposit from "./Views/Account/Deposit";
-import DepositCard from "./Views/Account/DepositCard";
 import DepositType from "./Views/Account/DepositType";
 import Register from "./Views/Auth/Register";
 import DailyBundle from "./Views/DailyBundle";
