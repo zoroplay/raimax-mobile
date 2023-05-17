@@ -131,7 +131,7 @@ export const sendWithdrawal = (data) =>
   Http.post("/user/account/send-withdrawal", data);
 
 export const playerWithdrawal = (data) =>
-  Http.post("/user/account/online/withdraw", data);
+  Http.post("/user/account/withdraw", data);
 
 export const getTipsters = () => Http.get("/sports/tipsters/all");
 
