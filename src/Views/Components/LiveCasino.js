@@ -19,9 +19,6 @@ function LiveCasino({ title }) {
       .then((response) => {
         setLoading(false);
         setGames(response?.data);
-        // setGames(
-        //   response?.data?.filter((game) => game.provider === "SPINMATIC")
-        // );
       })
       .catch((err) => {
         setGames(err?.response?.data?.message);
@@ -51,23 +48,11 @@ function LiveCasino({ title }) {
       {loading ? (
         <Loader loading={loading} style={{ textAlign: "center" }} />
       ) : (
-        <Carousel
-          className="banner-container"
-          style={{ background: "black" }}
-          autoPlay={true}
-          infiniteLoop={true}
-          showStatus={false}
-          showThumbs={false}
-          centerMode={true}
-          centerSlidePercentage={33.3}
-          showArrows={true}
-          interval={3000}
-        >
-          {/* <div className="box-holder"> */}
+        <div className="box-carous">
           {games &&
             games?.map((item, i) => (
               <div
-                className="box"
+                className="box-caro"
                 key={i}
                 onClick={() => viewDetails(item?.game_id)}
               >
@@ -77,12 +62,11 @@ function LiveCasino({ title }) {
                 />
                 <div class="middle">
                   <h4>{item?.title}</h4>
-                  <div class="textt">Play</div>
+                  <button class="textt">Play</button>
                 </div>
               </div>
             ))}
-          {/* </div> */}
-        </Carousel>
+        </div>
       )}
     </div>
   );

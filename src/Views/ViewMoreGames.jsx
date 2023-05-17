@@ -79,7 +79,7 @@ export default function ViewMoreGames() {
                 />
                 <div class="middle">
                   <h4>{item?.title}</h4>
-                  <div class="textt">Play</div>
+                  <button class="textt">Play</button>
                 </div>
               </div>
             </>
