@@ -193,3 +193,11 @@ export const verifyTransaction = (data) =>
   Http.get(
     `user/account/verify-payment?paymentChannel=${data.paymentChannel}&trxRef=${data.trxRef}`
   );
+
+export const initiateCoralPayment = (payload) =>
+  Http.post("payment/initiate/coral", payload);
+export const getAllCasino = () => Http.get(`casino/web-content?status=1`);
+export const getMoreCasino = () =>
+  Http.get(`/casino/web-content?status=1&limit=50`);
+export const playGame = (payload) => Http.post(`/c27/start-session`, payload);
+export const getTopCasinoGame = () => Http.get(`casino/top-games?status=1`);
