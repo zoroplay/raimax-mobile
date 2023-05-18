@@ -1,14 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { MD5 } from "crypto-js";
 
 export default function QuickLinks() {
-  const { virtualURL, user } = useSelector((state) => state.auth);
+  const { virtualURL, user, isAuthenticated } = useSelector((state) => state.auth);
+  const backurl = process.env.REACT_APP_SITE_URL;
+  const privateKey = process.env.REACT_APP_XPRESS_PRIVATE_KEY;
 
   const toggle = () => {
     const quicklinks = document.getElementById("quicklinks");
     quicklinks.classList.toggle("open");
   };
+
+  const viewDetails = () => {
+    let mode = 0, id = 1700, token = Math.floor(Math.random() * 1000000000 + 1), group = process.env.REACT_APP_SITE_KEY;
+    if (isAuthenticated) {
+      console.log(user)
+      group = user?.group;
+      token = user?.auth_code;
+      mode = 1;
+    } 
+    const hash = MD5(`${token}${id}${backurl}${mode}${group}mobile${privateKey}`).toString();
+
+    window.location.href = `${process.env.REACT_APP_XPRESS_LAUNCH_URL}?token=${token}&game=${id}&backurl=${backurl}&mode=${mode}&group=${group}&clientPlatform=mobile&h=${hash}`
+  };
+
+  const virtual = () => {
+    let mode = 0, id = 10100, token = Math.floor(Math.random() * 1000000000 + 1), group = process.env.REACT_APP_SITE_KEY;
+    if (isAuthenticated) {
+      console.log(user)
+      group = user?.group;
+      token = user?.auth_code;
+      mode = 1;
+    } 
+    const hash = MD5(`${token}${id}${backurl}${mode}${group}mobile${privateKey}`).toString();
+
+    window.location.href = `${process.env.REACT_APP_XPRESS_LAUNCH_URL}?token=${token}&game=${id}&backurl=${backurl}&mode=${mode}&group=${group}&clientPlatform=mobile&h=${hash}`
+  };
+
+  const tvbet = () => {
+    let mode = 0, id = 12101, token = Math.floor(Math.random() * 1000000000 + 1), group = process.env.REACT_APP_SITE_KEY;
+    if (isAuthenticated) {
+      console.log(user)
+      group = user?.group;
+      token = user?.auth_code;
+      mode = 1;
+    } 
+    const hash = MD5(`${token}${id}${backurl}${mode}${group}mobile${privateKey}`).toString();
+
+    window.location.href = `${process.env.REACT_APP_XPRESS_LAUNCH_URL}?token=${token}&game=${id}&backurl=${backurl}&mode=${mode}&group=${group}&clientPlatform=mobile&h=${hash}`
+  };
+
   return (
     <div className="quicklinks" id="quicklinks">
       <div className="quicklinks__holder">
@@ -110,6 +154,46 @@ export default function QuickLinks() {
 
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">
             <NavLink
+              to={"/spinmatic"}
+              className="quicklinks__icon"
+              id="iconslider_321892_zoom_link"
+            >
+              <i
+                className="icon"
+                style={{
+                  backgroundImage: "url(/img/checkcoupon.svg)",
+                  width: "24px",
+                  height: "24px",
+                }}
+              />
+            </NavLink>
+            <span className="quicklinks__item-label">Spinmatics</span>
+          </div>
+
+          <div className="quicklinks__item" id="iconslider_321892_zoom_element">
+            <NavLink
+              // to={"/tvbet"}
+              to = "/" onClick = {tvbet}
+
+              className="quicklinks__icon"
+              id="iconslider_321892_zoom_link"
+            >
+              <i
+                className="icon"
+                style={{
+                  backgroundImage: "url(/img/checkcoupon.svg)",
+                  width: "24px",
+                  height: "24px",
+                }}
+              />
+            </NavLink>
+            <span className="quicklinks__item-label">Tvbet</span>
+          </div>
+
+
+
+          <div className="quicklinks__item" id="iconslider_321892_zoom_element">
+            <NavLink
               to={"/dailybundle/soccer"}
               className="quicklinks__icon"
               id="iconslider_321892_zoom_link"
@@ -125,6 +209,11 @@ export default function QuickLinks() {
             </NavLink>
             <span className="quicklinks__item-label">Today</span>
           </div>
+
+
+        
+
+
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">
             <NavLink
               to={"/coupon-check"}
