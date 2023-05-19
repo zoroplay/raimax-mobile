@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getMoreCasino } from "../Services/apis";
+import { getGamesByCategory, getMoreCasino } from "../Services/apis";
 import Casino from "../Assets/casino.jpg";
 // import Casino from "../Assets/img/cas.jpeg";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Loader from "./Components/Loader";
 
 export default function ViewMoreGames() {
@@ -15,6 +15,7 @@ export default function ViewMoreGames() {
   const [loading, setLoading] = useState([]);
   const [group, setGroup] = useState(process.env.REACT_APP_SITE_KEY);
   const history = useHistory();
+  let { category } = useParams();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -31,9 +32,10 @@ export default function ViewMoreGames() {
 
   const fetchGames = () => {
     setLoading(true);
-
+    // getGamesByCategory(category)
     getMoreCasino()
       .then((response) => {
+        console.log(response);
         setLoading(false);
         setGames(response);
       })

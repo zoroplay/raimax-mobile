@@ -21,7 +21,7 @@ export default function Home({ history }) {
     <Layout isHome={true}>
       <QuickLinks />
       <CarouselComponent />
-      <LiveCasino title="Live Casino" />
+      <LiveCasino />
 
       <NavTabMenu sportsData={sportsData} dispatch={dispatch} />
     </Layout>

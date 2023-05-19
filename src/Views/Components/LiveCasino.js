@@ -3,11 +3,9 @@ import { useSelector } from "react-redux";
 import { getTopCasinoGame } from "../../Services/apis";
 import Casino from "../../Assets/casino.jpg";
 import { NavLink, useHistory } from "react-router-dom";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.css";
 import Loader from "../Components/Loader";
 
-function LiveCasino({ title }) {
+function LiveCasino() {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -40,35 +38,44 @@ function LiveCasino({ title }) {
   };
 
   return (
-    <div className="live-casino">
-      <div className="box-header topbets-top">
-        <h4>{title}</h4>
-        <NavLink to="/live-casino">View More</NavLink>
-      </div>
-      {loading ? (
-        <Loader loading={loading} style={{ textAlign: "center" }} />
-      ) : (
-        <div className="box-carous">
-          {games &&
-            games?.map((item, i) => (
-              <div
-                className="box-caro"
-                key={i}
-                onClick={() => viewDetails(item?.game_id)}
-              >
-                <img
-                  src={item?.image_path === null ? Casino : item?.image_path}
-                  alt="view"
-                />
-                <div class="middle">
-                  <h4>{item?.title}</h4>
-                  <button class="textt">Play</button>
-                </div>
+    <>
+      {games &&
+        games?.map((item) => (
+          <div className="live-casino">
+            <div className="box-header topbets-top">
+              <h4>{item?.name}</h4>
+              <NavLink to={`/live-casino/${item?.slug}`}>View More</NavLink>
+            </div>
+            {loading ? (
+              <Loader loading={loading} style={{ textAlign: "center" }} />
+            ) : (
+              <div className="box-carous">
+                {item?.games &&
+                  item?.games?.map((game, i) => (
+                    <div
+                      className="box-caro"
+                      key={i}
+                      onClick={() => viewDetails(game?.game_id)}
+                    >
+                      <img
+                        src={
+                          item?.image_path === null
+                            ? Casino
+                            : game?.casino?.image_path
+                        }
+                        alt="view"
+                      />
+                      <div class="middle">
+                        <h4>{game?.casino?.title}</h4>
+                        <button class="textt">Play</button>
+                      </div>
+                    </div>
+                  ))}
               </div>
-            ))}
-        </div>
-      )}
-    </div>
+            )}
+          </div>
+        ))}
+    </>
   );
 }
 
