@@ -55,7 +55,7 @@ function LiveCasino() {
                     <div
                       className="box-caro"
                       key={i}
-                      onClick={() => viewDetails(game?.game_id)}
+                      onClick={() => viewDetails(game?.casino?.game_id)}
                     >
                       <img
                         src={
