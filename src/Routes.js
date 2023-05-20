@@ -70,6 +70,8 @@ import SpinmaticDetailPage from "./Views/SpinmaticDetailPage";
 import RocketMan from "./Views/RocketMan";
 import SpaceMan from "./Views/SpaceMan";
 import PaymentVerification from "./Views/PaymentVerification";
+import ViewMoreGames from "./Views/ViewMoreGames";
+import ViewGames from "./Views/ViewGames";
 
 export default function Routes() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -259,6 +261,12 @@ export default function Routes() {
             exact
             path="/events/:sport/:tournament/:tid"
             component={ViewFixtures}
+          />
+          <Route exact path="/play/live-casino/:id" component={ViewGames} />
+          <Route
+            exact
+            path="/live-casino/:category"
+            component={ViewMoreGames}
           />
           <Route
             exact
