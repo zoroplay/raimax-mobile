@@ -15,6 +15,7 @@ function LiveCasino() {
     setLoading(true);
     getTopCasinoGame()
       .then((response) => {
+        console.log(response);
         setLoading(false);
         setGames(response?.data);
       })
@@ -40,41 +41,45 @@ function LiveCasino() {
   return (
     <>
       {games &&
-        games?.map((item) => (
-          <div className="live-casino">
-            <div className="box-header topbets-top">
-              <h4>{item?.name}</h4>
-              <NavLink to={`/live-casino/${item?.slug}`}>View More</NavLink>
-            </div>
-            {loading ? (
-              <Loader loading={loading} style={{ textAlign: "center" }} />
-            ) : (
-              <div className="box-carous">
-                {item?.games &&
-                  item?.games?.map((game, i) => (
-                    <div
-                      className="box-caro"
-                      key={i}
-                      onClick={() => viewDetails(game?.casino?.game_id)}
-                    >
-                      <img
-                        src={
-                          item?.image_path === null
-                            ? Casino
-                            : game?.casino?.image_path
-                        }
-                        alt="view"
-                      />
-                      <div class="middle">
-                        <h4>{game?.casino?.title}</h4>
-                        <button class="textt">Play</button>
-                      </div>
-                    </div>
-                  ))}
+        games?.map((item) =>
+          item?.games?.length === 0 ? (
+            ""
+          ) : (
+            <div className="live-casino">
+              <div className="box-header topbets-top">
+                <h4>{item?.name}</h4>
+                <NavLink to={`/live-casino/${item?.slug}`}>View More</NavLink>
               </div>
-            )}
-          </div>
-        ))}
+              {loading ? (
+                <Loader loading={loading} style={{ textAlign: "center" }} />
+              ) : (
+                <div className="box-carous">
+                  {item?.games &&
+                    item?.games?.map((game, i) => (
+                      <div
+                        className="box-caro"
+                        key={i}
+                        onClick={() => viewDetails(game?.casino?.game_id)}
+                      >
+                        <img
+                          src={
+                            item?.image_path === null
+                              ? Casino
+                              : game?.casino?.image_path
+                          }
+                          alt="view"
+                        />
+                        <div class="middle">
+                          <h4>{game?.casino?.title}</h4>
+                          <button class="textt">Play</button>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
+          )
+        )}
     </>
   );
 }
