@@ -80,7 +80,9 @@ export default function QuickLinks() {
                         </NavLink>
                         <span className="quicklinks__item-label">Zoom</span>
                     </div>*/}
-          <div className="quicklinks__item" id="iconslider_321892_zoom_element">
+
+
+          {/* <div className="quicklinks__item" id="iconslider_321892_zoom_element">
             <NavLink
               to={"/sport/livebetting"}
               className="quicklinks__icon"
@@ -96,7 +98,8 @@ export default function QuickLinks() {
               />
             </NavLink>
             <span className="quicklinks__item-label">Live</span>
-          </div>
+          </div> */}
+
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">
             {/* <a className="quicklinks__icon"  href={virtualURL} id="iconslider_321892_zoom_link"> */}
             <a
@@ -133,8 +136,9 @@ export default function QuickLinks() {
             </NavLink>
             <span className="quicklinks__item-label">Casino</span>
           </div>
-          <div className="quicklinks__item" id="iconslider_321892_zoom_element">
-            {/* <a className="quicklinks__icon"  href={virtualURL} id="iconslider_321892_zoom_link"> */}
+         
+          {/* <div className="quicklinks__item" id="iconslider_321892_zoom_element">
+           
             <NavLink
               className="quicklinks__icon"
               to={"/space-man"}
@@ -150,7 +154,7 @@ export default function QuickLinks() {
               />
             </NavLink>
             <span className="quicklinks__item-label">Space Man</span>
-          </div>
+          </div> */}
 
           <div className="quicklinks__item" id="iconslider_321892_zoom_element">
             <NavLink
