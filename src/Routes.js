@@ -263,7 +263,11 @@ export default function Routes() {
             component={ViewFixtures}
           />
           <Route exact path="/play/live-casino/:id" component={ViewGames} />
-          <Route exact path="/live-casino" component={ViewMoreGames} />
+          <Route
+            exact
+            path="/live-casino/:category"
+            component={ViewMoreGames}
+          />
           <Route
             exact
             path="/eventdetail/:sport/:country/:tournament/:event/:eventId"
