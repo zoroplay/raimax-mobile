@@ -15,7 +15,7 @@ const Transactions = ({ history }) => {
     to: moment().toDate(),
   });
 
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!isAuthenticated) history.replace("/");
@@ -86,9 +86,9 @@ const Transactions = ({ history }) => {
     } else {
       switch (t.tranx_type) {
         case 'credit':
-          return 'txt-green';
+          return t.to_user === user?.username ? 'txt-green' : 'txt-red';
         case 'debit':
-          return 'txt-red';
+          return t.from_user === user?.username ? 'txt-red' : 'txt-green';
         default:
           return 'txt-orange';
       }
@@ -201,11 +201,11 @@ const Transactions = ({ history }) => {
                   </div>
                   <div className="accordion__cnt-item txt-r">
                     <strong className={`${getStatusClass(transaction)}`}>
-                      {transaction.tranx_type === "debit" ? '-' : '+'}
+                      {(transaction.tranx_type === "debit" && transaction.from_user === user?.username) ? '-' : '+'}
                       {formatNumber(transaction.amount)}
                     </strong>
                     <p>
-                      {transaction.tranx_type === "debit"
+                      {transaction.from_user === user?.username
                         ? formatNumber(transaction.from_user_balance)
                         : formatNumber(transaction.to_user_balance)}
                     </p>
