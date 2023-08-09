@@ -35,11 +35,14 @@ export default function Register({ history }) {
   const [errMsgs] = useState([]);
   const dispatch = useDispatch();
   const [pre] = useState("+211");
+  const { SportsbookGlobalVariable } = useSelector((state) => state.sportsBook);
 
   const submitForm = (values, { setSubmitting }) => {
+    const dialCode = SportsbookGlobalVariable.DialCode.substring(1);
+
     const payload = {
-      username: values.phone,
-      phone: values.phone,
+      username: formattedPhoneNumber(values.phone),
+      phone: dialCode+''+formattedPhoneNumber(values.phone),
       password: values.password,
       confirm_password: values.confirm_password,
       referral_code: values?.referral_code,
@@ -149,7 +152,7 @@ function RegisterForm({ errors, handleSubmit, isSubmitting }) {
             <div className="dnxreg-box-b">
               <div className="nxmob">
                 <select name="pre" id="" className="nxmob-select">
-                  <option value="+211">+211 </option>
+                <option value="+234">{SportsbookGlobalVariable.DialCode}</option>
                 </select>
                 <Field
                   style={errors.phone ? error : null}

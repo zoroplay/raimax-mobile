@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import Layout from "../Layout";
-import { goBack } from "../../Utils/helpers";
 import { login } from "../../Services/apis";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_USER_DATA } from "../../Redux/types";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import { formattedPhoneNumber } from "../../Utils/helpers";
 
 export default function Login({ history }) {
+  const { SportsbookGlobalVariable } = useSelector((state) => state.sportsBook);
   const [phone, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [errMsg, setErrMsg] = useState(false);
   const dispatch = useDispatch();
-  // const [pre] = useState("+211");
-  const [pre] = useState("+211");
 
   const submitForm = (e) => {
     if (phone === "" || password === "") {
@@ -24,7 +23,8 @@ export default function Login({ history }) {
     setError(false);
     const btn = e.target;
     btn.disabled = true;
-    login({ username: phone, password })
+
+    login({ username: formattedPhoneNumber(phone), password })
       .then((res) => {
         btn.disabled = false;
         if (!res.success) {
@@ -87,7 +87,7 @@ export default function Login({ history }) {
             <div className="dnxreg-box-b">
               <div className="nxmob">
                 <select name="pre" id="" className="nxmob-select">
-                  <option value="+211">+211</option>
+                  <option value="+234">{SportsbookGlobalVariable.DialCode}</option>
                 </select>
                 <input
                   className="form-input"
