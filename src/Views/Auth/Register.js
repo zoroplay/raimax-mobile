@@ -1,13 +1,8 @@
 import React, { useRef, useState } from "react";
 import Layout from "../Layout";
 import { formattedPhoneNumber, goBack } from "../../Utils/helpers";
-import {
-  confirmVerification,
-  login,
-  register,
-  sendVerification,
-} from "../../Services/apis";
-import { useDispatch } from "react-redux";
+import { login, register } from "../../Services/apis";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_USER_DATA } from "../../Redux/types";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
