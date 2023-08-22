@@ -124,7 +124,7 @@ export default function Register({ history }) {
               referral_code: "",
             }}
             validationSchema={RegisterSchema}
-            children={(props) => <RegisterForm {...props} />}
+            children={(props) => <RegisterForm {...props} SportsbookGlobalVariable={SportsbookGlobalVariable} />}
             onSubmit={submitForm}
           />
         </div>
@@ -133,7 +133,7 @@ export default function Register({ history }) {
   );
 }
 
-function RegisterForm({ errors, handleSubmit, isSubmitting }) {
+function RegisterForm({ errors, handleSubmit, isSubmitting, SportsbookGlobalVariable }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="aqx-b-content-inner">
