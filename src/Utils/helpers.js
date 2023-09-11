@@ -1,6 +1,6 @@
 import moment from "moment-timezone";
 import * as _ from "lodash";
-import unslugify from "unslugify";
+import { unslugify } from "unslugify";
 import * as CryptoJS from "crypto-js";
 
 export const toggleMenu = () => {
