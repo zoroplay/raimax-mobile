@@ -1,0 +1,25 @@
+@use "@/variable" as var;
+
+.forgot_pass {
+  width: 100%;
+  padding: 10px;
+  padding: 15px;
+  .forgot_pass_title {
+    font-size: 18px;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e9e9ea;
+    width: 100%;
+  }
+
+  .forgot_pass_text {
+    font-size: 12px;
+    align-items: center;
+    padding: 20px 0px;
+  }
+
+  .forgot_pass_form_btn {
+    background-color: var.$orange;
+    color: var.$text-black;
+  }
+}

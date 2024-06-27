@@ -1,0 +1,100 @@
+@use "@/variable" as var;
+@import "/app/icons.css";
+
+.footer {
+  padding-top: 12px;
+  background-color: var.$background-color !important;
+  .footer_links {
+    width: 100%;
+    padding: 30px 20px 0px 20px;
+    .footer_links_item {
+      font-size: 15px;
+      color: #fff;
+      padding: 0px 0px 10px 0px;
+      margin: 0px 0px 10px 0px;
+      border-bottom: 1px solid var.$btn-primary-transparent;
+      width: 100%;
+    }
+  }
+  .footer_socials {
+    padding: 10px 20px 0px 20px;
+    .footer_socials_item {
+      color: #fff;
+      font-size: 30px;
+    }
+  }
+  .footer_text_wrap {
+    padding: 30px 10px 15px 10px;
+    .footer_text {
+      font-size: 11px;
+      color: #fff;
+      text-align: center;
+      font-weight: 300px;
+      span {
+        color: #c2322c;
+      }
+      margin-bottom: 25px;
+    }
+  }
+  .footer_logos {
+    align-items: center;
+    .footer_logos_two {
+      padding: 0px 50px 30px 50px;
+      .footer_logos_img {
+        object-fit: contain;
+      }
+    }
+    .footer_logos_three {
+      padding: 0px 10px 15px 10px;
+      .footer_logos_img {
+        object-fit: contain;
+      }
+    }
+  }
+  .copyright_wrap {
+    font-size: 11px;
+    color: #fff;
+    padding: 0px 0px 65px 0px;
+  }
+  .footer_nav {
+    background-color: var.$background-color !important;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0px;
+    z-index: 5;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
+
+    .footer_nav_link {
+      color: var.$color;
+      font-size: 10px;
+      width: 93.75px;
+      position: relative;
+      .footer_nav_icon {
+        font-size: 22px;
+      }
+      .slips_count {
+        position: absolute;
+        top: 0;
+        right: 30px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        color: var.$background-color;
+        background-color: var.$secondary-accent !important;
+      }
+      .slips_count_auth {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: var.$secondary-accent;
+      }
+    }
+    .active {
+      color: var.$secondary-accent !important;
+    }
+  }
+}

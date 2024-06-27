@@ -1,0 +1,13 @@
+@use "@/variable" as var;
+
+.live{
+     
+}
+
+.stick_match {
+    position: fixed;
+    top: 178px;
+    width: 100%;
+    z-index: 10;
+    background-color: #fff;
+}

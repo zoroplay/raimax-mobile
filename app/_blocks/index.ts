@@ -1,0 +1,10 @@
+export { default as HomeBlock } from "./home/HomeBlock";
+export { default as SettingsBlock } from "./settings/SettingsBlock";
+export { default as FavoritesBlock } from "./favorites/FavoritesBlock";
+export { default as CasinoBlocks } from "./casino/CasinoBlocks";
+export { default as MyBetsBlock } from "./mybets/MyBetsBlock";
+export { default as PlayerPortalBlock } from "./player-portal/PlayerPortalBlock";
+export { default as PaymentVerifyBlock } from "./payment-verification-block/PaymentVerifyBlock";
+export { default as ForgotPassword } from "./forgot-password/ForgotPassword";
+export { default as SearchBlock } from "./search/SearchBlock";
+export { default as HelpBlock } from "./help-block/HelpBlock";

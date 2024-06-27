@@ -1,0 +1,66 @@
+@use "@/variable" as var;
+
+.live_tab {
+  overflow-x: scroll;
+  // background: var.$green;
+  background: var.$sec-bg-color;
+  color: var.$sec-color;
+  border-top: 2px solid rgba(37, 93, 189, 0.04);
+  .live_tab_item {
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 400;
+    color: var.$sec-color;
+    padding: 10px 0px;
+    width: 100%;
+    border-right: 1px solid #1b1a1a;
+    cursor: pointer;
+    position: relative;
+    &:hover::after {
+      width: 100%;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      width: 0%;
+      height: 3px;
+      border-radius: 8px;
+      background: var.$background-color;
+      transition: all 0.15s ease-in-out;
+      transform: translate(-50%, -50%);
+      transform-origin: left;
+    }
+  }
+
+  .active {
+    &::after {
+      width: 100%;
+    }
+    // background-color: var.$red;
+    // color: var.$text-black;
+    color: var.$sec-color;
+    font-weight: 700;
+  }
+}
+
+.stick_place {
+  position: fixed;
+  top: 95px;
+  width: 100%;
+  z-index: 10;
+  animation: up 0.2s 0s linear;
+}
+
+@keyframes up {
+  0% {
+    transform: translateY(1px);
+    // opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0px);
+    // opacity: 1;
+  }
+}

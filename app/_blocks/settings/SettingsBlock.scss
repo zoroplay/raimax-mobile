@@ -1,0 +1,13 @@
+@use "@/variable" as var;
+
+.settings {
+  .settings_wrap {
+    padding: 20px 10px;
+
+    .settings_text {
+      text-transform: uppercase;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+  }
+}

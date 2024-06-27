@@ -1,0 +1,12 @@
+@use "@/variable" as var;
+
+.home_block {
+  position: relative;
+  .home_block_load {
+    height: 60vh;
+    background-color: rgba(44, 51, 63, 0.5);
+  }
+  .sport_bet_wrap {
+    padding-bottom: 44px;
+  }
+}

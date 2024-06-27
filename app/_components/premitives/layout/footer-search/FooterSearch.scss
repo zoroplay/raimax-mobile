@@ -1,0 +1,50 @@
+@use "@/variable" as var;
+@import "/app/icons.css";
+
+.footer {
+  background-color: #191919;
+
+  .footer_nav {
+    background-color: var.$green;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0px;
+    z-index: 5;
+
+    .footer_nav_link {
+      color: #c3c3c3;
+      font-size: 10px;
+      width: 93.75px;
+      position: relative;
+
+      .footer_nav_icon {
+        font-size: 22px;
+      }
+
+      .slips_count {
+        position: absolute;
+        top: 0;
+        right: 30px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: #5b938a;
+      }
+
+      .slips_count_auth {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: #5b938a;
+      }
+    }
+
+    .active {
+      color: #5b938a;
+    }
+  }
+}

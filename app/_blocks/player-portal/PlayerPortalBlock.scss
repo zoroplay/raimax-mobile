@@ -1,0 +1,116 @@
+@use "@/variable" as var;
+
+.port_block {
+  padding: 15px;
+  .port_img_wrap {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    // overflow: hidden;
+    border: 2px solid #5b938a;
+    box-shadow: 0.5px 0.5px 3px var.$text-black;
+    margin-bottom: 20px;
+    .port_img {
+      border-radius: 50%;
+    }
+    .port_icon {
+      position: absolute;
+      bottom: 0;
+      width: 30px;
+      height: 30px;
+      right: 0;
+      background-color: #5b938a;
+      color: #fff;
+      z-index: 4;
+      border-radius: 50%;
+    }
+  }
+  .port_num_id {
+    margin-bottom: 15px;
+    .port_num {
+      font-size: 15px;
+      font-weight: 800;
+      text-align: end;
+    }
+  }
+  .port_stars {
+    margin-bottom: 15px;
+    .port_star {
+      margin: 0px 1.5px;
+      color: var.$orange;
+    }
+  }
+  .port_balance_wrap {
+    width: 100%;
+    align-items: center;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 20px 0px;
+    .port_border_r {
+      border-right: 1px solid #e8e8e8;
+    }
+    .port_balance_texts {
+      width: 33%;
+      .port_balance_title {
+        font-size: 11px;
+        color: #797979;
+        margin-bottom: 7px;
+      }
+
+      .port_balance_val {
+        font-size: 14px;
+        color: var.$orange;
+        font-weight: 700;
+      }
+    }
+  }
+  .port_btn {
+    background-color: var.$orange;
+    color: var.$text-black;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 15px;
+    margin-top: 15px;
+  }
+  .port_acc_wrap {
+    width: 100%;
+    padding: 10px 0px;
+    .port_acc {
+      width: 100%;
+      height: 45px;
+      overflow: hidden;
+      transition: all 0.4s linear;
+      .port_acc_seen {
+        width: 100%;
+        background-color: var.$orange;
+        border-radius: 4px;
+        padding: 6px 10px;
+        align-items: center;
+
+        .port_acc_title {
+          font-size: 14px;
+          font-weight: 800;
+        }
+
+        .port_acc_bar {
+          font-size: 26px;
+        }
+      }
+      .port_acc_text {
+        width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid #e8e8e8;
+        color: #797979;
+        font-size: 16px;
+      }
+
+      .active_port {
+        color: var.$orange;
+      }
+    }
+    .open {
+      height: 400px;
+    }
+  }
+}
