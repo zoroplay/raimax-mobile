@@ -6,6 +6,7 @@ export const CHANGE_PASSWORD = "/auth/update/password";
 export const RESET_PASSWORD = "/auth/update/reset-password";
 export const UPDATE_USER = "/auth/update/details";
 export const GET_USER = "/auth/details";
+export const GLOBALVAR = "/auth/globalvariables";
 export const TRANSACTIONS = "/user/wallet/transactions";
 
 // sports
@@ -20,7 +21,6 @@ export const FIXTURE_SINGLE = "/sports/match";
 export const TOP_TOURNAMENT = "/sports/top-bets";
 export const CHANGE_ODDS = "/sports/get-odds";
 export const SLIDERS = "/sports/mobile/sliders?banner_type=mobile";
-export const GLOBALVAR = "/utilities/globalvariables";
 export const BONUSLIST = "/utilities/bonuslist?section=onliners";
 export const GET_FIXTURE_BY_DATE = "/sports/get-fixtures-by-date";
 export const GROUP_BY_SPORTS = "/sports/group-fixtures-by-sport";
@@ -41,7 +41,7 @@ export const INITIATE_DEPOSIT = "/user/wallet/initiate-deposit?source=mobile";
 export const VERIFY_PAYMENT = "/user/wallet/verify-payment";
 
 // Withdrawals
-export const ALL_BANKS = "/utilities/list-banks";
+export const ALL_BANKS = "/wallet/list-banks";
 export const GET_BANK_ACCOUNT = "/user/wallet/bank-accounts";
 export const WITHDRAW = "/user/wallet/withdraw";
 export const VERIFY_ACCOUNT = "/user/wallet/verify-bank-account";
@@ -53,8 +53,8 @@ export const PLACE_BET = `/bets/place-bet`;
 export const BET_LIST = "/bets/history";
 export const SETTLED_BET = "/user/account/settled-bets";
 export const OPENED_BET = "/user/account/open-bets";
-export const FIND_WITH_BOOKING_CODE = "/bets/get-booking";
-export const FIND_WITH_BETSLIP = "/bets/find-bet";
+export const FIND_WITH_BOOKING_CODE = "/bets/find-bet";
+export const FIND_WITH_BETSLIP = "/bets/find-coupon";
 export const CASHOUT_REQUEST = "/bets/cashout";
 
 // Notifications
