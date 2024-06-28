@@ -15,7 +15,7 @@ const UpdateProfile = () => {
 
   const [updateUserProfile, { isLoading, isError, error, isSuccess }] =
     useUpdateUserProfileMutation();
-    
+
   const onSubmit = (values: { [key in string]: string | number }) => {
     const body = {
       email: values.email,
@@ -89,7 +89,7 @@ const UpdateProfile = () => {
                 name="email"
                 component={Input}
                 label="Email"
-                Placeholder="123@frapapa.com"
+                Placeholder="123@mobile.raimax.bet"
                 validate={required("Email Name")}
               />
             </div>

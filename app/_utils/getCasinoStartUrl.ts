@@ -145,8 +145,8 @@ const getCasinoStartUrl = async (provider: string, payload: any) => {
     case "evo-play":
       payload = {
         ...payload,
-        home_url: "https://www.frapapa.com",
-        deposit_url: "https://www.frapapa.com/deposit",
+        home_url: "https://mobile.raimax.bet/",
+        deposit_url: "https://mobile.raimax.bet/deposit",
       };
       return await startEvoPlay(payload);
     default:

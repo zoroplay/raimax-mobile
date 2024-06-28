@@ -76,7 +76,7 @@ const Page = () => {
     });
   };
 
-   useEffect(() => {
+  useEffect(() => {
     token !== null && router.push("/");
   }, [token]);
 
@@ -94,7 +94,7 @@ const Page = () => {
       dispatch(
         openModal({
           title: "Registration Successful",
-          message: "You have succesfuly registered on Frapapa Bet",
+          message: "You have succesfuly registered on Raimax Bet",
           success: true,
         })
       );
@@ -134,8 +134,6 @@ const Page = () => {
   useEffect(() => {
     setIsRegistered(false);
   }, [isSuccessVerify]);
-
-  
 
   return (
     <div className="register">

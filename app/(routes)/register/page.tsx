@@ -28,7 +28,6 @@ const Page = () => {
 
   const initialValue = useRef<string>("");
 
-
   const { SportsbookGlobalVariable } = useAppSelector((state) => state.sport);
   const registerDetails = useAppSelector((state) => state.register);
   const { token } = useAppSelector((state) => state.user);
@@ -47,10 +46,7 @@ const Page = () => {
     },
   ] = useSendOtpMutation();
 
-  const [
-    verifyUserName,
-    { data: userVerifyData },
-  ] = useVerifyUserMutation();
+  const [verifyUserName, { data: userVerifyData }] = useVerifyUserMutation();
 
   useEffect(() => {
     token !== null && router.push("/");
@@ -197,10 +193,10 @@ const Page = () => {
                     </div>
                     <div className="check_text">
                       I accept the{" "}
-                      <a href="https://www.frapapa.com/terms-and-conditions/">
+                      <a href="https://mobile.raimax.bet//terms-and-conditions/">
                         terms and condition
                       </a>{" "}
-                      of frapapa website
+                      of RaimaxBet website
                     </div>
                   </div>
                 )}

@@ -148,8 +148,8 @@ const PlaceBetModal = () => {
                           <RWebShare
                             data={{
                               text: "Hi!, check out the bet i just placed on @FrapapaBet",
-                              url: `https://mobile.frapapa.com?shareCode=${dataPlaceBet?.data?.betslipId}`,
-                              title: "Frapapa",
+                              url: `https://mobile.raimax.bet?shareCode=${dataPlaceBet?.data?.betslipId}`,
+                              title: "RaimaxBet",
                             }}
                             onClick={() => console.log("shared successfully!")}
                           >

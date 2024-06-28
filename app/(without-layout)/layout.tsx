@@ -13,7 +13,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Frapapa | Sports Betting",
+  title: "RaimaxBet | Sports Betting",
   description: "Sports Betting, Bonus Wins",
 };
 
