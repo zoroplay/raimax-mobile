@@ -7,10 +7,10 @@
   width: 100%;
   text-align: center;
   height: 18px;
-  background-color: #096b27;
+  background-color: var.$background-color;
 
   .betmetre_read_bar {
-    background-color: #5b938a;
+    background-color: lighten($color: var.$background-color, $amount: 20);
     height: 100%;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;

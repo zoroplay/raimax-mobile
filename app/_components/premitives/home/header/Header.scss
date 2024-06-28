@@ -9,13 +9,13 @@
   .header_loggedin {
     position: relative;
     .header_loggedin_btn {
-      background-color: #5b938a;
-      color: var.$text-black;
+      background-color: var.$secondary-accent !important;
+      color: var.$background-color !important;
       text-transform: uppercase;
       border: none;
       font-size: 12px;
       font-weight: 700;
-      padding: 11px 3px;
+      padding: 11px 4px;
     }
     .header_loggedin_user_wrap {
       border: 1px solid #e78b3d;
@@ -35,8 +35,14 @@
       bottom: -333px;
       padding: 10px 5px;
       border-radius: 0;
-      border-color: #1e312e;
-      background-color: #1e312e;
+      border-color: darken(
+        $color: var.$background-color,
+        $amount: 5
+      ) !important;
+      background-color: darken(
+        $color: var.$background-color,
+        $amount: 5
+      ) !important;
       z-index: 10;
       .profile_modal_wrap {
         padding: 8px 5px;
@@ -49,7 +55,7 @@
           @extend .profile_modal_key;
         }
         .num {
-          color: #60a298;
+          color: var.$secondary-accent !important;
         }
       }
     }

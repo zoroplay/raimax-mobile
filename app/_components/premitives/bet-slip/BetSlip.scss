@@ -54,8 +54,8 @@
 
         .search_input_text {
           padding: 11.2px 2px;
-          color: var.$text-black;
-          background-color: #5b938a;
+          color: var.$background-color;
+          background-color: var.$secondary-accent;
           width: 20%;
           border-radius: 0px 4px 4px 0px;
           font-size: 10px;
@@ -94,7 +94,7 @@
         }
 
         .active_switch {
-          background-color: #5b938a;
+          background-color: var.$secondary-accent;
 
           .switch_tick {
             left: 51%;
@@ -165,7 +165,7 @@
         }
 
         .active_switch {
-          background-color: #5b938a;
+          background-color: var.$secondary-accent;
 
           .switch_tick {
             left: 51%;
@@ -210,8 +210,9 @@
             padding-left: 25px;
             padding-bottom: 4px;
             .slip_item_check {
-              border: 1px solid #314440;
-              background-color: #5b938a;
+              border: 1px solid
+                darken($color: var.$secondary-accent, $amount: 20);
+              background-color: var.$secondary-accent;
               padding: 4px;
               border-radius: 4px;
               margin-right: 4px;
@@ -285,8 +286,8 @@
       }
 
       .active_tab {
-        background-color: #5b938a;
-        color: var.$text-black;
+        background: var.$secondary-accent;
+        color: var.$background-color;
         font-weight: 700;
       }
     }
@@ -299,7 +300,8 @@
       box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 
       .book_slip {
-        background: #5b938a;
+        color: var.$background-color;
+        background: var.$secondary-accent;
         align-items: center;
         width: 100%;
         padding: 7px;

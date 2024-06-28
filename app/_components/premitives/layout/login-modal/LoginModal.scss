@@ -41,9 +41,8 @@
         margin: 20px 0px;
       }
       .login_modal_btn {
-        background-color: var.$orange;
-        color: var.$text-black;
-        color: #1e312e;
+        background-color: var.$secondary-accent;
+        color: var.$background-color;
         font-weight: 700;
         font-size: 14px;
         padding: 10px;
@@ -53,13 +52,13 @@
     .forgot_pass {
       padding: 10px 0px;
       .forgot_pass_icon {
-        color: var.$orange;
+        color: var.$primary-accent;
         font-size: 22px;
         margin-right: 5px;
       }
 
       .forgot_pass_text {
-        color: var.$orange;
+        color: var.$primary-accent;
         font-size: 13px;
         font-weight: 300;
       }

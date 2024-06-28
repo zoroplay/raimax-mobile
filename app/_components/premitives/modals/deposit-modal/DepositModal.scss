@@ -97,8 +97,8 @@
     }
     .deposit_modal_btns {
       .deposit_modal_btn {
-        background-color: #5b938a;
-        color: var.$text-black;
+        background-color: var.$secondary-accent !important;
+        color: var.$background-color !important;
         padding: 15px;
         font-weight: 700;
         margin-bottom: 5px;

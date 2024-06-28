@@ -18,7 +18,7 @@ import { Button } from "@/_components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IoIosFootball } from "react-icons/io";
 import { AiOutlineClockCircle, AiFillCodeSandboxCircle } from "react-icons/ai";
-import { MdAppShortcut } from "react-icons/md";
+import { MdAppShortcut, MdOutlineLiveTv } from "react-icons/md";
 import { FaTelegramPlane } from "react-icons/fa";
 import { BiSolidCalendar } from "react-icons/bi";
 import { IoChatbubblesSharp } from "react-icons/io5";
@@ -44,6 +44,7 @@ import {
   updateWinnings,
 } from "@/_redux/slices/betslip.slice";
 import { useIsInactive } from "@/_hooks";
+import { SiAlwaysdata } from "react-icons/si";
 import { useGetGameUrlMutation } from "@/_services/casino.service";
 
 // only load Button component on client
@@ -62,6 +63,8 @@ const betTabItems = [
     link: "#",
   },
   { title: "Virtuals", icon: <TbPlayFootball />, link: "" },
+  { title: "Livescore", icon: <MdOutlineLiveTv />, link: "" },
+  { title: "Statistics", icon: <SiAlwaysdata />, link: "" },
 
   // { title: "10x Minimum", icon: <AiFillCodeSandboxCircle />, link: "" },
   { title: "Pool Codes", icon: <AiFillCodeSandboxCircle />, link: "" },
@@ -70,50 +73,50 @@ const betTabItems = [
     icon: <Image src={casinos} width={50} height={50} alt="casino" />,
     link: "/casino/all",
   },
-  {
-    title: "Penaldo",
-    icon: (
-      <Image
-        src={penaldo}
-        width={50}
-        height={50}
-        alt="ball"
-        style={{ objectFit: "contain" }}
-      />
-    ),
-    link: "/game/play/live-casino/shack-evolution/penaldo",
-  },
-  {
-    title: "Live Casino",
-    icon: (
-      <Image
-        src={live}
-        width={50}
-        height={50}
-        alt="casino"
-        style={{ objectFit: "cover" }}
-      />
-    ),
-    link: "",
-  },
+  // {
+  //   title: "Penaldo",
+  //   icon: (
+  //     <Image
+  //       src={penaldo}
+  //       width={50}
+  //       height={50}
+  //       alt="ball"
+  //       style={{ objectFit: "contain" }}
+  //     />
+  //   ),
+  //   link: "/game/play/live-casino/shack-evolution/penaldo",
+  // },
+  // {
+  //   title: "Live Casino",
+  //   icon: (
+  //     <Image
+  //       src={live}
+  //       width={50}
+  //       height={50}
+  //       alt="casino"
+  //       style={{ objectFit: "cover" }}
+  //     />
+  //   ),
+  //   link: "",
+  // },
   {
     title: "Instant Deposit",
     icon: <Image src={dep} width={50} height={50} alt="casino" />,
     link: "",
   },
-  {
-    title: "Promotions",
-    icon: (
-      <Image
-        src={promo}
-        width={50}
-        height={50}
-        alt="casino"
-        style={{ objectFit: "cover" }}
-      />
-    ),
-    link: "",
-  },
+  // {
+  //   title: "Promotions",
+  //   icon: (
+  //     <Image
+  //       src={promo}
+  //       width={50}
+  //       height={50}
+  //       alt="casino"
+  //       style={{ objectFit: "cover" }}
+  //     />
+  //   ),
+  //   link: "",
+  // },
   { title: "Live Chat", icon: <IoChatbubblesSharp />, link: "" },
   { title: "Telegram", icon: <FaTelegramPlane />, link: "" },
   { title: "App", icon: <MdAppShortcut />, link: "/" },
@@ -124,7 +127,8 @@ const Header = () => {
   const route = useRouter();
   const [isProfileModal, setIsProfileModal] = useState(false);
   const [slipCode, setSlipCode] = useState<string | null>(null);
-  const [getGameUrl, {isLoading, isSuccess, isError, data, error}] = useGetGameUrlMutation();
+  const [getGameUrl, { isLoading, isSuccess, isError, data, error }] =
+    useGetGameUrlMutation();
 
   const { data: global, refetch } = useGetGlobalVariableQuery("");
   const { data: bonus } = useGetBonusListQuery("");
@@ -159,31 +163,41 @@ const Header = () => {
     }
 
     if (isError) {
-
     }
   }, [isSuccess, isError, data, error]);
 
   const openPage = (item: any) => {
-    if (item.title === "Virtuals") {
-      window.open(
-        `${process.env.NEXT_PUBLIC_XPRESS_LAUNCH_URL}?token=${token}&game=10100&backurl=${backurl}&mode=${mode}&group=${group}&clientPlatform=mobile&h=${hash}`
-      );
-    } else if (item.title === "JetX") {
-      getGameUrl({
-        gameId: 122,
-        username: user.user?.username || 'guest',
-        userId: user.user?.id || 0,
-        demo: user ? false : true,
-        isMobile: true,
-        homeUrl: process.env.NEXT_PUBLIC_SITE_URL,
-        authCode: user.user?.authCode || 'demo',
-      });
-    } else if (item.title === "Penalty Kick") {
-      user.token
-        ? route.push(item.link)
-        : dispatch(openModal({ component: "LoginModal" }));
-    } else {
-      route.push(item.link);
+    switch (item.title) {
+      case "Virtuals":
+        window.open(
+          `${process.env.NEXT_PUBLIC_XPRESS_LAUNCH_URL}?token=${token}&game=10100&backurl=${backurl}&mode=${mode}&group=${group}&clientPlatform=mobile&h=${hash}`
+        );
+        break;
+      case "JetX":
+        getGameUrl({
+          gameId: 122,
+          username: user.user?.username || "guest",
+          userId: user.user?.id || 0,
+          demo: user ? false : true,
+          isMobile: true,
+          homeUrl: process.env.NEXT_PUBLIC_SITE_URL,
+          authCode: user.user?.authCode || "demo",
+        });
+        break;
+      case "Penalty Kick":
+        user.token
+          ? route.push(item.link)
+          : dispatch(openModal({ component: "LoginModal" }));
+        break;
+      case "Livescore":
+        window.open(`https://ls.sir.sportradar.com/bematrics`);
+        break;
+      case "Statistics":
+        window.open(`https://s5.sir.sportradar.com/bematrics`);
+        break;
+      default:
+        route.push(item.link);
+        break;
     }
   };
 

@@ -58,8 +58,8 @@
       animation: modalImage 1s ease-in;
     }
     .modal_btn {
-      background-color: rgb(112, 181, 9);
-      color: white;
+      background-color: var.$secondary-accent;
+      color: var.$background-color;
       max-width: 150px;
     }
   }
