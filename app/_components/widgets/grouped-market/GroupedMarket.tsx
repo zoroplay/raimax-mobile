@@ -54,7 +54,7 @@ const GroupedMarket: React.FC<GroupedMarketProp> = ({
                             : 100 / (item?.outcomes?.length + 1)
                         }%`,
 
-                        fontSize: item?.specifier !== "" ? "9px" : "",
+                        fontSize: item?.specifier !== "" ? "12px" : "",
                       }}
                     >
                       <div
@@ -127,7 +127,7 @@ const GroupedMarket: React.FC<GroupedMarketProp> = ({
                             }%`,
                             fontSize:
                               item?.specifier !== "" || data?.odds?.length > 3
-                                ? "9px"
+                                ? "12px"
                                 : "",
                           }}
                           onClick={() => {
@@ -159,7 +159,9 @@ const GroupedMarket: React.FC<GroupedMarketProp> = ({
                               <div className="market_item_odd_valueText">
                                 {odd?.outcomeName}
                               </div>
-                              <div>{odd?.odds.toFixed(2)}</div>
+                              <div className="text-12">
+                                {odd?.odds.toFixed(2)}
+                              </div>
                             </div>
                           ) : (
                             <div className="odds_item_lock">
