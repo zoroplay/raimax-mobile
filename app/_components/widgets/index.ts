@@ -13,3 +13,4 @@ export { default as Star } from "./star/Star";
 export { default as BetBonusAccordion } from "./bet-bonus-accordion/BetBonusAccordion";
 export { default as GroupedMarket } from "./grouped-market/GroupedMarket";
 export { default as Spinner } from "./spinner/Spinner";
+export { default as Toast } from "./toast/Toast";
