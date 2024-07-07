@@ -24,6 +24,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/_hooks";
 import { openModal } from "@/_redux/slices/modal.slice";
 import { formatNumber } from "@/_utils/helpers";
+import Transfer from "@/_components/premitives/player-portal/transfer/Transfer";
 
 const items = [
   "PERSONAL",
@@ -31,6 +32,7 @@ const items = [
   // "PAYMENT ACCOUNTS",
   "HISTORY",
   "DEPOSITS",
+  "TRANSFER",
   "WITHDRAWALS",
   "LIMITS",
   "LOGS",
@@ -54,6 +56,7 @@ const PlayerPortalBlock = () => {
     // "PAYMENT ACCOUNTS": <PaymentAccount />,
     HISTORY: <History />,
     DEPOSITS: <Deposit />,
+    TRANSFER: <Transfer />,
     WITHDRAWALS: <Withdrawal />,
     LIMITS: <Limits />,
     LOGS: <Logs />,

@@ -19,9 +19,9 @@ const Deposit = () => {
 
   const { data } = useGetAllPaymentQuery("");
   const { data: userDetails } = useGetUserDetailsQuery("");
-
+  console.log(data, "fata");
   const image: { [key in string]: string } = {
-    paystack,
+    // paystack,
     monnify,
     flutterwave,
     mgurush,
@@ -69,7 +69,7 @@ const Deposit = () => {
           <div className="deposit_payment">
             <Image
               src={image[item?.provider || ""] || ""}
-              alt="paypent"
+              alt={item?.provider}
               width={155}
               height={40}
               className="deposit_payment_img"
