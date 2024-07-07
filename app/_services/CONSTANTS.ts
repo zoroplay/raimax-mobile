@@ -38,6 +38,7 @@ export const GET_BY_TOP_CATEGORY = "/casino/web-games";
 // Deposits
 export const GET_ALL_PAYMENT = "/utilities/payment-methods";
 export const INITIATE_DEPOSIT = "/user/wallet/initiate-deposit?source=mobile";
+export const INITIATE_TRANSFER = "/auth/initiate-transfer";
 export const VERIFY_PAYMENT = "/user/wallet/verify-payment";
 
 // Withdrawals

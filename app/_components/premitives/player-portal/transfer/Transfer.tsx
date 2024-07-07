@@ -1,113 +1,101 @@
 "use client";
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Transfer.scss";
 import { RiRefreshLine } from "react-icons/ri";
+import { Field, Form } from "react-final-form";
+import validate, { required } from "@/_validations/validations";
+import { Button, Input } from "@/_components/widgets";
+import { useInitiateTransferMutation } from "@/_services/deposit.service";
+import { rtkMutation } from "@/_utils";
+import { openModal } from "@/_redux/slices/modal.slice";
+import { useAppDispatch } from "@/_hooks";
 
 const Transfer = () => {
+  const [formValue, setFormValue] = useState<{
+    [key in string]: string | number;
+  }>({});
+  const [transferMutation, { data, isLoading, isError, isSuccess, error }] =
+    useInitiateTransferMutation();
+  const dispatch = useAppDispatch();
+
+  const onSubmit = (values: any) => {
+    console.log("Submitting", values);
+    rtkMutation(transferMutation, {
+      amount: values.amount,
+      pin: values.pin,
+      toUsername: values.toUsername,
+    });
+  };
+
+  // handle request response
+  useEffect(() => {
+    data?.success &&
+      dispatch(
+        openModal({
+          title: "TRANSFER SUCCESSFUL",
+          message: data?.message,
+          success: true,
+        })
+      );
+    data?.success === false &&
+      dispatch(
+        openModal({
+          title: "TRANSFER FAILED",
+          message: data?.message,
+        })
+      );
+  }, [isSuccess, data?.success, data?.message, error, dispatch]);
   return (
     <div className="transfer">
-      <div className="transfer_title">TRANSFER</div>
-
-      <div className="input-box">
-        <input type="text" placeholder="ueyiuerhfdjsh" />
-        <button className="find">
-          <RiRefreshLine fontSize={20} />
-        </button>
-      </div>
-      {/* <Form
+      <Form
         onSubmit={onSubmit}
         validate={validate}
         render={({ handleSubmit, valid, form }) => {
           return (
-            <form onSubmit={handleSubmit} className="withdrawal_form_wrap">
-              <div className="withdrawal_input_wrap">
+            <form onSubmit={handleSubmit} className="input-block">
+              <div className="input-box">
+                <Field
+                  name="toUsername"
+                  component={Input}
+                  label="PHONE NUMBER"
+                  type="text"
+                  placeholder="phone number"
+                  validate={required("phone_number")}
+                  initialValue={formValue?.toUsername || ""}
+                />
+              </div>
+
+              <div className="input-box">
                 <Field
                   name="amount"
                   component={Input}
-                  label="WITHDRAWABLE AMOUNT"
+                  label="AMOUNT"
                   type="number"
-                  placeholder="0"
-                  validate={required("Amount")}
+                  placeholder="0000"
+                  validate={required("amount")}
+                  initialValue={formValue?.amount || ""}
                 />
               </div>
-              <div className="withdrawal_input_wrap">
+              <div className="input-box">
                 <Field
-                  name="payment_account"
+                  name="pin"
                   component={Input}
-                  label="PAYMENT ACCOUNT"
+                  label="PIN"
                   type="number"
-                  select
-                  options={{
-                    New: "New",
-                    ...allAccountsData?.data?.reduce(
-                      (acc: { [key in string]: string }, val: any) => {
-                        const accountNumber = val?.accountNumber;
-                        return { ...acc, [accountNumber]: val?.bankCode };
-                      },
-                      {}
-                    ),
-                  }}
-                  validate={required("Payment Account")}
+                  placeholder="enter your pin"
+                  validate={required("pin")}
+                  initialValue={formValue?.pin || ""}
                 />
               </div>
-              {isNew && (
-                <>
-                  <div className="withdrawal_input_wrap">
-                    <Field
-                      name="bank"
-                      component={Input}
-                      label="BANKS"
-                      type="number"
-                      select
-                      options={banks}
-                      validate={required("Bank")}
-                      initialValue={formValue?.bank || ""}
-                    />
-                  </div>
-                  <div className="withdrawal_input_wrap">
-                    <Field
-                      name="accountNumber"
-                      component={Input}
-                      label="ACCOUNT NUMBER"
-                      type="number"
-                      placeholder="Account Number"
-                      validate={required("Account Number")}
-                      initialValue={formValue?.accountNumber || ""}
-                    />
-                  </div>
-                  {verifyData && verifyData.success && (
-                    <div className="withdrawal_input_wrap">
-                      <Field
-                        name="accountName"
-                        component={Input}
-                        label="ACCOUNT NAME"
-                        initialValue={formValue?.accountName}
-                        placeholder="Account Name"
-                        disabled={true}
-                      />
-                    </div>
-                  )}
-                </>
-              )}
-              {isVerified && (
-                <div className="info_text_wrap">
-                  <div className="info_text">
-                    Name: {formValue?.accountName}
-                  </div>
-                  <div className="info_text">
-                    Account Number: {formValue?.accountNumber}
-                  </div>
-                  <div className="info_text">Bank: {formValue?.bank}</div>
-                </div>
-              )}
+
               <Button
-                text={isNew && isVerify ? "VERIFY" : "WITHDRAWAL"}
+                text={"PROCEED"}
                 className="withdrawal_btn_wrap"
                 type="submit"
-                loading={isLoading || isLoadingVerify}
+                loading={isLoading}
                 disabled={!valid}
               />
-              <FormSpy
+              {/* <FormSpy
                 subscription={{ values: true }}
                 onChange={(props) => {
                   // if (shouldReset) {
@@ -184,11 +172,11 @@ const Transfer = () => {
                     setIsVerified(false);
                   }
                 }}
-              />
+              /> */}
             </form>
           );
         }}
-      /> */}
+      />
     </div>
   );
 };
