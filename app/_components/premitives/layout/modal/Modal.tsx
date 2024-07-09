@@ -19,7 +19,8 @@ import {
   BetWin,
   BonusAward,
   InactiveModal,
-  VerifyCashoutModal
+  VerifyCashoutModal,
+  ConfirmTransfer,
 } from "@/_components";
 import { AnimatePresence, motion } from "framer-motion";
 // import { useDispatch } from "react-redux";
@@ -84,6 +85,7 @@ const Modal = () => {
     ResetPassword: <ResetPassword data={data} />,
     OtpReset: <OtpReset data={data} />,
     ConfirmFind: <ConfirmFind data={data} />,
+    ConfirmTransfer: <ConfirmTransfer data={data} />,
     BetWin: <BetWin />,
     BonusAward: <BonusAward />,
     InactiveModal: <InactiveModal />,

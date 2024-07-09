@@ -30,6 +30,7 @@ export { default as PlacedBets } from "./mybets/placed-bets/PlacedBets";
 export { default as SettledBets } from "./mybets/settled-bets/SettledBets";
 export { default as BookBetslip } from "./modals/book-betslip/BookBetslip";
 export { default as ConfirmFind } from "./modals/confirm-find/ConfirmFind";
+export { default as ConfirmTransfer } from "./modals/confirm-transfer/ConfirmTransfer";
 export { default as PortalTable } from "./player-portal/player-portal-table/PortalTable";
 export { default as PortalTableLog } from "./player-portal/player-portal-table/PortalTableLog";
 export { default as PortTableBonus } from "./player-portal/player-portal-table/PortTableBonus";

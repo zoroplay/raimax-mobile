@@ -20,11 +20,17 @@ const Transfer = () => {
 
   const onSubmit = (values: any) => {
     console.log("Submitting", values);
-    rtkMutation(transferMutation, {
-      amount: values.amount,
-      pin: values.pin,
-      toUsername: values.toUsername,
-    });
+    dispatch(
+      openModal({
+        component: "ConfirmTransfer",
+        data: { ...values },
+      })
+    );
+    // rtkMutation(transferMutation, {
+    //   amount: values.amount,
+    //   pin: values.pin,
+    //   toUsername: values.toUsername,
+    // });
   };
 
   // handle request response
