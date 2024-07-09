@@ -61,7 +61,7 @@ const OtpReset = ({ data }: any) => {
   useEffect(() => {
     countDown60();
     rtkMutation(sendOtpMutation, {
-      clientID: 1,
+      clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
       phone: dialCode.substring(1) + "" + formattedPhoneNumber(data),
     });
   }, []);
@@ -117,7 +117,7 @@ const OtpReset = ({ data }: any) => {
               isSuccess && setSeconds(60);
               isSuccess && countDown60();
               rtkMutation(sendOtpMutation, {
-                clientID: 1,
+                clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
                 phone: dialCode.substring(1) + "" + formattedPhoneNumber(data),
               });
             }}
