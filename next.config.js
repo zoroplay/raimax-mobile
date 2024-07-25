@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ['www.frapapa.com', 'http://localhost:8053'],
     remotePatterns: [
       {
         protocol: "https",
@@ -14,7 +15,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "sports-api.sportsbookengine.com",
+        hostname: "sports.api.sportsbookengine.com",
         pathname: "**",
       },
     ],

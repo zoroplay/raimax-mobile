@@ -1,6 +1,6 @@
 // RootLayout.js
 import { Header, Footer, Analytics, Toast } from "@/_components";
-import React from "react";
+import React, {Suspense} from "react";
 import "./globals.scss";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
@@ -29,11 +29,13 @@ export default function RootLayout({
       <body className={roboto.className}>
         <Analytics />
         <ReduxProvider>
+          <Suspense>
           <Header />
           {children}
           <Footer />
           <Toast />
           <ToastContainer />
+          </Suspense>
         </ReduxProvider>
       </body>
     </html>

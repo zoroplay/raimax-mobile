@@ -1,5 +1,5 @@
 // RootLayout.js
-import React from "react";
+import React, {Suspense} from "react";
 import "./index.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
@@ -26,7 +26,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <Analytics />
-        <ReduxProvider>{children}</ReduxProvider>
+          <Suspense>
+            <ReduxProvider>
+              {children}
+            </ReduxProvider>
+          </Suspense>
       </body>
     </html>
   );
