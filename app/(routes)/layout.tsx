@@ -30,11 +30,11 @@ export default function RootLayout({
         <Analytics />
         <ReduxProvider>
           <Suspense>
-          <Header />
-          {children}
-          <Footer />
-          <Toast />
-          <ToastContainer />
+            <Header />
+            {children}
+            <Footer />
+            <Toast />
+            <ToastContainer />
           </Suspense>
         </ReduxProvider>
       </body>
