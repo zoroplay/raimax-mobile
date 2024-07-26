@@ -29,13 +29,13 @@ export default function RootLayout({
       <body className={roboto.className}>
         <Analytics />
         <ReduxProvider>
+          <Header />
           <Suspense>
-            <Header />
             {children}
-            <Footer />
-            <Toast />
-            <ToastContainer />
           </Suspense>
+          <Footer />
+          <Toast />
+          <ToastContainer />
         </ReduxProvider>
       </body>
     </html>

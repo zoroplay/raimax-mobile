@@ -26,11 +26,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <Analytics />
-          <Suspense>
-            <ReduxProvider>
+          <ReduxProvider>
+            <Suspense>
               {children}
-            </ReduxProvider>
-          </Suspense>
+            </Suspense>
+          </ReduxProvider>
       </body>
     </html>
   );
