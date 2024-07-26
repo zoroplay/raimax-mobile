@@ -25,12 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Analytics />
+        <Suspense fallback={<>Loading...</>}>
+          <Analytics />
           <ReduxProvider>
-            <Suspense>
-              {children}
-            </Suspense>
+            {children}
           </ReduxProvider>
+        </Suspense>
       </body>
     </html>
   );
