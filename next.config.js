@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['www.frapapa.com', 'http://localhost:8053'],
     remotePatterns: [
       {
         protocol: "https",
@@ -10,7 +9,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "mobile.raimax.bet",
+        hostname: "api.raimax.bet",
         pathname: "**",
       },
       {
