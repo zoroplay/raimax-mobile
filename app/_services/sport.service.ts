@@ -26,21 +26,21 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Get sports
     getSports: builder.query({
       query: (param) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${GET_SPORTS}?period=${param}&timeoffset=+1`,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${GET_SPORTS}?period=${param}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
 
     getSportCategories: builder.query({
       query: (param) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${GET_SPORT_CATEGORY}/${param}?period=all&timeoffset=+1`,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${GET_SPORT_CATEGORY}/${param}?period=all&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
 
     getSportTournaments: builder.query({
       query: (param) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${GET_TOURNAMENTS}/${param}?period=all&timeoffset=+1`,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${GET_TOURNAMENTS}/${param}?period=all&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
@@ -56,7 +56,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Get upcoming fixtures
     getUpcoming: builder.query({
       query: ({ sid, type, page, userId, favourite }) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${UPCOMING_FIXTURES}/${sid}?${type}=1&page=${page}&timeoffset=+1`,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${UPCOMING_FIXTURES}/${sid}?${type}=1&page=${page}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
@@ -64,7 +64,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Get upcoming fixtures
     getFavourite: builder.query({
       query: ({ page=1, userId, favourite }) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${UPCOMING_FIXTURES}/${1}?${"upcoming"}=1&page=${page}&timeoffset=+1&favourite=${favourite}&userId=${userId}`,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${UPCOMING_FIXTURES}/${1}?${"upcoming"}=1&page=${page}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}&favourite=${favourite}&userId=${userId}`,
         method: "GET",
       }),
       providesTags: ["Favourite"],
@@ -73,7 +73,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Get single fixture
     getSingleFixture: builder.query({
       query: (param) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${FIXTURE_SINGLE}/${param}?timeoffset=+1`,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${FIXTURE_SINGLE}/${param}?timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
@@ -97,7 +97,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Get fixtues by date
     getBySportsDate: builder.query({
       query: ({ start, end, sid = 1, market = 1, limit = 10, page = 1 }) => ({
-        url: `${GET_FIXTURE_BY_DATE}?date=${start}&end_date=${end}&sid=${sid}&market=${market}&channel=mobile&limit=${limit}&page=${page}&timeoffset=+1`,
+        url: `${GET_FIXTURE_BY_DATE}?date=${start}&end_date=${end}&sid=${sid}&market=${market}&channel=mobile&limit=${limit}&page=${page}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
@@ -105,7 +105,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Group by sports
     groupBySports: builder.query({
       query: ({ start = "", end = "" }) => ({
-        url: `${GROUP_BY_SPORTS}?date=${start}&end_date=${end}&timeoffset=+1`,
+        url: `${GROUP_BY_SPORTS}?date=${start}&end_date=${end}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
@@ -113,7 +113,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Get fixtures by tournament
     getFixturesByTournament: builder.query({
       query: ({ tid, sid }) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${FIXTURE}/${tid}?sportID=${sid}&source=mobile&timeoffset=+1`,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${FIXTURE}/${tid}?sportID=${sid}&source=mobile&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
@@ -144,7 +144,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Search event
     searchEvent: builder.query({
       query: ({ search, page = 1 }) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${UPCOMING_FIXTURES}/0?markets=1&upcoming=1&page=${page}&search=${search}&timeoffset=+1`,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${UPCOMING_FIXTURES}/0?markets=1&upcoming=1&page=${page}&search=${search}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
@@ -169,7 +169,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
 
 export const getLiveFixtures = (sportID: any) => {
   // Http.get(
-  //   `${process.env.NEXT_PUBLIC_NEW_API}${LIVE_FIXTURES}/${sportID}?source=mobile&timeoffset=+1`
+  //   `${process.env.NEXT_PUBLIC_NEW_API}${LIVE_FIXTURES}/${sportID}?source=mobile&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`
   // );
 }
 
