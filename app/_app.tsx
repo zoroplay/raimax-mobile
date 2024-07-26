@@ -6,7 +6,7 @@ import { Suspense } from "react";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ReduxProvider>
-      <Suspense>
+      <Suspense fallback={<>Loading...</>}>
         <Component {...pageProps} />
       </Suspense>
     </ReduxProvider>
