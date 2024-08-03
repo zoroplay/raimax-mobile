@@ -46,15 +46,7 @@ const Highlights = ({ start, end, type }: HighlightsProp) => {
     rootMargin: "-20px 0px",
   });
 
-  const { todaysDate, threeWeeksLaterDate } = getDaysBeforeAndAhead();
   const [activeMarket, setActiveMarket] = useState<any>(null);
-
-  console.log(todaysDate, threeWeeksLaterDate, "date");
-
-  const { data: groupedData } = useGroupBySportsQuery({
-    start: todaysDate,
-    end: threeWeeksLaterDate,
-  });
 
   const { data } = useGetSportsQuery("all");
 
@@ -64,8 +56,7 @@ const Highlights = ({ start, end, type }: HighlightsProp) => {
     isFetching,
     refetch,
   } = useGetUpcomingQuery({
-    start,
-    end,
+    period: '72hour',
     type,
     sid: sidIndex,
     market: marketIndex,
@@ -194,12 +185,12 @@ const Highlights = ({ start, end, type }: HighlightsProp) => {
             <Oval
               height={50}
               width={50}
-              color="#4fa94d"
+              color="#001041"
               wrapperStyle={{}}
               wrapperClass=""
               visible={true}
               ariaLabel="oval-loading"
-              secondaryColor="#4fa94d"
+              secondaryColor="#2562bd"
               strokeWidth={2}
               strokeWidthSecondary={2}
             />

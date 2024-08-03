@@ -6,7 +6,7 @@ import { AiFillStar } from "react-icons/ai";
 import { useGetFavouriteQuery } from "@/_services/sport.service";
 import { useAppSelector } from "@/_hooks";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Watch, Oval } from "react-loader-spinner";
+import { Watch } from "react-loader-spinner";
 import { CgSearchLoading } from "react-icons/cg";
 import { BiChevronRight } from "react-icons/bi";
 

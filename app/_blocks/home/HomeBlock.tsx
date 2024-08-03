@@ -20,7 +20,7 @@ const HomeBlock = () => {
           <TailSpin
             height="80"
             width="80"
-            color="#5bbf5a"
+            color="#001041"
             ariaLabel="tail-spin-loading"
             radius="0.5"
             wrapperStyle={{}}

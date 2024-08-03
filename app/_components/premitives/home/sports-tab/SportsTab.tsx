@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useGetSportsQuery } from "@/_services/sport.service";
 import { useAppDispatch } from "@/_hooks";
 import { updateSports } from "@/_redux/slices/sport.slice";
-import { Spring } from "framer-motion";
 
 interface SportsTabProps {
   setSearch?: React.Dispatch<React.SetStateAction<string | undefined>>;

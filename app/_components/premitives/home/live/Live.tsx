@@ -5,7 +5,6 @@ import { Empty, Fixtures } from "@/_components";
 import { AiOutlineDown } from "react-icons/ai";
 import { IoIosFootball } from "react-icons/io";
 import { CgSearchLoading } from "react-icons/cg";
-import { BiChevronRight } from "react-icons/bi";
 import { useGetLiveFixturesQuery } from "@/_services/sport.service";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Oval } from "react-loader-spinner";
@@ -164,12 +163,12 @@ const Live = ({ tid, sid }: any) => {
           <Oval
             height={50}
             width={50}
-            color="#4fa94d"
+            color="#2562bd"
             wrapperStyle={{}}
             wrapperClass=""
             visible={true}
             ariaLabel="oval-loading"
-            secondaryColor="#4fa94d"
+            secondaryColor="#001041"
             strokeWidth={2}
             strokeWidthSecondary={2}
           />

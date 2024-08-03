@@ -15,16 +15,16 @@ const PlaceBet = () => {
   const { todaysDate, threeWeeksLaterDate } = getDaysBeforeAndAhead();
 
   const Component = {
+    TODAY: (
+      <Highlights type="today" start={`${todaysDate}`} end={`${todaysDate}`} />
+    ),
+    "LIVE NOW": <Live tid={0} sid={0} />,
     HIGHLIGHTS: (
       <Highlights
         type="upcoming"
         start={todaysDate}
         end={threeWeeksLaterDate}
       />
-    ),
-    "LIVE NOW": <Live tid={0} sid={0} />,
-    TODAY: (
-      <Highlights type="today" start={`${todaysDate}`} end={`${todaysDate}`} />
     ),
   }[currentTab as string];
 
@@ -39,7 +39,15 @@ const PlaceBet = () => {
   return (
     <>
       <div className={`live_tab between ${isSticky && "stick_place"}`}>
-        {["HIGHLIGHTS", "LIVE NOW", "TODAY"].map((item) => (
+        <div
+          className={`live_tab_item center ${
+            currentTab === 'TODAY' && "active"
+          }`}
+          onClick={() => dispatch(setFixtureTab("TODAY"))}
+        >
+          TODAY
+        </div>
+        {["LIVE NOW", "HIGHLIGHTS"].map((item) => (
           <div
             key={item}
             className={`live_tab_item center ${

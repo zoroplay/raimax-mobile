@@ -17,6 +17,7 @@ export const UPCOMING_FIXTURES = "/sports/highlight/prematch";
 export const LIVE_FIXTURES = "/sports/highlight/live";
 export const LIVE_COUNT = "/sports/live/games/count";
 export const FIXTURE = "/sports/get-fixtures";
+export const GET_FIXTURES = "/sports/fixtures/upcoming";
 export const FIXTURE_SINGLE = "/sports/match";
 export const TOP_TOURNAMENT = "/sports/top-bets";
 export const CHANGE_ODDS = "/sports/get-odds";

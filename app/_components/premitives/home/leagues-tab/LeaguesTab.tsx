@@ -1,18 +1,7 @@
 "use client";
 import React from "react";
 import "./LeaguesTab.scss";
-import Image from "next/image";
 import { NavLink, slugify } from "@/_utils";
-import {
-  port,
-  nba,
-  seriea,
-  laliga,
-  ligue1,
-  epl,
-  bun,
-  champions,
-} from "@/_assets";
 import { useGetTopTournamentQuery } from "@/_services/sport.service";
 
 const LeaguesTab = () => {
@@ -29,20 +18,20 @@ const LeaguesTab = () => {
 
   return (
     <div className="leagues_tab between">
-      {data?.map((item: any, idx: number) => (
+      {data?.data?.map((item: any, idx: number) => (
         <NavLink
-          href={`/sports/${slugify(item?.tournament?.name)}/fixtures/${item?.tournament?.category?.sport_id
-            }/${item?.tournament?.provider_id}`}
+          href={`/sports/${slugify(item?.tournamentName)}/fixtures/${item?.sportID
+            }/${item?.tournamentID}`}
           key={`${item?.name}-${idx}`}
           className="leagues_tab_item center"
           activeClassName="active"
         >
           <img
             className="leagues_tabimg"
-            src={getImageURL(item?.tournament?.name)}
+            src={getImageURL(item?.tournamentName)}
             alt="icon"
           />
-          <div className="leagues_tab_text">{item?.tournament?.name}</div>
+          <div className="leagues_tab_text">{item?.tournamentName}</div>
         </NavLink>
       ))}
     </div>

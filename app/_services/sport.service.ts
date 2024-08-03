@@ -5,21 +5,17 @@ import {
   UPCOMING_FIXTURES,
   LIVE_FIXTURES,
   FIXTURE,
-  TOP_TOURNAMENT,
   GLOBALVAR,
   BONUSLIST,
   GET_FIXTURE_BY_DATE,
   GROUP_BY_SPORTS,
-  TOP_BETS,
   FIXTURE_SINGLE,
   LIVE_COUNT,
-  EVENT_SEARCH,
   FAVOURITE,
   GET_SPORT_CATEGORY,
   GET_TOURNAMENTS,
-  // FIXTURES_BY_SPORT_DATE,
+  GET_FIXTURES,
 } from "./CONSTANTS";
-import { updateUser } from "@/_redux/slices/user.slice";
 
 const sportApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -55,8 +51,10 @@ const sportApiSlice = apiSlice.injectEndpoints({
 
     // Get upcoming fixtures
     getUpcoming: builder.query({
-      query: ({ sid, type, page, userId, favourite }) => ({
-        url: `${process.env.NEXT_PUBLIC_NEW_API}${UPCOMING_FIXTURES}/${sid}?${type}=1&page=${page}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
+      query: ({ sid, type, page, period, favourite }) => ({
+        url: type === 'upcoming' ? 
+        `${process.env.NEXT_PUBLIC_NEW_API}${UPCOMING_FIXTURES}/${sid}?${type}=1&page=${page}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}` : 
+        `${process.env.NEXT_PUBLIC_NEW_API}${GET_FIXTURES}?sportID=${sid}&source=mobile&period=${period}&timeoffset=${process.env.NEXT_PUBLIC_TIME_INTERVAL}`,
         method: "GET",
       }),
     }),
@@ -81,7 +79,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Get global variable
     getGlobalVariable: builder.query({
       query: () => ({
-        url: GLOBALVAR,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}${GLOBALVAR}/${process.env.NEXT_PUBLIC_CLIENT_ID}`,
         method: "GET",
       }),
     }),
@@ -136,7 +134,7 @@ const sportApiSlice = apiSlice.injectEndpoints({
     // Top tournaments
     getTopTournament: builder.query({
       query: () => ({
-        url: TOP_BETS,
+        url: `${process.env.NEXT_PUBLIC_NEW_API}/admin/sports/${process.env.NEXT_PUBLIC_CLIENT_ID}/top-bets`,
         method: "GET",
       }),
     }),
