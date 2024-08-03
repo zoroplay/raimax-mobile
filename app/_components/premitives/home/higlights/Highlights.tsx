@@ -20,13 +20,12 @@ import { useAppDispatch, useSticky, useAppSelector } from "@/_hooks";
 import { setSidIndex } from "@/_redux/slices/modal.slice";
 
 interface HighlightsProp {
-  start: string;
+  period: string;
   end: string;
   type: string;
 }
 
-const Highlights = ({ start, end, type }: HighlightsProp) => {
-  const [currentOdd, setCurrentOdd] = useState<string | null>(null);
+const Highlights = ({ period, end, type }: HighlightsProp) => {
   const [marketIndex, setMarketIndex] = useState<number>(1);
   const [animKey, setAnimKey] = useState<number | string>();
   const [page, setPage] = useState<number>(1);
@@ -35,7 +34,6 @@ const Highlights = ({ start, end, type }: HighlightsProp) => {
 
   const sidIndex = useAppSelector((state) => state.modal.sidIndex);
 
-  const oddsRef = useRef<HTMLDivElement>(null);
   const prevSidIndex = useRef(sidIndex);
 
   const isSticky = useSticky(309);
@@ -56,7 +54,7 @@ const Highlights = ({ start, end, type }: HighlightsProp) => {
     isFetching,
     refetch,
   } = useGetUpcomingQuery({
-    period: '72hour',
+    period,
     type,
     sid: sidIndex,
     market: marketIndex,
@@ -180,7 +178,7 @@ const Highlights = ({ start, end, type }: HighlightsProp) => {
         }}
       >
         {isSticky && <div style={{ height: "77px" }} />}
-        {isLoading ? (
+        {isFetching ? (
           <div className="p_20 center" style={{ width: "100%" }}>
             <Oval
               height={50}

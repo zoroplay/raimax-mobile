@@ -1,5 +1,12 @@
-import { AnyIfEmpty } from "react-redux";
-import { original } from "@reduxjs/toolkit";
+
+export const periods = [
+  {value: 'today', label: 'TODAY'},
+  {value: '1hour', label: '1 HOUR'},
+  {value: '3hour', label: '3 HOURS'},
+  {value: '6hour', label: '6 HOURS'},
+  {value: 'tomorrow', label: 'TOMORROW'},
+  {value: '72hour', label: 'NEXT 3 DAYS'},
+];
 
 export const calculateBonus = (
   coupondata: any,

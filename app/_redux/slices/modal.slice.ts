@@ -13,6 +13,7 @@ interface InitialStateType {
   data: null | string;
   modalState: null | string;
   fixtureTab: string;
+  activePeriod: any;
   sidIndex: number;
   searchHistory: string[];
   globalModalState: { [key in string]: boolean };
@@ -32,6 +33,7 @@ const initialState: InitialStateType = {
   fixtureTab: "HIGHLIGHTS",
   sidIndex: 1,
   searchHistory: [],
+  activePeriod: {value: 'today', label: 'TODAY'},
   globalModalState: {
     betslip: false,
     placebet: false,
@@ -94,6 +96,9 @@ const modalSlice = createSlice({
       const fixtureTab = action.payload;
       state.fixtureTab = fixtureTab;
     },
+    setActivePeriod: (state, action: PayloadAction<any>) => {
+      state.activePeriod = action.payload;
+    },
     setSidIndex: (state, action: PayloadAction<any>) => {
       const currentSid = action.payload;
       state.sidIndex = currentSid;
@@ -124,5 +129,6 @@ export const {
   setFixtureTab,
   updateHistory,
   setSidIndex,
+  setActivePeriod
 } = modalSlice.actions;
 export default modalSlice.reducer;

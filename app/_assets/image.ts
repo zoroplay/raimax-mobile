@@ -49,3 +49,5 @@ export const congrat = `${PATH}/congrat.png`;
 export const congratgif = `${PATH}/congratgif.gif`;
 export const shopDeposit = `${PATH}/shop-deposit.png`;
 export const shopDeposit1 = `${PATH}/shop-deposit-1.png`;
+export const arrowUp = `${PATH}/arrow-up.svg`;
+export const arrowDown = `${PATH}/arrow-down.svg`;
