@@ -11,19 +11,8 @@ import { AiFillStar } from "react-icons/ai";
 import { IoSettingsOutline } from "react-icons/io5";
 import { TfiWrite } from "react-icons/tfi";
 import {
-  andriod,
-  coralpay,
-  firstmonie,
-  firstbank,
-  ussd,
-  gtbank,
-  verve,
-  visa,
-  master,
-  interswitch,
-  paystackf,
-  opay,
-  ios,
+  mgurush,
+  shopDeposit1,
 } from "@/_assets";
 import { MdEmail } from "react-icons/md";
 import { NavLink } from "@/_utils";
@@ -81,73 +70,21 @@ const Footer = () => {
         </div> */}
         <div className="footer_logos_three between">
           <Image
-            src={opay}
-            width={102}
-            height={31}
+            src={mgurush}
+            width={120}
+            height={70}
             alt="opay"
             className="footer_logos_img"
           />
           <Image
-            src={paystackf}
-            width={102}
-            height={31}
-            alt="paystack"
-            className="footer_logos_img"
-          />
-          <Image
-            src={interswitch}
-            width={102}
-            height={31}
-            alt="interswitch"
+            src={shopDeposit1}
+            width={120}
+            height={70}
+            alt="opay"
             className="footer_logos_img"
           />
         </div>
-        <div className="footer_logos_three between">
-          <Image
-            src={master}
-            width={102}
-            height={31}
-            alt="master"
-            className="footer_logos_img"
-          />
-          <Image
-            src={visa}
-            width={102}
-            height={31}
-            alt="visa"
-            className="footer_logos_img"
-          />
-          <Image
-            src={verve}
-            width={102}
-            height={31}
-            alt="verve"
-            className="footer_logos_img"
-          />
-        </div>
-        <div className="footer_logos_three between">
-          <Image
-            src={gtbank}
-            width={102}
-            height={31}
-            alt="gtbank"
-            className="footer_logos_img"
-          />
-          <Image
-            src={ussd}
-            width={102}
-            height={31}
-            alt="ussd"
-            className="footer_logos_img"
-          />
-          <Image
-            src={firstbank}
-            width={102}
-            height={31}
-            alt="firstbank"
-            className="footer_logos_img"
-          />
-        </div>
+        
         {/* <div className="footer_logos_two between">
           <Image
             src={firstmonie}
