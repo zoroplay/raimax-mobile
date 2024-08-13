@@ -32,20 +32,24 @@ const CasinoBlocks = () => {
   const [showCat, setShowCat] = useState(false);
   const [topCategory, setTopCategory] = useState<any>({
     id: 1,
-    slug: 'all',
-    name: 'All'
+    slug: "all",
+    name: "All",
   });
 
   const [isSearch, setIsSearch] = useState(false);
 
   const debouncedIput = useDebounce(input, 1000);
   const dispatch = useAppDispatch();
-  const {user, token} = useAppSelector((state) => state.user);
+  const { user, token } = useAppSelector((state) => state.user);
 
   const { data: categories } = useGetAllCategoriesQuery({});
   // const { data: searchGames } = useGetGamesBySearchQuery(input);
-  const { data: games, refetch: refetchGames } = useGetAllGamesByCategoryQuery({catId: topCategory?.id, input});
-  const [getGameUrl, {isLoading, isSuccess, isError, data, error}] = useGetGameUrlMutation();
+  const { data: games, refetch: refetchGames } = useGetAllGamesByCategoryQuery({
+    catId: topCategory?.id,
+    input,
+  });
+  const [getGameUrl, { isLoading, isSuccess, isError, data, error }] =
+    useGetGameUrlMutation();
 
   const router = useRouter();
   const params = useParams();
@@ -64,7 +68,7 @@ const CasinoBlocks = () => {
     ).toString();
 
     setHash(hashStr);
-  }, [ ]);
+  }, []);
 
   const uniqueGames = (
     prev: { [key in string]: string }[],
@@ -95,17 +99,16 @@ const CasinoBlocks = () => {
     });
   }, [games]);
 
-  useEffect(() => {
-    if (isSuccess && data) {
-      window.open(data?.url);
-    }
+  // useEffect(() => {
+  //   if (isSuccess && data) {
+  //     window.open(data?.url);
+  //   }
 
-    if (isError) {
+  //   if (isError) {
+  //   }
+  // }, [isSuccess, isError, data, error]);
 
-    }
-  }, [isSuccess, isError, data, error]);
-
-  console.log('game url data', data);
+  console.log("game url data", data);
 
   useEffect(() => {
     refetchGames();
@@ -116,18 +119,23 @@ const CasinoBlocks = () => {
     setCount((prev) => prev + 1);
   };
 
-  const viewDetails = (id: number ) => {
-    // console.log(id);
+  const viewDetails = (id: number) => {
+    // getGameUrl({
+    //   gameId: id,
+    //   username: user?.username || 'guest',
+    //   userId: user?.id || 0,
+    //   demo: user ? false : true,
+    //   isMobile: true,
+    //   homeUrl: process.env.NEXT_PUBLIC_SITE_URL,
+    //   authCode: user?.authCode || 'demo',
+    // });
 
-    getGameUrl({
-      gameId: id,
-      username: user?.username || 'guest',
-      userId: user?.id || 0,
-      demo: user ? false : true,
-      isMobile: true,
-      homeUrl: process.env.NEXT_PUBLIC_SITE_URL,
-      authCode: user?.authCode || 'demo',
-    });
+    dispatch(
+      openModal({
+        component: "SelectBalance",
+        data: id,
+      })
+    );
   };
 
   return (
@@ -223,37 +231,35 @@ const CasinoBlocks = () => {
             // >
             <div className={`card_wrap ${input && "search"}`}>
               {gamesData
-                    ?.filter((item: any) => item?.status !== 0)
-                    ?.map((item: any, i: number) => (
-                      <div
-                        key={i}
-                        className="cas_block_game_card"
-                        onClick={() =>
-                          viewDetails(item.id)
-                        }
-                      >
-                        <img
-                          src={item?.image_path ? item?.image_path : casino}
-                          onError={(e: React.ChangeEvent<HTMLImageElement>) => {
-                            e.target.onerror = null;
-                            e.target.src = casino;
-                          }}
-                          style={{
-                            width: "100%",
-                            height: "150px",
-                            objectFit: "cover",
-                          }}
-                          className="cas_block_game_img"
-                          alt="Game view"
-                        />
-                        <div className="casino_block_gameitem_text">
-                          {item?.title}
-                        </div>
-                        {/* <div className="cas_block_game_text">
+                ?.filter((item: any) => item?.status !== 0)
+                ?.map((item: any, i: number) => (
+                  <div
+                    key={i}
+                    className="cas_block_game_card"
+                    onClick={() => viewDetails(item.id)}
+                  >
+                    <img
+                      src={item?.image_path ? item?.image_path : casino}
+                      onError={(e: React.ChangeEvent<HTMLImageElement>) => {
+                        e.target.onerror = null;
+                        e.target.src = casino;
+                      }}
+                      style={{
+                        width: "100%",
+                        height: "150px",
+                        objectFit: "cover",
+                      }}
+                      className="cas_block_game_img"
+                      alt="Game view"
+                    />
+                    <div className="casino_block_gameitem_text">
+                      {item?.title}
+                    </div>
+                    {/* <div className="cas_block_game_text">
                       <p>{item?.title?.slice(0, 9)}</p>
                     </div> */}
-                      </div>
-                    ))}
+                  </div>
+                ))}
             </div>
             // </InfiniteScroll>
           )}

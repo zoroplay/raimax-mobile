@@ -18,6 +18,7 @@ export { default as Fixtures } from "./sports/fixtures/Fixtures";
 export { default as Highlights } from "./home/higlights/Highlights";
 export { default as Today } from "./home/today/Today";
 export { default as Modal } from "./layout/modal/Modal";
+export { default as SelectBalance } from "./modals/select-balance/SelectBalance";
 export { default as CasinoCat } from "./casino/casino-categories/CasinoCat";
 export { default as PlayGame } from "./casino/casino-play-game/PlayGame";
 export { default as DepositModal } from "./modals/deposit-modal/DepositModal";

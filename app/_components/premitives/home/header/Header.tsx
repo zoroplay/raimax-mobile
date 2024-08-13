@@ -174,15 +174,21 @@ const Header = () => {
         );
         break;
       case "JetX":
-        getGameUrl({
-          gameId: 122,
-          username: user.user?.username || "guest",
-          userId: user.user?.id || 0,
-          demo: user ? false : true,
-          isMobile: true,
-          homeUrl: process.env.NEXT_PUBLIC_SITE_URL,
-          authCode: user.user?.authCode || "demo",
-        });
+        // getGameUrl({
+        //   gameId: 122,
+        //   username: user.user?.username || "guest",
+        //   userId: user.user?.id || 0,
+        //   demo: user ? false : true,
+        //   isMobile: true,
+        //   homeUrl: process.env.NEXT_PUBLIC_SITE_URL,
+        //   authCode: user.user?.authCode || "demo",
+        // });
+        dispatch(
+          openModal({
+            component: "SelectBalance",
+            data: 122,
+          })
+        );
         break;
       case "Penalty Kick":
         user.token

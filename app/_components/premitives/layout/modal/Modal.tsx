@@ -21,6 +21,7 @@ import {
   InactiveModal,
   VerifyCashoutModal,
   ConfirmTransfer,
+  SelectBalance,
 } from "@/_components";
 import { AnimatePresence, motion } from "framer-motion";
 // import { useDispatch } from "react-redux";
@@ -73,6 +74,7 @@ const Modal = () => {
 
   const ComponentItem: any = {
     VerifyCashoutModal: <VerifyCashoutModal data={data} />,
+    SelectBalance: <SelectBalance data={data} />,
     DepositModal: <DepositModal />,
     UpdateProfile: <UpdateProfile />,
     ToDepositModal: <ToDepositModal />,
