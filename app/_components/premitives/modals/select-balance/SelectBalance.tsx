@@ -54,7 +54,7 @@ const SelectBalance = ({ data }: Props) => {
           You have an active casino bonus
         </div>
         <div className="confirm_bet_coupon_text1">
-          Choose the balance to choose for this game sessions
+          Choose the balance to use for this game sessions
         </div>
       </div>
       <div className="confirm_coupon_btn_wrap between">
