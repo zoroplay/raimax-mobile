@@ -5,28 +5,31 @@ import { Button, Input } from "@/_components";
 import { HiMiniXMark } from "react-icons/hi2";
 import { useAppDispatch, useAppSelector } from "@/_hooks";
 import { closeComponentModal, openModal } from "@/_redux/slices/modal.slice";
-import { useRouter } from "next/navigation";
 import { useGetGameUrlMutation } from "@/_services/casino.service";
 interface Props {
   data: string;
 }
 const SelectBalance = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const { user } = useAppSelector((state) => state.user);
   const [getGameUrl, { isLoading, isSuccess, isError, data: gameData, error }] =
     useGetGameUrlMutation();
 
   const launchGame = (type: string) => {
+    if (type === "real" && !user) {
+      dispatch(openModal({ component: "LoginModal" }));
+      return;
+    }
+
     getGameUrl({
       gameId: Number(data),
       username: user?.username || "guest",
       userId: user?.id || 0,
-      demo: user ? false : true,
+      demo: type === "demo" ? true : false,
       isMobile: true,
       homeUrl: process.env.NEXT_PUBLIC_SITE_URL,
       authCode: user?.authCode || "demo",
-      balance_type: type,
+      balanceType: type,
     });
   };
 
