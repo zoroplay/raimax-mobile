@@ -1,0 +1,31 @@
+@use "@/variable" as var;
+
+.bread {
+  position: relative;
+  width: 100%;
+  background-color: var.$green;
+  height: 42px;
+  border-bottom: 1px solid var.$text-black;
+  .bread_icon {
+    position: absolute;
+    padding: 0px 8px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    height: 100%;
+    font-size: 22px;
+    color: #fff;
+    border-right: 1px solid var.$text-black;
+  }
+  .bread_title {
+    font-size: 13px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 300;
+    max-width: 300px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

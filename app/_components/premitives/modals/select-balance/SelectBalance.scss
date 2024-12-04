@@ -1,0 +1,51 @@
+@use "@/variable" as var;
+
+.select_balance_block {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+
+  .confirm_coupon_title_wrap {
+    background-color: var.$background-color;
+    width: 100%;
+    padding: 10px;
+
+    .select_balance_title {
+      font-size: 14px;
+      color: var.$text-white;
+      font-weight: 600;
+    }
+
+    .confirm_coupon_icon {
+      color: #fff;
+    }
+  }
+
+  .select_balance_texts {
+    border-bottom: 1px solid #e5e6e8;
+    padding: 22px 12px;
+
+    .confirm_bet_coupon_text1 {
+      font-size: 14px;
+      text-align: center;
+      color: var.$text-black;
+      margin-bottom: 10px;
+    }
+  }
+
+  .confirm_coupon_btn_wrap {
+    padding: 10px;
+    width: 100%;
+
+    .select_balance_btn_cancel {
+      background-color: var.$red-dark !important;
+      color: #fff;
+      max-width: 150px;
+    }
+    .select_balance_btn {
+      background-color: var.$primary-accent !important;
+      color: #fff;
+      max-width: 150px;
+    }
+  }
+}

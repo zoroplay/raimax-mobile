@@ -1,0 +1,95 @@
+@use "@/variable" as var;
+
+.sport_tab {
+  position: relative;
+  background-color: var.$background-color;
+  padding: 6px 0px;
+  min-height: 40px;
+  border-top: 1px solid #727171;
+  border-bottom: 1px solid #727171;
+  .sport_tab_all {
+    position: absolute;
+    // left: 0;
+    top: 0;
+    height: 98%;
+    padding-left: 6px;
+    padding-right: 6px;
+    // padding-top: 4px;
+    background-color: var.$background-color;
+    border-right: 1px solid #1b1a1a;
+    .sport_tab_all_icon {
+      font-size: 26px;
+      color: #dab820;
+    }
+    .sport_tab_all_text {
+      font-size: 10px;
+      color: #fff;
+      font-weight: 300;
+    }
+  }
+  .sport_tab_scroll {
+    overflow-x: scroll;
+    align-items: flex-start;
+    padding-left: 75px;
+    padding-right: 50px;
+    &::-webkit-scrollbar {
+      height: 1px;
+    }
+    .sport_tab_scroll_item {
+      padding: 0px 7px;
+      .sport_tab_scroll_icon {
+        font-size: 26px;
+        color: var.$orange;
+      }
+      .sport_tab_scroll_text {
+        font-size: 10px;
+        white-space: nowrap;
+        color: #fff;
+        font-weight: 300;
+      }
+    }
+    .active {
+      .sport_tab_scroll_icon {
+        color: var.$orange;
+      }
+
+      .sport_tab_scroll_text {
+        color: #fff;
+      }
+    }
+  }
+  .sport_tab_srch {
+    @extend .sport_tab_all;
+    right: -2px;
+    font-size: 24px;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    width: 10%;
+    align-items: center;
+    border-left: 1px solid #1b1a1a;
+    border-right: none;
+    .sport_tab_srch_inp {
+      background-color: transparent;
+      transition: opacity 0.8s ease-in-out;
+      //   display: none;
+      opacity: 0;
+      border: none;
+      height: 100%;
+      width: 87%;
+      outline: none;
+      color: #fff;
+      &::placeholder {
+        color: #fff;
+      }
+    }
+  }
+  .search_active {
+    width: 100%;
+    border-left: none;
+    .sport_tab_srch_inp {
+      //   display: block;
+      opacity: 1;
+    }
+  }
+}

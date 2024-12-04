@@ -1,0 +1,98 @@
+@use "@/variable" as var;
+
+.select_wrap {
+  background-color: var.$background-color;
+  color: var.$color;
+  align-items: center;
+  padding-right: 8px;
+
+  .select_wrap_icon {
+    color: #fff;
+  }
+
+  .select_wrap_iconr {
+    color: white;
+    padding: 8px;
+    font-size: 26px;
+  }
+
+  .select_item {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    appearance: none;
+    color: #fff;
+    font-size: 12px;
+
+    .select_option {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.odds {
+  overflow-x: scroll;
+  background-color: var.$sec-bg-color;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    height: 0px;
+  }
+
+  .odds_item {
+    white-space: nowrap;
+    padding: 10px 15px;
+    font-size: 13px;
+    color: var.$background-color;
+    position: relative;
+    font-weight: 600;
+  }
+
+  .active {
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var.$text-black;
+    }
+  }
+}
+
+.live_infinite {
+  height: fit-content;
+}
+
+.view_more_text_wrap {
+  color: var.$orange;
+  padding: 15px 5px 0px 0px;
+  .view_more_text {
+    margin-right: 5px;
+    font-size: 13px;
+  }
+}
+
+.stick_live {
+  position: fixed;
+  top: 129px;
+  width: 100%;
+  z-index: 10;
+  background-color: var.$btn-primary-transparent;
+  color: var.$background-color;
+  animation: up 0.1s 0s linear;
+}
+
+@keyframes up {
+  0% {
+    transform: translateY(0.1px);
+    // opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0px);
+    // opacity: 1;
+  }
+}

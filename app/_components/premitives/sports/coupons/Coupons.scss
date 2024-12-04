@@ -1,0 +1,26 @@
+@use "@/variable" as var;
+
+.live {
+  width: 100%;
+  border-bottom: 1px solid #8b8a8a;
+  .live_link {
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #c9c8c8;
+    .left {
+      .live_link_icon {
+        margin-right: 10px;
+        transform: rotate(20deg);
+        color: #ffb74d;
+      }
+      .live_link_text {
+        font-size: 13px;
+        color: var.$text-black;
+      }
+    }
+    .right {
+      color: var.$text-black;
+      font-weight: 700;
+    }
+  }
+}

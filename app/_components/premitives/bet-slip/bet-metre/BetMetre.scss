@@ -1,0 +1,191 @@
+@use "@/variable" as var;
+
+.betmetre {
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  box-shadow: -1px -1px 30px rgba(0, 0, 0, 0.11);
+  .betmetre_wrap {
+    position: relative;
+    .betmetre_cancel {
+      position: absolute;
+      top: -10px;
+      right: 15px;
+      width: 40px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+    .slip_item_wrap {
+      max-height: 90vh;
+      overflow-y: scroll;
+
+      .slip_item_selection {
+        font-size: 13px;
+        padding: 10px 8px 0px 8px;
+      }
+
+      .slip_item {
+        background-color: #fff;
+        padding: 10px 6px 3px 6px;
+        border-bottom: 1px solid var.$text-black;
+
+        .slip_item_win_draw {
+          align-items: center;
+
+          .slip_item_team {
+            align-items: center;
+
+            .slip_item_team_icon {
+              font-size: 22px;
+              margin-right: 3px;
+              color: #ff5044;
+            }
+
+            .slip_item_team_name {
+              font-size: 13px;
+              font-weight: 700;
+            }
+          }
+        }
+
+        .slip_item_check_wrap {
+          align-items: center;
+          padding-left: 25px;
+          padding-bottom: 4px;
+
+          .slip_item_check {
+            border: 1px solid darken($color: var.$secondary-accent, $amount: 20);
+            background-color: var.$secondary-accent;
+            padding: 4px;
+            border-radius: 4px;
+            margin-right: 4px;
+            width: 21px;
+            height: 21px;
+            padding-top: 2px;
+          }
+
+          .slip_item_check_text {
+            font-size: 13px;
+            font-weight: 700;
+            color: var.$text-black;
+          }
+        }
+      }
+
+      .input_stake {
+        align-items: center;
+
+        .input_stake_text {
+          color: #5b938a;
+          font-size: 13px;
+          margin-right: 6px;
+        }
+
+        .input_stake_wrap {
+          width: 100px;
+
+          .input_stake {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #1e312e;
+            border-radius: 4px;
+            outline: none;
+            text-align: right;
+
+            &::placeholder {
+              padding-left: 50px;
+              color: var.$text-black;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+
+      .slip_item_odd {
+        font-size: 12px;
+        color: #5b938a;
+        margin-bottom: 4px;
+      }
+
+      .slip_item_teams {
+        &:hover {
+          text-decoration: underline;
+        }
+        @extend .slip_item_odd;
+        color: var.$color;
+        font-weight: 700;
+      }
+    }
+
+    .book_slip {
+      width: 100%;
+      height: 50px;
+      background: var.$secondary-accent;
+      align-items: center;
+
+      .book_slip_text {
+        width: 75%;
+        border-right: 1px solid black;
+        font-size: 13px;
+        color: var.$text-black;
+        height: 100%;
+      }
+
+      .book_slip_value_wrap {
+        width: 75%;
+        border-right: 1px solid rgba(0, 0, 0, 0.3);
+
+        .book_slip_value_bold {
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        .book_slip_value_text {
+          font-size: 13px;
+          color: var.$text-black;
+          height: 100%;
+        }
+      }
+
+      .book_slip_book {
+        width: 25%;
+        padding: 7px;
+
+        .book_slip_icon {
+          font-size: 18px;
+        }
+
+        .book_slip_book_text {
+          font-size: 12px;
+          color: var.$text-black;
+        }
+      }
+    }
+  }
+  .betmetre_metre {
+    padding: 10px 8px;
+    background-color: var.$background-color;
+    .betmetre_metre_wrap {
+      .betmetre_count {
+        background-color: var.$secondary-accent;
+        width: 30px;
+        height: 30px;
+        color: var.$background-color;
+        font-size: 14px;
+        border-radius: 50%;
+      }
+      .betmetre_odds_multi {
+        font-size: 12px;
+        color: #fff;
+        margin-right: 5px;
+      }
+      .betmetre_odds_total {
+        font-size: 14px;
+        color: #fff;
+      }
+    }
+  }
+}

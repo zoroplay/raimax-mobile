@@ -1,0 +1,117 @@
+@use "@/variable" as var;
+
+.cas_tab {
+  position: relative;
+  background-color: var.$green;
+  padding: 8px 0px;
+  min-height: 40px;
+  background-color: var.$text-black;
+  border-top: 1px solid #727171;
+  border-bottom: 1px solid #727171;
+
+  .cas_tab_all {
+    position: absolute;
+    // left: 0;
+    top: 0;
+    height: 98%;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-color: var.$text-black;
+    border-right: 1px solid #1b1a1a;
+
+    .cas_tab_all_icon {
+      font-size: 26px;
+      color: #dab820;
+    }
+
+    .cas_tab_all_text {
+      font-size: 11px;
+      color: #fff;
+      font-weight: 300;
+    }
+  }
+
+  .cas_tab_scroll {
+    overflow-x: scroll;
+    align-items: flex-start;
+    padding-left: 75px;
+    padding-right: 50px;
+
+    &::-webkit-scrollbar {
+      height: 1px;
+    }
+
+    .cas_tab_scroll_item {
+      padding: 0px 7px;
+
+      .cas_tab_scroll_icon {
+        font-size: 26px;
+        color: var.$orange;
+      }
+
+      .cas_tab_scroll_text {
+        font-size: 11px;
+        white-space: nowrap;
+        color: #fff;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+    }
+
+    .active {
+      .cas_tab_scroll_icon {
+        color: var.$orange;
+      }
+
+      .cas_tab_scroll_text {
+        color: #fff;
+      }
+    }
+  }
+
+  .cas_tab_srch {
+    @extend .cas_tab_all;
+    right: -2px;
+    font-size: 24px;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    width: 12%;
+    align-items: center;
+    border-left: 1px solid #1b1a1a;
+    border-right: none;
+    background-color: #fff;
+
+    .cas_tab_srch_inp {
+      background-color: transparent;
+      transition: opacity 0.8s ease-in-out;
+      //   display: none;
+      opacity: 0;
+      border: none;
+      height: 100%;
+      width: 87%;
+      outline: none;
+
+      &::placeholder {
+        color: #fff;
+      }
+    }
+    .cas_tab_srch_icon {
+      color: var.$text-black;
+      font-size: 20px;
+      padding-right: 7px;
+    }
+  }
+
+  .search_active {
+    width: 100%;
+    border-left: none;
+    background-color: #dab820;
+    color: #dab820;
+
+    .cas_tab_srch_inp {
+      //   display: block;
+      opacity: 1;
+    }
+  }
+}

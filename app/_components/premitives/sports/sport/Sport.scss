@@ -1,0 +1,109 @@
+@use "@/variable" as var;
+
+.sport {
+  .sport_link {
+    align-items: center;
+    width: 100%;
+    background-color: var.$green;
+    border-bottom: 1px solid #182220;
+    padding: 11px;
+
+    .sport_link_left {
+      .sport_icon {
+        margin-right: 10px;
+      }
+
+      .sport_title {
+        font-size: 11px;
+        color: #fff;
+        font-weight: 300;
+      }
+    }
+
+    .sport_right {
+      .sport_num {
+        font-size: 12px;
+        color: #fff;
+      }
+
+      .sport_down {
+        font-size: 18px;
+        color: #fff;
+      }
+      .active {
+        transform: rotate(180deg);
+      }
+    }
+  }
+  .sport_sub_link {
+    align-items: center;
+    width: 100%;
+    background-color: #182220;
+    border-bottom: 1px solid #0b100f;
+    padding: 10px;
+
+    .sport_sub_link_left {
+      .sport_sub_link_icon {
+        margin-right: 10px;
+      }
+
+      .sport_sub_link_title {
+        font-size: 11px;
+        color: #fff;
+        font-weight: 300;
+      }
+    }
+
+    .sport_sub_link_right {
+      .sport_sub_link_num {
+        font-size: 12px;
+        color: #fff;
+      }
+
+      .sport_sub_link_down {
+        font-size: 18px;
+        color: #fff;
+      }
+    }
+  }
+  .sport_tab {
+    overflow-x: scroll;
+    align-items: center;
+    width: 100%;
+    background-color: var.$green;
+
+    .sport_tab_item {
+      font-size: 13px;
+      padding: 5px 15px;
+      margin: 10px 5px;
+      height: 25px;
+      min-width: 60px;
+      color: #fff;
+      white-space: nowrap;
+      font-weight: 300;
+      position: relative;
+      .live_count {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        color: #fff;
+        background: #5b938a;
+        border-radius: 50%;
+        top: -40%;
+        right: -4%;
+        font-size: 11px;
+      }
+      .active {
+        background-color: var.$green;
+        border: 1px solid #5b938a;
+      }
+    }
+
+    .active {
+      background: #5b938a;
+      border-radius: 12px;
+      color: var.$text-black;
+      font-weight: 400;
+    }
+  }
+}

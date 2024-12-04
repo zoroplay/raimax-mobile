@@ -1,0 +1,7 @@
+@use "@/variable" as var;
+
+.fixtures {
+  overflow-x: hidden;
+  background: var.$sec-bg-color;
+  color: var.$sec-color;
+}

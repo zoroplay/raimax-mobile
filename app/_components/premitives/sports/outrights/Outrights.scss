@@ -1,0 +1,86 @@
+@use "@/variable" as var;
+
+.outrights_wrap {
+  padding-bottom: 44px;
+  .outrights_wrap_head {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 300;
+    padding: 10px;
+    background-color: var.$green;
+  }
+  .outrights {
+    align-items: center;
+    width: 100%;
+    background-color: var.$green;
+    border-bottom: 1px solid #182220;
+    padding: 10px;
+
+    .outrights_left {
+      .outrights_date {
+        font-size: 11px;
+        color: #b3b9c0;
+      }
+
+      .outrights_title {
+        font-size: 11px;
+        color: #fff;
+        font-weight: 300;
+        margin-bottom: 2px;
+      }
+    }
+
+    .outrights_right {
+      .outrights_num {
+        font-size: 12px;
+        color: #fff;
+      }
+
+      .outrights_down {
+        font-size: 18px;
+        color: #fff;
+      }
+
+      .active {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .outrights_sub_link {
+    align-items: center;
+    width: 100%;
+    background-color: #182220;
+    border-bottom: 1px solid #0b100f;
+    padding: 10px;
+
+    .outrights_sub_link_left {
+      .outrights_sub_link_icon {
+        margin-right: 10px;
+      }
+
+      .outrights_sub_link_title {
+        font-size: 11px;
+        color: #fff;
+        font-weight: 300;
+      }
+    }
+
+    .outrights_sub_link_right {
+      .outrights_sub_link_num {
+        font-size: 12px;
+        color: var.$orange;
+        padding: 10px;
+        font-weight: 700;
+        border: 1px solid #000000;
+        background: #1e312e;
+      }
+
+      .outrights_sub_link_down {
+        font-size: 18px;
+        color: #fff;
+        padding-left: 20px;
+      }
+    }
+  }
+}
